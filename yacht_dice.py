@@ -1,5 +1,6 @@
 import pygame
 import menus
+import os
 from loader import MAIN
 
 # pygame 시작
@@ -7,22 +8,24 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # pygame 디스플레이 설정
-win = pygame.display.set_mode((1200, 1000))
+os.environ['SDL_VIDEO_WINDOW_POS'] = "100, 50"
+win = pygame.display.set_mode((1200, 750), 0, 32)
 pygame.display.set_caption("Yacht_Dice")
 pygame.display.set_icon(MAIN.ICON)
 
 running = True
 
 # x, y, width, height
-title = (200, 100, 300, 100)
-offln = (600, 450, 300, 100)
-onln = (600, 550, 300, 100)
-opt = (600, 650, 300, 100)
-qit = (600, 750, 300, 100)
+title = (200, 50, 300, 100)
+offln = (600, 250, 300, 100)
+onln = (600, 350, 300, 100)
+opt = (600, 450, 300, 100)
+qit = (600, 550, 300, 100)
 
 
 # 메인 메뉴
 def showMain():
+    win.fill((255, 209, 155))
     win.blit(MAIN.TITLE, title[:2])
     win.blit(MAIN.OFFLINE, offln[:2])
     win.blit(MAIN.ONLINE, onln[:2])

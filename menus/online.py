@@ -1,9 +1,17 @@
 import pygame
 from tools.utils import emptyRoundRect
+from loader import ONLINEMENU as ONLINE, FONT
 
 def showScreen(win):
-    win.fill((0,0,0))
-    emptyRoundRect(win, (255,255,255), (120, 10, 260, 70), 20, 4)
+    win.fill((100,0,0))
+    
+    emptyRoundRect(win, (255, 255, 255), (20, 100, 1150, 630), 14, 4)
+    win.blit(ONLINE.HEAD, (30, -20))
+
+    for cnt, i in enumerate(ONLINE.TEXT):
+        win.blit(i, (40, 100 + cnt * 18))
+    
+    
     
 
 def main(win):

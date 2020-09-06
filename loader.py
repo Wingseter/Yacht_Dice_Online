@@ -29,4 +29,13 @@ class MAIN:
     QUIT = medium.render("Quit", True, WHITE)
     QUIT_H = medium.render("Quit", True, GREY)
 
-
+class ONLINEMENU:
+    HEAD = large.render("Online", True, WHITE)
+    with open(os.path.join("res", "texts", "online.txt")) as f:
+        TEXT = [vsmall.render(i, True, WHITE)
+        for i in f.read().splitlines()]
+    
+    CLICK = vsmall.render("Click Here", True, WHITE)
+    BACK = vsmall.render("Go Back", True, WHITE)
+    CONNECT = small.render("Connect", True, WHITE)
+        
