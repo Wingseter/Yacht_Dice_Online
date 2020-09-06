@@ -12,9 +12,15 @@ pygame.display.set_icon(MAIN.ICON)
 
 running = True
 
+onln = (0, 0, 0, 40)
+
+def showMain():
+    win.blit(MAIN.ONLINE, onln[:2])
+
 # 게임 메인 루프
 while running:
     clock.tick(30)
+    showMain()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
