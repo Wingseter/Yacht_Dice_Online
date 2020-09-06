@@ -49,9 +49,16 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
-
-            if onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
+            
+            if offln[0] < x < sum(offln[::2]) and offln[1] < y < sum(offln[1::2]):
+                pass
+            elif onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
                 menus.onlinemenu(win)
+            elif opt[0] < x < sum(opt[::2]) and opt[1] < y < sum(opt[1::2]):
+                pass
+            elif qit[0] < x < sum(qit[::2]) and qit[1] < y < sum(qit[1::2]):
+                running = False
+                
 
     pygame.display.flip()
 
