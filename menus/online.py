@@ -1,7 +1,10 @@
 import pygame
+from tools.utils import emptyRoundRect
 
 def showScreen(win):
     win.fill((0,0,0))
+    emptyRoundRect(win, (255,255,255), (120, 10, 260, 70), 20, 4)
+    
 
 def main(win):
     clock = pygame.time.Clock()
