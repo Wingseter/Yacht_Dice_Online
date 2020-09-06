@@ -12,10 +12,20 @@ pygame.display.set_icon(MAIN.ICON)
 
 running = True
 
-onln = (0, 0, 0, 40)
+title = (100, 100, 120, 40)
+offln = (550, 450, 120, 40)
+onln = (550, 550, 120, 40)
+opt = (550, 650, 120, 40)
+qit = (550, 750, 120, 40)
 
+
+# 메인 메뉴
 def showMain():
+    win.blit(MAIN.TITLE, title[:2])
+    win.blit(MAIN.OFFLINE, offln[:2])
     win.blit(MAIN.ONLINE, onln[:2])
+    win.blit(MAIN.OPTION, opt[:2])
+    win.blit(MAIN.QUIT, qit[:2])
 
 # 게임 메인 루프
 while running:
