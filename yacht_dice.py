@@ -31,9 +31,16 @@ def showMain():
 while running:
     clock.tick(30)
     showMain()
+    x, y = pygame.mouse.get_pos()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = event.pos
+
+            if onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
+                menus.onlinemenu(win)
 
     pygame.display.flip()
 
