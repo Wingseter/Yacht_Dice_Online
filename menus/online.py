@@ -5,6 +5,7 @@ def showScreen(win):
 
 def main(win):
     clock = pygame.time.Clock()
+    print("clicked")
 
     while True:
         clock.tick(24)

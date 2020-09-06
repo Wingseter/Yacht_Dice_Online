@@ -1,4 +1,5 @@
 import pygame
+import menus
 from loader import MAIN
 
 # pygame 시작
@@ -6,17 +7,18 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # pygame 디스플레이 설정
-win = pygame.display.set_mode((1000, 1000))
+win = pygame.display.set_mode((1200, 1000))
 pygame.display.set_caption("Yacht_Dice")
 pygame.display.set_icon(MAIN.ICON)
 
 running = True
 
-title = (100, 100, 120, 40)
-offln = (550, 450, 120, 40)
-onln = (550, 550, 120, 40)
-opt = (550, 650, 120, 40)
-qit = (550, 750, 120, 40)
+# x, y, width, height
+title = (200, 100, 300, 100)
+offln = (600, 450, 300, 100)
+onln = (600, 550, 300, 100)
+opt = (600, 650, 300, 100)
+qit = (600, 750, 300, 100)
 
 
 # 메인 메뉴
@@ -33,6 +35,15 @@ while running:
     showMain()
     x, y = pygame.mouse.get_pos()
 
+    if offln[0] < x < sum(offln[::2]) and offln[1] < y < sum(offln[1::2]):
+        win.blit(MAIN.OFFLINE_H, offln[:2])
+    elif onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
+        win.blit(MAIN.ONLINE_H, onln[:2])
+    elif opt[0] < x < sum(opt[::2]) and opt[1] < y < sum(opt[1::2]):
+        win.blit(MAIN.OPTION_H, opt[:2])
+    elif qit[0] < x < sum(qit[::2]) and qit[1] < y < sum(qit[1::2]):
+        win.blit(MAIN.QUIT_H, qit[:2])
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

@@ -21,8 +21,12 @@ class MAIN:
     ICON = pygame.image.load(os.path.join("res", "img", "icon.gif"))
     TITLE = head.render("Yacht Dice", True, RED)
     OFFLINE = medium.render("Offline", True, WHITE)
+    OFFLINE_H = medium.render("Offline", True, GREY)
     ONLINE = medium.render("Online", True, WHITE)
+    ONLINE_H = medium.render("Online", True, GREY)
     OPTION = medium.render("Option", True, WHITE)
+    OPTION_H = medium.render("Option", True, GREY)
     QUIT = medium.render("Quit", True, WHITE)
+    QUIT_H = medium.render("Quit", True, GREY)
 
 
