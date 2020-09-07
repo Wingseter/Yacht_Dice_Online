@@ -6,38 +6,44 @@ from loader import ONLINEMENU as ONLINE, FONT
 def showScreen(win):
     win.fill((100,0,0))
     
+    # 배경
     emptyRoundRect(win, (255, 255, 255), (20, 100, 1150, 630), 14, 4)
     win.blit(ONLINE.HEAD, (30, -20))
 
+    # This is online Menu
+    win.blit(ONLINE.ENTER, (400, 300, 100, 40))
     for cnt, i in enumerate(ONLINE.TEXT):
-        win.blit(i, (40, 100 + cnt * 18))    
-    
+        win.blit(i, (40, 100 + cnt * 18))
+
+    # CONNECT
+    emptyRoundRect(win, (255,255,255), (450, 400, 300, 80))
+    win.blit(ONLINE.CONNECT, (500, 400))
+
 
 def main(win):
     clock = pygame.time.Clock()
-    pg = True
 
-    serverInput = textBox(FONT, (0, 0, 0), (300, 450, 200, 35))
+    serverInput = textBox(FONT, (0, 0, 0), (350, 350, 500, 40))
     while True:
         clock.tick(24)
         showScreen(win)
-
-        if pg:
-            pygame.draw.rect(win, (255, 255, 255), (298, 448, 204, 39))
-            serverInput.draw(win)
+        
+        pygame.draw.rect(win, (255, 255, 255), (348, 348, 504, 44))
+        serverInput.draw(win)
 
         for event in pygame.event.get():
-            if pg:
-                serverInput.push(event)
+            serverInput.push(event)
 
             if event.type == pygame.QUIT:
                 return
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
-                if pg:
-                    pass
-                else:
-                    pass
+
+                # CONNECT 버튼 클릭
+                if 450 < x < 750 and 400 < y < 480:
+                    return serverInput.text
+
+                
 
         pygame.display.update()

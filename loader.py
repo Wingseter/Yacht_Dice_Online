@@ -35,6 +35,7 @@ class ONLINEMENU:
         TEXT = [vsmall.render(i, True, WHITE)
         for i in f.read().splitlines()]
     
+    ENTER = small.render("Input Server IP", True, WHITE)
     CLICK = vsmall.render("Click Here", True, WHITE)
     BACK = vsmall.render("Go Back", True, WHITE)
     CONNECT = small.render("Connect", True, WHITE)
