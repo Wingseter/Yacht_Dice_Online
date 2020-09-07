@@ -1,6 +1,7 @@
 import pygame
 import menus
 import os
+import game
 from loader import MAIN
 
 # pygame 시작
@@ -58,7 +59,9 @@ while running:
                 pass
             # 온라인 버튼 클릭
             elif onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
-                print(menus.onlinemenu(win))
+                server = menus.onlinemenu(win)
+                print(server)
+                game.online(win, server)
             elif opt[0] < x < sum(opt[::2]) and opt[1] < y < sum(opt[1::2]):
                 pass
             # 종료 버튼 클릭
