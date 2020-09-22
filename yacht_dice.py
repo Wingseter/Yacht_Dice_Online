@@ -57,12 +57,9 @@ while running:
             x, y = event.pos
 
             if offln[0] < x < sum(offln[::2]) and offln[1] < y < sum(offln[1::2]):
-                pass
-                server = menus.onlinemenu(win)
-                print(server)
-                game.online(win, server)
+                menus.offlinemenu(win)
             elif onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
-                server = menus.offlinemenu(win)
+                server = menus.onlinemenu(win)
                 print(server)
                 game.online(win, server)
             elif opt[0] < x < sum(opt[::2]) and opt[1] < y < sum(opt[1::2]):

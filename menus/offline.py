@@ -6,15 +6,15 @@ pygame.init()
 pygame.font.init()
 
 clock = pygame.time.Clock()
-
-SC_WIDTH = 600
-SC_HEIGHT = 500
+win = pygame.display.set_mode((1200, 750), 0, 32)
+#SC_WIDTH = 600
+#SC_HEIGHT = 500
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BG_COLOR = (127, 127, 127)
 
-win = pygame.display.set_mode((SC_WIDTH, SC_HEIGHT))
-pygame.display.set_caption('Yacht Dice Game')
+#win = pygame.display.set_mode((SC_WIDTH, SC_HEIGHT))
+#pygame.display.set_caption('Yacht Dice Game')
 
 
 class Dice(object):
@@ -67,22 +67,22 @@ def redrawGameWindow(dices):
         pygame.display.update()
 
 
-run = True
+def main(win):
 
-while run:
-    dices = []
-    clock.tick(60)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.MOUSEBUTTONUP:
-            # 마우스 클릭을 했을때
-            dices = [
-                # 주사위 객체들
-                Dice(30, 30, 100, 100),
-                Dice(140, 30, 100, 100),
-                Dice(250, 30, 100, 100),
-                Dice(360, 30, 100, 100),
-                Dice(470, 30, 100, 100)
-            ]
+    while True:
+        dices = []
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONUP:
+                # 마우스 클릭을 했을때
+                dices = [
+                    # 주사위 객체들
+                    Dice(30, 30, 100, 100),
+                    Dice(140, 30, 100, 100),
+                    Dice(250, 30, 100, 100),
+                    Dice(360, 30, 100, 100),
+                    Dice(470, 30, 100, 100)
+                ]
             redrawGameWindow(dices)
