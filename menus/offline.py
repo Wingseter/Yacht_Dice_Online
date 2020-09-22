@@ -1,14 +1,13 @@
 import pygame
 import time
 import random
+from tools.utils import emptyRoundRect
 
 pygame.init()
 pygame.font.init()
 
 clock = pygame.time.Clock()
 win = pygame.display.set_mode((1200, 750), 0, 32)
-#SC_WIDTH = 600
-#SC_HEIGHT = 500
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BG_COLOR = (127, 127, 127)
@@ -52,7 +51,10 @@ class Dice(object):
 
 
 def redrawGameWindow(dices):
-    win.fill(BG_COLOR)
+    win.fill((100, 0, 0))
+
+    # 배경
+    emptyRoundRect(win, (255, 255, 255), (20, 100, 1150, 630), 14, 4)
 
     for i in range(0, 11):
         time.sleep(0.1)
@@ -73,16 +75,25 @@ def main(win):
         dices = []
         clock.tick(60)
         for event in pygame.event.get():
+
+            # 턴넘기기
+            # if state == "player_turn":
+            # 플레이어 턴일때,
+            # elif state == "enemy_turn":
+            # 상대방 턴일때,
+            # elif state == "paused":
+            # 일시정지 상태일때.
+
             if event.type == pygame.QUIT:
-                run = False
+                return
             if event.type == pygame.MOUSEBUTTONUP:
                 # 마우스 클릭을 했을때
                 dices = [
                     # 주사위 객체들
-                    Dice(30, 30, 100, 100),
-                    Dice(140, 30, 100, 100),
-                    Dice(250, 30, 100, 100),
-                    Dice(360, 30, 100, 100),
-                    Dice(470, 30, 100, 100)
+                    Dice(130, 230, 100, 100),
+                    Dice(330, 230, 100, 100),
+                    Dice(530, 230, 100, 100),
+                    Dice(730, 230, 100, 100),
+                    Dice(930, 230, 100, 100)
                 ]
-            redrawGameWindow(dices)
+                redrawGameWindow(dices)
