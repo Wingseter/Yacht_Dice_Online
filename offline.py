@@ -28,8 +28,8 @@ while not finish:
     color2 = (250,222,255)
     pygame.draw.rect(ourScreen, color1, pygame.Rect(30,30,120,120))
     pygame.draw.rect(ourScreen, color2, pygame.Rect(1000,20,77,70))
-    # update the screen
-
+    
+    
 #    pygame.display.flip()
     for e in pygame.event.get():
         if e.type == pygame.USEREVENT: 
