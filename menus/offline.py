@@ -24,9 +24,9 @@ class Dice(object):
         self.height = height
         # self.roll_time = 0
         self.side = 0
+        self.status = 'stopped'
 
-    def draw(self, win):
-
+    def roll(self, win):
         pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
 
         # myfont = pygame.font.SysFont('Comicsans', 30)
@@ -49,23 +49,25 @@ class Dice(object):
         if self.side == 4 or self.side == 5 or self.side == 6:
             pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 80), 8, 8)
 
+       # 주사위 애니메이션
+        self.x += random.randint(-10, 10)
+        self.y += random.randint(-10, 10)
+
 
 def redrawGameWindow(dices):
-    win.fill((100, 0, 0))
-
-    # 배경
-    emptyRoundRect(win, (255, 255, 255), (20, 100, 1150, 630), 14, 4)
 
     for i in range(0, 11):
         time.sleep(0.1)
-
+        win.fill((100, 0, 0))
+        emptyRoundRect(win, (255, 255, 255), (20, 100, 1150, 630), 14, 4)
         if i == 10:
             # 10번 굴리고 반환
             return
 
         # 화면 업데이트 (총 10번 진행)
         for dice in dices:
-            dice.draw(win)
+            if dice.status == 'rolling':
+                dice.roll(win)
         pygame.display.update()
 
 
@@ -74,6 +76,16 @@ def main(win):
     while True:
         dices = []
         clock.tick(60)
+
+        # 주사위 객체들
+        dices = [
+            Dice(130, 230, 100, 100),
+            Dice(330, 230, 100, 100),
+            Dice(530, 230, 100, 100),
+            Dice(730, 230, 100, 100),
+            Dice(930, 230, 100, 100)
+        ]
+
         for event in pygame.event.get():
 
             # 턴넘기기
@@ -88,12 +100,10 @@ def main(win):
                 return
             if event.type == pygame.MOUSEBUTTONUP:
                 # 마우스 클릭을 했을때
-                dices = [
-                    # 주사위 객체들
-                    Dice(130, 230, 100, 100),
-                    Dice(330, 230, 100, 100),
-                    Dice(530, 230, 100, 100),
-                    Dice(730, 230, 100, 100),
-                    Dice(930, 230, 100, 100)
-                ]
+                for dice in dices:
+                    dice.status = 'rolling'
                 redrawGameWindow(dices)
+
+                # 다시 주사위 상태를 stopped로 변경
+                for dice in dices:
+                    dice.status = 'stopped'
