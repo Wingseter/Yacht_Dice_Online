@@ -1,5 +1,3 @@
-class logic:
-    
 def Count(dice, number):
     return len([y for y in dice if y == number])
 
@@ -9,19 +7,15 @@ def HighestRepeated(dice, minRepeats):
     return max(repeats) if repeats else 0
 
 def OfAKind(dice, n):
-    return HighestRepeated(dice,n) * n
+    repeat_score = HighestRepeated(dice,n)
+    remainder = [x for x in dice.x if x != repeat_score]
+    return repeat_score * n + remainder
 
 def SumOfSingle(dice, selected):
     return sum([x for x in dice if x == selected])
 
 def Chance(dice):
     return sum(dice)
-
-def Pair(dice):
-    return OfAKind(dice, 2)
-
-def ThreeOfAKind(dice):
-    return OfAKind(dice, 3)
 
 def FourOfAKind(dice):
     return OfAKind(dice, 4)
@@ -31,6 +25,20 @@ def SmallStraight(dice):
 
 def LargeStraight(dice):
     return 20 if tuple(sorted(dice)) == (2,3,4,5,6) else 0
+
+def full_house(dice):
+    repeat_score = dice.highest_repeated(3)
+    if repeat_score > 0:
+        rests = [x for x in dice.x if x != repeat_score]
+        if len(set(rests)) == 1 and len(rests) == 2:
+            return 25
+        
+    repeat_score = dice.highest_repeated(2)
+    if repeat_score > 0:
+        rests = [x for x in dice.x if x != repeat_score]
+        if len(set(rests)) == 1 and len(rests) == 3:
+            return 25
+    return 0
 
 def Ones(dice):
     return SumOfSingle(dice,1)
