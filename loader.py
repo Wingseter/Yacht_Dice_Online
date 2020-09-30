@@ -9,6 +9,7 @@ large = pygame.font.Font(FONT, 120)
 medium = pygame.font.Font(FONT, 80)
 small = pygame.font.Font(FONT, 50)
 vsmall = pygame.font.Font(FONT, 30)
+fvsmall = pygame.font.Font(FONT, 20)
 
 # 색상 정의
 WHITE = (255, 255, 255)
@@ -40,3 +41,6 @@ class ONLINEMENU:
     BACK = vsmall.render("Go Back", True, WHITE)
     CONNECT = small.render("Connect", True, WHITE)
         
+class OFFLINEGAME:
+    GIVEUP = fvsmall.render("Give up", True, RED)
+    GIVEUP_H = fvsmall.render("Give up", True, GREY)
