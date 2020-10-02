@@ -4,14 +4,25 @@ from tools.textBox import textBox
 import random
 from loader import OFFLINEGAME
 
+
 def showProgress(win):
     win.fill((100,111,155))
     emptyRoundRect(win, (255, 255, 255), (25, 30, 1150, 700), 7, 5)    #판
     emptyRoundRect(win, (255, 255, 255), (44, 390, 580, 320), 4, 5)    #주사위 공간
     emptyRoundRect(win, (255, 255, 255), (40, 40, 100, 40), 7, 5)       #기권
     emptyRoundRect(win, (255, 255, 255), (650, 40, 510, 670), 7, 5)    #족보 저장공간
-
-
+    emptyRoundRect(win, (255, 255, 255), (650, 40, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 94, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 149, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 204, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 260, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 315, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 370, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 425, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 480, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 535, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 590, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 645, 510, 60), 7, 5)
 def main(win):  
     finish = False
     clock = pygame.time.Clock()
