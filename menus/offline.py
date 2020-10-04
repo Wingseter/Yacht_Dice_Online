@@ -12,8 +12,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BG_COLOR = (127, 127, 127)
 myfont = pygame.font.SysFont('Comicsans', 30)
-state = 'player_turn'
-turn_cnt = 0
+state = 'player_turn'  # 누구의 턴인지 표시
+turn_cnt = 0  # 총 3번 주사위를 굴릴 수 있다.
 
 # win = pygame.display.set_mode((SC_WIDTH, SC_HEIGHT))
 # pygame.display.set_caption('Yacht Dice Game')
@@ -25,9 +25,10 @@ class Dice(object):
         self.y = y
         self.width = width
         self.height = height
-        # self.roll_time = 0
         self.side = 0
         self.status = 'stopped'
+        self.tempx = x
+        self.tempy = y
 
     def roll(self, win):
         pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
@@ -35,6 +36,9 @@ class Dice(object):
         # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
         if self.status == 'stopped':
             self.status = 'rolling'
+        if self.status == 'finalroll':
+            self.x = self.tempx
+            self.y = self.tempy
 
         self.side = random.randint(1, 6)
         if self.side == 1 or self.side == 3 or self.side == 5:
@@ -53,8 +57,9 @@ class Dice(object):
             pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 80), 8, 8)
 
        # 주사위 애니메이션
-        self.x += random.randint(-10, 10)
-        self.y += random.randint(-10, 10)
+        if self.status == 'rolling':
+            self.x += random.randint(-10, 10)
+            self.y += random.randint(-10, 10)
 
 
 def redrawGameWindow(dices):
@@ -67,15 +72,19 @@ def redrawGameWindow(dices):
 
         # 화면 업데이트 (총 10번 진행)
         for dice in dices:
+            if i == 9:
+                dice.status = 'finalroll'
             dice.roll(win)
             if i == 10:
                 dice.status = 'stopped'
+
             mytext1 = myfont.render(str(dice.side), 1, BLACK)
             win.blit(mytext1, (dice.x + 20, 10))
             mytext2 = myfont.render(str(dice.status), 1, BLACK)
             win.blit(mytext2, (dice.x + 20, 30))
             mytext3 = myfont.render(str(state), 1, BLACK)
             win.blit(mytext3, (20, 10))
+
             pygame.display.update()
 
         if i == 10:
