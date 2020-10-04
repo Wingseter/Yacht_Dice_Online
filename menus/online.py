@@ -44,6 +44,4 @@ def main(win):
                 if 450 < x < 750 and 400 < y < 480:
                     return serverInput.text
 
-                
-
         pygame.display.update()

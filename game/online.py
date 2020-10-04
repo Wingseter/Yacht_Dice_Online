@@ -1,4 +1,5 @@
-from game.onlinelib.sockutils import *
+from game.onlinelib import *
+import threading
 
 def main(win, addr):
     if addr is None:
@@ -10,10 +11,11 @@ def main(win, addr):
     try:
         sock.connect((addr, 9090))
     except:
-        print("Cant Connect Server")
+        showLoading(win, 0)
         return
     
     write(sock, "HELLO")
+    showLoading(win,1)
     msg = read()
 
     sock.close()

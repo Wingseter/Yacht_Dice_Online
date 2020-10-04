@@ -39,4 +39,17 @@ class ONLINEMENU:
     CLICK = vsmall.render("Click Here", True, WHITE)
     BACK = vsmall.render("Go Back", True, WHITE)
     CONNECT = small.render("Connect", True, WHITE)
-        
+
+class ONLINE:
+    TRYCONN = vsmall.render("Trying to connect to server...", True, WHITE)
+    ERR = [
+        vsmall.render("[ERR 1] Couldn't find the server...", True, WHITE),
+        vsmall.render("[ERR 2] Server refused connection..", True, WHITE)
+    ]
+
+    EMPTY = small.render("No one's online", True, WHITE)
+
+    LOBBY = large.render("Online Lobby", True, WHITE)
+    LIST = medium.render("List of Players", True, WHITE)
+    PLAYER = small.render("Player", True, WHITE)
+    
