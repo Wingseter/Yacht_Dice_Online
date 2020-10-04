@@ -62,6 +62,19 @@ def player(sock, key):
             if msg == "quit":
                 onQuit(sock, key)
                 return
+            elif msg == "pstat":
+                print(f"플레이어 {key}: 플레이어들의 상태를 요청했습니다.")
+                data = list(zip(*players))[1], list(busyPpl)
+                if len(data[0]) - 1 in range(10):
+                    write(sock, "enum" + str(len(data[0]) -1))
+
+                for i in data[0]:
+                    if i != key:
+                        if i in data[i]:
+                            write(sock, str(i) + "b")
+                        else:
+                            write(sock, str(i) + "a")
+
     except Exception as e:
         print("서버: 플레이에 에러 발생")
         print("서버: ", e)
@@ -73,7 +86,10 @@ while True:
     except:
         print("서버: 소켓 생성 오류")
         break
-    
+
+    total += 1
+    print("서버: 클라이언트가 연결 시도중입니다.")
+
     if read(newSock, 3) == VERSION:
         if len(player) < 10:
             if not lock:
@@ -91,6 +107,5 @@ while True:
         write(newSock, "errVer")
         newSock.close()
 
-    total += 1
-    print("서버: 클라이언트가 연결 시도중입니다.")
+    
     read(newSock)
