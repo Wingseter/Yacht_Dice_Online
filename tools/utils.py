@@ -1,5 +1,5 @@
 import pygame
-import pygame.gfxdraw
+from loader import ONLINE
 
 # 안이 비어있는 둥근 사각형을 그린다
 def emptyRoundRect(surf, color, rect, radius=10, border=2, incolor=(0, 0, 0)):
@@ -19,3 +19,10 @@ def solidRoundRect(surf, color, rect, r):
 
     pygame.draw.rect(surf, color, (rect[0] + r, rect[1], rect[2] - 2*r, rect[3]))
     pygame.draw.rect(surf, color, (rect[0], rect[1] + r, rect[2], rect[3] - 2*r))
+
+def showLoading(win, errcode= -1):
+    pygame.draw.rect(win, (255, 255, 255), (100, 200, 300, 60))
+    pygame.draw.rect(win, (0,0,0), (103, 223, 294, 54))
+
+    if errcode == -1:
+        win.blit(ONLINE)
