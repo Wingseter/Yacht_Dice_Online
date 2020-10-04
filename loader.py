@@ -44,7 +44,9 @@ class ONLINE:
     TRYCONN = vsmall.render("Trying to connect to server...", True, WHITE)
     ERR = [
         vsmall.render("[ERR 1] Couldn't find the server...", True, WHITE),
-        vsmall.render("[ERR 2] Server refused connection..", True, WHITE)
+        vsmall.render("[ERR 2] Server refused connection...", True, WHITE),
+        vsmall.render("[ERR 3] Server is full (max = 50)...", True, WHITE),
+        vsmall.render("[ERR 4] The server is Locked...", True, WHITE),
     ]
 
     EMPTY = small.render("No one's online", True, WHITE)

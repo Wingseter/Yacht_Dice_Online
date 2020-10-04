@@ -1,6 +1,7 @@
 from game.onlinelib import *
 import threading
 
+VERSION = "1.0"
 def main(win, addr):
     if addr is None:
         return 
@@ -20,12 +21,23 @@ def main(win, addr):
     thread = threading.Thread(target=bgThread, args=(sock,))
     thread.start()
 
-    
-    write(sock, "HELLO")
-    showLoading(win,1)
+    # 서버에 클라이언트의 버전 전송
+    write(sock, VERSION)
+
+    # 서버에서 정보 수신
     msg = read()
+    if msg == "errVer":
+        showLoading(win, 1)
+
+    elif msg == "errBusy":
+        showLoading(win, 2)
+    
+    elif msg == "errLock":
+        showLoading(win, 3)
 
     sock.close()
+    thread.join()
+    flush()
     
 
 
