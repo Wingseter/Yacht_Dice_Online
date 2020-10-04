@@ -29,7 +29,7 @@ def getTime():
     days, hours = divmod(hours, 24)
     return f"{days} days, {hours} hours, {minutes} minutes, {sec} seconds"
 
-player = []
+players = []
 busyPpl = set()
 lock = False
 total = 0
@@ -37,9 +37,14 @@ total = 0
 def read(sock, timeout = None):
     try: 
         msg = sock.recv(8).decode("utf-8")
-        print(msg)
+        if "X" in msg:
+            return read(sock, timeout)
+        
+        if msg:
+            return msg.strip()
     except:
         pass
+    return "quit"
 
 # 플레이어 가 접속 해제되었을때 호출
 def onQuit(sock, key):
@@ -68,6 +73,23 @@ while True:
     except:
         print("서버: 소켓 생성 오류")
         break
+    
+    if read(newSock, 3) == VERSION:
+        if len(player) < 10:
+            if not lock:
+                pass
+            else:
+                print("서버: 서버가 잠겼습니다. 연결을 거부합니다")
+                write(newSock, "errLock")
+                newSock.close()
+        else:
+            print("서버: 서버가 바쁩니다. 연결을 거부합니다")
+            write(newSock, "errLock")
+            newSock.close()
+    else:
+        print("서버: 버전이 맞지 않습니다. 연결을 거부합니다")
+        write(newSock, "errVer")
+        newSock.close()
 
     total += 1
     print("서버: 클라이언트가 연결 시도중입니다.")
