@@ -12,6 +12,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BG_COLOR = (127, 127, 127)
 myfont = pygame.font.SysFont('Comicsans', 30)
+state = 'player_turn'
+turn_cnt = 0
 
 # win = pygame.display.set_mode((SC_WIDTH, SC_HEIGHT))
 # pygame.display.set_caption('Yacht Dice Game')
@@ -72,7 +74,8 @@ def redrawGameWindow(dices):
             win.blit(mytext1, (dice.x + 20, 10))
             mytext2 = myfont.render(str(dice.status), 1, BLACK)
             win.blit(mytext2, (dice.x + 20, 30))
-
+            mytext3 = myfont.render(str(state), 1, BLACK)
+            win.blit(mytext3, (20, 10))
             pygame.display.update()
 
         if i == 10:
@@ -80,6 +83,8 @@ def redrawGameWindow(dices):
 
 
 def main(win):
+    global state
+    global turn_cnt
 
     while True:
         dices = []
@@ -97,17 +102,27 @@ def main(win):
         for event in pygame.event.get():
 
             # 턴넘기기
-            # if state == "player_turn":
-            # 플레이어 턴일때,
-            # elif state == "enemy_turn":
-            # 상대방 턴일때,
-            # elif state == "paused":
-            # 일시정지 상태일때.
-
-            if event.type == pygame.QUIT:
-                return
-            if event.type == pygame.MOUSEBUTTONUP:
-                # 마우스 클릭을 했을때
-                for dice in dices:
-                    dice.status = 'stopped'
-                redrawGameWindow(dices)
+            if state == 'player_turn':
+                if event.type == pygame.QUIT:
+                    return
+                if event.type == pygame.MOUSEBUTTONUP:
+                    turn_cnt += 1
+                    # 마우스 클릭을 했을때
+                    for dice in dices:
+                        dice.status = 'stopped'
+                    redrawGameWindow(dices)
+                    if turn_cnt == 3:
+                        turn_cnt = 0
+                        state = 'enemy_turn'
+            elif state == "enemy_turn":
+                if event.type == pygame.QUIT:
+                    return
+                if event.type == pygame.MOUSEBUTTONUP:
+                    turn_cnt += 1
+                    # 마우스 클릭을 했을때
+                    for dice in dices:
+                        dice.status = 'stopped'
+                    redrawGameWindow(dices)
+                    if turn_cnt == 3:
+                        turn_cnt = 0
+                        state = 'player_turn'
