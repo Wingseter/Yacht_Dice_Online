@@ -1,7 +1,11 @@
+import random
 import socket
 import threading
 import time
 import urllib.request import urlopen
+
+VERSION = "v1.0"
+START_TIME = time.perf_counter()
 
 print("서버 시작중 잠시만 기다려 주세요.....")
 mainSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -10,8 +14,24 @@ mainSock.listen(16)
 print("서버: 서버가 성공적으로 시작되었습니다.")
 print("서버: 연결 포트 9090.")
 
+# 서버의 IP 결정
+IP = socket.gethostbyname(socket.gethostname())
+# 네트워크 연결 확인
+if IP == "127.0.0.1":
+    print("서버: 서버가 네트워크에 연결되지 않았습니다.")
+else:
+    print("서버: 서버의 IP 주소는: ", IP)
+
+def getTime():
+    sec = round(time.perf_counter() - START_TIME)
+    minutes, sec = divmod(sec, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    return f"{days} days, {hours} hours, {minutes} minutes, {sec} seconds"
+
 player = []
 busyPpl = set()
+lock = False
 total = 0
 
 def read(sock, timeout = None):
