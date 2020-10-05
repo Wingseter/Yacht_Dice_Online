@@ -63,5 +63,12 @@ def lobby(win, sock, key):
                     showLobby(win, key, playerList)
 
 def yacht(win, sock, player):
-    pass
-                
+    clock = pygame.time.Clock()
+    while True:
+        clock.tick(25)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT and prompt(win):
+                write(sock, "quit")
+                return True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos 

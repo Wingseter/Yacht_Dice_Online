@@ -57,7 +57,7 @@ while running:
             x, y = event.pos
             
             if offln[0] < x < sum(offln[::2]) and offln[1] < y < sum(offln[1::2]):
-                pass
+                game.offline(win)
             # 온라인 버튼 클릭
             elif onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
                 server = menus.onlinemenu(win)
