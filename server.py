@@ -50,6 +50,7 @@ def read(sock, timeout = None):
 def send_error_buffer(sock, bufsize):
     sent = sock.send(("X" * bufsize).encode("utf-8"))
     if sent < bufsize:
+    
         send_error_buffer(sock, bufsize - sent)
 
 # 패킷 쓰기
@@ -64,9 +65,21 @@ def write(sock, msg):
         except:
             pass
 
+# Key로 플레이어 알아내기
+def getByKey(key):
+    for player in players:
+        if player[1] == int(key):
+            return player[0]
+
+# 플레이어키 삭제
+def rmKey(key):
+    global players
+    players.remove((getByKey(key), key))
+
 # 플레이어 가 접속 해제되었을때 호출
 def onQuit(sock, key):
     write(sock, "close")
+    rmKey(key)
     sock.close() 
 
 # 플레이어와 서버 게임의 통신 관리
@@ -86,7 +99,7 @@ def player(sock, key):
 
                 for i in data[0]:
                     if i != key:
-                        if i in data[i]:
+                        if i in data[1]:
                             write(sock, str(i) + "b")
                         else:
                             write(sock, str(i) + "a")
@@ -133,6 +146,3 @@ while True:
         print("서버: 버전이 맞지 않습니다. 연결을 거부합니다")
         write(newSock, "errVer")
         newSock.close()
-
-    
-    read(newSock)

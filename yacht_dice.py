@@ -6,6 +6,7 @@ from loader import MAIN
 
 # pygame 시작
 pygame.init()
+
 clock = pygame.time.Clock()
 
 # pygame 디스플레이 설정

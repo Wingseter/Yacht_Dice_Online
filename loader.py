@@ -17,14 +17,19 @@ BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (200, 20, 20)
 
-# Define a few constants that contain loaded texts of numbers and chararters.
+# 숫자 배열
 NUM = [vsmall.render(str(i), True, WHITE) for i in range(10)]
 LNUM = [small.render(str(i), True, WHITE) for i in range(10)]
+
+# 숫자 입력
+def putNum(win, num, pos):
+    for cnt, i in enumerate(list(str(num))):
+        win.blit(NUM[int(i)], (pos[0] + (cnt * 20), pos[1]))
 
 # 큰 숫자 입력
 def putLargeNum(win, num, pos):
     for cnt, i in enumerate(list(str(num))):
-        win.blit(LNUM[int(i)], (pos[0] + (cnt * 14), pos[1]))
+        win.blit(LNUM[int(i)], (pos[0] + (cnt * 30), pos[1]))
 
 class MAIN:
     ICON = pygame.image.load(os.path.join("res", "img", "icon.gif"))
@@ -61,13 +66,14 @@ class ONLINE:
     EMPTY = small.render("No one's online", True, WHITE)
 
     LOBBY = large.render("Online Lobby", True, WHITE)
-    LIST = medium.render("List of Players", True, WHITE)
-    PLAYER = small.render("Player", True, WHITE)
-    DOT = small.render(".", True, WHITE)
+    LIST = small.render("List of Players", True, WHITE)
+    PLAYER = vsmall.render("Player", True, WHITE)
+    PLAYER2 = small.render("Player", True, WHITE)
+    DOT = vsmall.render(".", True, WHITE)
 
-    ACTIVE = small.render("ACTIVE", True, GREEN)
-    BUSY = small.render("BUSY", True, RED)
-    REQ = small.render("Send Request", True, WHITE)
+    ACTIVE = vsmall.render("ACTIVE", True, GREEN)
+    BUSY = vsmall.render("BUSY", True, RED)
+    REQ = vsmall.render("Send Request", True, WHITE)
     YOUARE = medium.render("You Are", True, WHITE)
 
     REFRESH = pygame.image.load(os.path.join("res", "img", "refresh.png"))
