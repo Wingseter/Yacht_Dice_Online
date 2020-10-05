@@ -1,5 +1,5 @@
 import pygame
-
+from game.onlinelib.sockutils import *
 from loader import ONLINE
 
 def showLoading(win, errcode= -1):
@@ -19,3 +19,8 @@ def showLoading(win, errcode= -1):
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 return
+
+def showLobby(win, key, playerlist):
+    win.fill((0, 0, 0))
+    
+    win.blit(ONLINE.LOBBY, (100, 14))

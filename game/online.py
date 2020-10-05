@@ -26,6 +26,7 @@ def main(win, addr):
 
     # 서버에서 정보 수신
     msg = read()
+    print(msg)
     if msg == "errVer":
         showLoading(win, 1)
 
@@ -34,6 +35,9 @@ def main(win, addr):
     
     elif msg == "errLock":
         showLoading(win, 3)
+    
+    elif msg.startswith("GTag"):
+        lobby(win, sock, int(msg[4:]))
 
     sock.close()
     thread.join()

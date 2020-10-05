@@ -17,6 +17,15 @@ BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (200, 20, 20)
 
+# Define a few constants that contain loaded texts of numbers and chararters.
+NUM = [vsmall.render(str(i), True, WHITE) for i in range(10)]
+LNUM = [small.render(str(i), True, WHITE) for i in range(10)]
+
+# 큰 숫자 입력
+def putLargeNum(win, num, pos):
+    for cnt, i in enumerate(list(str(num))):
+        win.blit(LNUM[int(i)], (pos[0] + (cnt * 14), pos[1]))
+
 class MAIN:
     ICON = pygame.image.load(os.path.join("res", "img", "icon.gif"))
     TITLE = head.render("Yacht Dice", True, RED)
@@ -41,17 +50,50 @@ class ONLINEMENU:
     CONNECT = small.render("Connect", True, WHITE)
 
 class ONLINE:
-    TRYCONN = vsmall.render("Trying to connect to server...", True, WHITE)
+    TRYCONN = vsmall.render("Trying to connect to server....", True, WHITE)
     ERR = [
         vsmall.render("[ERR 1] Couldn't find the server...", True, WHITE),
-        vsmall.render("[ERR 2] Server refused connection...", True, WHITE),
-        vsmall.render("[ERR 3] Server is full (max = 50)...", True, WHITE),
+        vsmall.render("[ERR 2] Server refused connection..,", True, WHITE),
+        vsmall.render("[ERR 3] Server is full..,", True, WHITE),
         vsmall.render("[ERR 4] The server is Locked...", True, WHITE),
     ]
-
+        
     EMPTY = small.render("No one's online", True, WHITE)
 
     LOBBY = large.render("Online Lobby", True, WHITE)
     LIST = medium.render("List of Players", True, WHITE)
     PLAYER = small.render("Player", True, WHITE)
-    
+    DOT = small.render(".", True, WHITE)
+
+    ACTIVE = small.render("ACTIVE", True, GREEN)
+    BUSY = small.render("BUSY", True, RED)
+    REQ = small.render("Send Request", True, WHITE)
+    YOUARE = medium.render("You Are", True, WHITE)
+
+    REFRESH = pygame.image.load(os.path.join("res", "img", "refresh.png"))
+
+    MSG1 = (
+        vsmall.render("Please wait for the other player to", True, WHITE),
+        vsmall.render("accept your request. Game will begin", True, WHITE),
+    )
+    MSG2 = (
+        vsmall.render("Player", True, WHITE),
+        vsmall.render("wants to play with you.", True, WHITE),
+    )
+
+    OPPQUIT = small.render("Your Opponent has left", True, WHITE)
+    RESIGN = small.render("Your Opponent has resigned", True, WHITE)
+    DRAWAGREED = small.render("Draw has been agreed", True, WHITE)
+
+    DRAW = (
+        vsmall.render("Sent a request to your opponent for", True, WHITE),
+        vsmall.render("draw, wait for reply.", True, WHITE),
+    )
+
+    DRAW2 = (
+        vsmall.render("Your opponent is requesting for a", True, WHITE),
+        vsmall.render("draw, please reply.", True, WHITE),
+    )
+
+    NO = small.render("NO", True, WHITE)
+    OK = small.render("OK", True, WHITE)

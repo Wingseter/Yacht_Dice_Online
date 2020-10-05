@@ -1,12 +1,12 @@
 from game.onlinelib.utils import *
-
-def lobby(win, sock, key, LOAD):
+def lobby(win, sock, key):
     clock = pygame.time.Clock()
 
-    playerList = getPlayer(sock)
+    playerList = getPlayers(sock)
     if playerList is None:
         return
-    
+    showLobby(win, key, playerList)
+
     while True:
         clock.tick(10)
 
@@ -18,7 +18,9 @@ def lobby(win, sock, key, LOAD):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 # 새로고침 했을때
-                if True:
-                    playerList = getPlayer(sock)
+                if 270 < x < 300 and 85 < y < 115:
+                    playerList = getPlayers(sock)
                     if playerList is None:
                         return
+                    showLobby(win, key, playerList)
+               

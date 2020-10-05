@@ -2,9 +2,9 @@ import random
 import socket
 import threading
 import time
-import urllib.request import urlopen
+from urllib.request import urlopen
 
-VERSION = "v1.0"
+VERSION = "1.0"
 START_TIME = time.perf_counter()
 
 print("서버 시작중 잠시만 기다려 주세요.....")
@@ -46,11 +46,27 @@ def read(sock, timeout = None):
         pass
     return "quit"
 
+# 패킷 손실 발생 했을때
+def send_error_buffer(sock, bufsize):
+    sent = sock.send(("X" * bufsize).encode("utf-8"))
+    if sent < bufsize:
+        send_error_buffer(sock, bufsize - sent)
+
+# 패킷 쓰기
+def write(sock, msg):
+    if msg:
+        buffedmsg = msg + (" " * (8 - len(msg)))
+        try:
+            sent = sock.send(buffedmsg.encode("utf-8"))
+            if sent < 8:
+                send_error_buffer(sock, 8 - sent)
+                write(sock, msg)
+        except:
+            pass
+
 # 플레이어 가 접속 해제되었을때 호출
 def onQuit(sock, key):
     write(sock, "close")
-    rmKey(key)
-    rmBusy(key)
     sock.close() 
 
 # 플레이어와 서버 게임의 통신 관리
@@ -79,7 +95,15 @@ def player(sock, key):
         print("서버: 플레이에 에러 발생")
         print("서버: ", e)
         onQuit(sock, key)
-          
+
+# 중복되지 않는 게임 태그 생성
+def genKey():
+    key = random.randint(1000, 9999)
+    for player in players:
+        if player[1] == key:
+            return genKey()
+    return key
+      
 while True:
     try:
         newSock, _ = mainSock.accept()
@@ -89,11 +113,14 @@ while True:
 
     total += 1
     print("서버: 클라이언트가 연결 시도중입니다.")
-
     if read(newSock, 3) == VERSION:
-        if len(player) < 10:
+        if len(players) < 10:
             if not lock:
-                pass
+                key = genKey()
+                players.append((newSock, key))
+                print(f"서버: 성공적으로 연결되었습니다. 게임테그 - {key}")
+                write(newSock, "GTag" + str(key))
+                threading.Thread(target=player, args=(newSock, key)).start()
             else:
                 print("서버: 서버가 잠겼습니다. 연결을 거부합니다")
                 write(newSock, "errLock")
