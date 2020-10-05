@@ -78,7 +78,7 @@ def player(sock, key):
             if msg == "quit":
                 onQuit(sock, key)
                 return
-            elif msg == "pstat":
+            elif msg == "pStat":
                 print(f"플레이어 {key}: 플레이어들의 상태를 요청했습니다.")
                 data = list(zip(*players))[1], list(busyPpl)
                 if len(data[0]) - 1 in range(10):

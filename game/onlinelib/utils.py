@@ -24,3 +24,6 @@ def showLobby(win, key, playerlist):
     win.fill((0, 0, 0))
     
     win.blit(ONLINE.LOBBY, (100, 14))
+    pygame.draw.rect(win, (255, 255, 255), (65, 10, 355, 68), 4)
+
+    pygame.display.update()
