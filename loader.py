@@ -4,6 +4,7 @@ import pygame
 # 폰트 정의
 pygame.font.init()
 FONT = os.path.join("res", "font", "Kenney Mini Square.ttf")
+huge = pygame.font.Font(FONT, 577)
 head = pygame.font.Font(FONT, 150)
 large = pygame.font.Font(FONT, 120)
 medium = pygame.font.Font(FONT, 80)
@@ -44,3 +45,5 @@ class ONLINEMENU:
 class OFFLINEGAME:
     GIVEUP = fvsmall.render("Give up", True, RED)
     GIVEUP_H = fvsmall.render("Give up", True, GREY)
+    WINNER = fvsmall.render("WIN", True, RED)
+    WIN_APPEARING = huge.render("WIN", True, GREEN)
