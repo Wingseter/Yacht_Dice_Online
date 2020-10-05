@@ -81,10 +81,12 @@ class ONLINE:
     MSG1 = (
         vsmall.render("Please wait for the other player to", True, WHITE),
         vsmall.render("accept your request. Game will begin", True, WHITE),
+        vsmall.render("you will play second.", True, WHITE),
     )
     MSG2 = (
         vsmall.render("Player", True, WHITE),
         vsmall.render("wants to play with you.", True, WHITE),
+        vsmall.render("you will play first.", True, WHITE),
     )
 
     OPPQUIT = small.render("Your Opponent has left", True, WHITE)

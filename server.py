@@ -76,6 +76,30 @@ def rmKey(key):
     global players
     players.remove((getByKey(key), key))
 
+# 플레이어 바쁜것 삭제
+def mkBusy(*keys):
+    global busyPpl
+    for key in keys:
+        busyPpl.add(int(key))
+
+# 플레이어 게임중인것 삭제
+def rmBusy(*keys):
+    global busyPpl
+    for key in keys:
+        busyPpl.discard(int(key))
+
+
+# 두개의 클라이언트 간의 통신
+def game(sock1, sock2):
+    while True:
+        msg = read(sock1)
+        write(sock2, msg)
+        if msg == "quit":
+            return True
+
+        elif msg in ["draw", "resign", "end"]:
+            return False
+
 # 플레이어 가 접속 해제되었을때 호출
 def onQuit(sock, key):
     write(sock, "close")
@@ -103,6 +127,53 @@ def player(sock, key):
                             write(sock, str(i) + "b")
                         else:
                             write(sock, str(i) + "a")
+            elif msg.startswith("rg"):
+                print(f"플레이어{key}: 플레이어{msg[2:]} 에게 게임 요청했습니다.")
+                oSock = getByKey(msg[2:])
+                if oSock is not None:
+                    if int(msg[2:]) not in busyPpl:
+                        mkBusy(key, msg[2:])
+                        write(sock, "msgOk")
+                        write(oSock, "gr" + str(key))
+                        newMsg = read(sock)
+                        if newMsg == "ready":
+                            print(f"서버: 플레이어{key} 게임 시작")
+                            if game(sock, oSock):
+                                onQuit(sock, key)
+                                return
+                            else:
+                                rmBusy(key)
+                                print(f"서버: 플레이어{key} 게임 끝")
+
+                        elif newMsg == "quit":
+                            onQuit(sock, key)
+                            write(oSock, "quit")
+                            return
+
+                    else:
+                        print(f"서버: 플레이어{key}가 바쁜 플레이어에게 요청을 보냈습니다.")
+                        write(sock, "errPBusy")
+                else:
+                    print(f"서버: 플레이어{key} 불가능한 키를 보냈습니다.")
+                    write(sock, "errKey")
+
+            elif msg.startswith("gmOk"):
+                print(f"플레이어{key}: 플레이어{msg[4:]}의 요청을 수락했습니다.")
+                oSock = getByKey(msg[4:])
+                write(oSock, "start")
+                print(f"서버: 플레이어{key} 게임에 들어갔습니다.")
+                if game(sock, oSock):
+                    onQuit(sock, key)
+                    return
+                else:
+                    rmBusy(key)
+                    print(f"서버: 플레이어{key} 게임을 마쳤습니다.")
+
+            elif msg.startswith("gmNo"):
+                print(f"플레이어{key}: 플레이어{msg[4:]}의 요청을 거부했습니다.")
+                oSock = getByKey(msg[4:])
+                write(oSock, "nostart")
+                rmBusy(key, msg[4:])
 
     except Exception as e:
         print("서버: 플레이에 에러 발생")

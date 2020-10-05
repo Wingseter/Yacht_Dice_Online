@@ -52,3 +52,56 @@ def showLobby(win, key, playerlist):
     putLargeNum(win, key, (650, 650))
 
     pygame.display.update()
+
+# 게임 요청
+def request(win, key, sock=None):
+    if sock is None:
+        pygame.draw.rect(win, (0, 0, 0), (240, 260, 650, 200))
+        pygame.draw.rect(win, (255, 255, 255), (240, 260, 650, 200), 4)
+
+        win.blit(ONLINE.MSG2[0], (265, 275))
+        win.blit(ONLINE.MSG2[1], (500, 275))
+        win.blit(ONLINE.MSG2[2], (265, 320))
+        putNum(win, key, (400, 275))
+
+        win.blit(ONLINE.OK, (380, 375))
+        win.blit(ONLINE.NO, (610, 375))
+        pygame.draw.rect(win, (255, 255, 255), (370, 380, 100, 50), 2)
+        pygame.draw.rect(win, (255, 255, 255), (600, 380, 100, 50), 2)
+
+        pygame.display.flip()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if 380 < event.pos[1] < 430:
+                        if 370 < event.pos[0] < 470:
+                            return True
+                        elif 600 < event.pos[0] < 700:
+                            return False
+    else:
+        pygame.draw.rect(win, (0, 0, 0), (240, 260, 650, 200))
+        pygame.draw.rect(win, (255, 255, 255), (240, 260, 650, 200), 4)
+
+        win.blit(ONLINE.MSG1[0], (265, 275))
+        win.blit(ONLINE.MSG1[1], (265, 320))
+        win.blit(ONLINE.MSG1[2], (265, 365))
+
+        pygame.display.flip()
+        while True:
+            if readable():
+                msg = read()
+                if msg == "close":
+                    return None
+
+                elif msg == "start":
+                    write(sock, "ready")
+                    return True
+
+                elif msg == "nostart":
+                    write(sock, "pass")
+                    return False
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    write(sock, "quit")
+                    return None
