@@ -9,7 +9,6 @@ def main(win, addr):
     # 연결 로딩 창
     showLoading(win)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-    addr = "192.168.0.200"
 
     try:
         sock.connect((addr, 9090))
