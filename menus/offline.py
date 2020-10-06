@@ -21,7 +21,7 @@ class Dice(object):
         self.height = height
         self.side = 0
         self.status = 'stopped'
-        self.tempx = x
+        self.tempx = x  # 주사위를 원위치 시키기 위한 변수
         self.tempy = y
 
     def roll(self, win):
@@ -63,7 +63,7 @@ def showDices(dices):
         time.sleep(0.1)
         # 화면 업데이트 (총 10번 진행)
         emptyRoundRect(win, (0, 0, 0),
-                       (44, 90, 580, 280), 4, 5)  # 주사위 굴리는 패널
+                       (35, 90, 590, 280), 4, 5)  # 주사위 굴리는 패널 부분만 업데이트
         for dice in dices:
             if i == 9:
                 dice.status = 'finalroll'
@@ -135,6 +135,9 @@ def main(win):
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     font = pygame.font.SysFont('Consolas', 30)
 
+    win.blit(OFFLINEGAME.GIVEUP, giveup[:2])
+    win.blit(OFFLINEGAME.WINNER, winner[:2])
+
     # game loop(로직 생성)
     while not finish:
         dices = []
@@ -176,10 +179,6 @@ def main(win):
                             turn_cnt = 0
                             state = 'player_turn'
 
-        # 기권
-        win.blit(OFFLINEGAME.GIVEUP, giveup[:2])
-        win.blit(OFFLINEGAME.WINNER, winner[:2])
-        for event in pygame.event.get():  # 발생한 이벤트 리스트 가져오기
             x, y = pygame.mouse.get_pos()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Give up 누르면 게임 종료
                 x, y = event.pos
@@ -190,6 +189,8 @@ def main(win):
                     Winner(win, coordinate)
             elif event.type == pygame.QUIT:  # 파이 게임이 끝났으면
                 finish = True
+
+        # 기권
 
         # 타이머 counting
         for e in pygame.event.get(False):
