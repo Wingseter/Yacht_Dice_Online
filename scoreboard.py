@@ -19,6 +19,8 @@ turn_cnt = 0  # 총 3번 주사위를 굴릴 수 있다.
 # pygame.display.set_caption('Yacht Dice Game')
 
 # 족보계산
+
+
 class Strategy():
     def __init__(self, strategies):
         self.strategies = strategies
@@ -111,8 +113,10 @@ class Strategy():
             return 40
         return 0
 
-#점수판 목록
-strategies_order = ['1s', '2s', '3s', '4s', '5s', '6s', 'Bonus', 'Choice', '4-of-a-kind', 'Full House', 'S. Straight', 'L. Straight', 'Yacht', 'Total']
+
+# 점수판 목록
+strategies_order = ['1s', '2s', '3s', '4s', '5s', '6s', 'Bonus', 'Choice',
+                    '4-of-a-kind', 'Full House', 'S. Straight', 'L. Straight', 'Yacht', 'Total']
 strategies = {
     '1s': 0,
     '2s': 0,
@@ -134,10 +138,11 @@ strategies = {
 strategy = Strategy(strategies)
 for i, strategy_name in enumerate(strategies_order):
     strategies[strategy_name] = {
-           'score': 0,
-           'selected': False,
-           'done': False
-}
+        'score': 0,
+        'selected': False,
+        'done': False
+    }
+
 
 class Dice(object):
     def __init__(self, x, y, width, height):
@@ -181,7 +186,7 @@ class Dice(object):
             self.x += random.randint(-10, 10)
             self.y += random.randint(-10, 10)
 
-    def getSide(self) :
+    def getSide(self):
         return self.side
 
 
@@ -207,24 +212,21 @@ def redrawGameWindow(dices):
             mytext3 = myfont.render(str(state), 1, BLACK)
             win.blit(mytext3, (20, 10))
 
-
         # 점수 계산 및 점수판 출력
         strategy.set_dices(dices)
         strategy.calculate()
-        for i, sName in enumerate(strategies_order) :
+        for i, sName in enumerate(strategies_order):
             score = strategies[sName]["score"]
             n_text = f"{sName:<20}"
             s_text = f"{score:>10}"
             nText = myfont.render(n_text, 1, WHITE)
             sText = myfont.render(s_text, 1, WHITE)
             win.blit(nText, (40, 30 * (i + 1) + 100))
-            win.blit(sText, (180, 30 * (i + 1) + 100))    
+            win.blit(sText, (180, 30 * (i + 1) + 100))
             pygame.display.update()
 
         if i == 10:
             return
-
-
 
 
 def main(win):
@@ -243,8 +245,6 @@ def main(win):
             Dice(880, 330, 90, 90),
             Dice(990, 330, 90, 90)
         ]
-
-
 
         for event in pygame.event.get():
 
