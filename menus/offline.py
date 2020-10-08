@@ -209,14 +209,27 @@ def showDices(dices):
         strategy.calculate()
         emptyRoundRect(win, (255, 255, 255),
                        (650, 40, 510, 670), 7, 5)  # 족보 저장공간
+        emptyRoundRect(win, (255, 255, 255), (650, 40, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 94, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 149, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 204, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 260, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 315, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 370, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 425, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 480, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 535, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 590, 510, 60), 7, 5)
+        emptyRoundRect(win, (255, 255, 255), (650, 645, 510, 60), 7, 5)
+
         for i, sName in enumerate(strategies_order):
             score = strategies[sName]["score"]
             n_text = f"{sName:<20}"
             s_text = f"{score:>10}"
             nText = myfont.render(n_text, 1, WHITE)
             sText = myfont.render(s_text, 1, WHITE)
-            win.blit(nText, (780, 30 * (i + 1) + 100))
-            win.blit(sText, (980, 30 * (i + 1) + 100))
+            win.blit(nText, (780, 55 * (i + 1)+15))
+            win.blit(sText, (980, 55 * (i + 1)+15))
             pygame.display.update()
 
         if i == 10:
@@ -230,18 +243,18 @@ def showProgress(win):
     emptyRoundRect(win, (255, 255, 255), (40, 40, 100, 40), 7, 5)  # 기권
     emptyRoundRect(win, (255, 255, 255), (372, 40, 100, 40), 7, 5)  # 승리
     emptyRoundRect(win, (255, 255, 255), (650, 40, 510, 670), 7, 5)  # 족보 저장공간
-    #emptyRoundRect(win, (255, 255, 255), (650, 40, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 94, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 149, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 204, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 260, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 315, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 370, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 425, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 480, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 535, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 590, 510, 60), 7, 5)
-    #emptyRoundRect(win, (255, 255, 255), (650, 645, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 40, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 94, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 149, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 204, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 260, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 315, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 370, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 425, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 480, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 535, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 590, 510, 60), 7, 5)
+    emptyRoundRect(win, (255, 255, 255), (650, 645, 510, 60), 7, 5)
 
 
 def Winner(win, coordinate):
