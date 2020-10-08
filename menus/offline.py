@@ -86,25 +86,25 @@ class Strategy():
         if hr > 0:
             rests = [side for side in self.sides if side != hr]
             if len(set(rests)) == 1 and len(rests) == 2:
-                return 25
+                return 28
 
         hr = self.highest_repeated(2)
         if hr > 0:
             rests = [side for side in self.sides if side != hr]
             if len(set(rests)) == 1 and len(rests) == 3:
-                return 25
+                return 28
 
         return 0
 
     def small_straight(self):
         if set([1, 2, 3, 4]).issubset(self.unique) or set([2, 3, 4, 5]).issubset(self.unique) or set(
                 [3, 4, 5, 6]).issubset(self.unique):
-            return 30
+            return 15
         return 0
 
     def large_straight(self):
         if set([1, 2, 3, 4, 5]).issubset(self.unique) or set([2, 3, 4, 5, 6]).issubset(self.unique):
-            return 40
+            return 30
         return 0
 
 
