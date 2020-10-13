@@ -149,17 +149,18 @@ class Dice(object):
         self.tempx = x  # 주사위를 원위치 시키기 위한 변수
         self.tempy = y
 
-    def roll(self, win):
+    # 주사위 눈에 따른 모습 변화
+    def drawDice(self, win, side):
         pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
 
         # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
         if self.status == 'stopped':
             self.status = 'rolling'
+        # 마지막으로 구르고나서 제자리로 돌아감
         if self.status == 'finalroll':
             self.x = self.tempx
             self.y = self.tempy
 
-        self.side = random.randint(1, 6)
         if self.side == 1 or self.side == 3 or self.side == 5:
             pygame.draw.circle(win, BLACK, (self.x + 50, self.y + 50), 8, 8)
         if self.side == 4 or self.side == 5 or self.side == 6:
@@ -175,10 +176,18 @@ class Dice(object):
         if self.side == 4 or self.side == 5 or self.side == 6:
             pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 80), 8, 8)
 
+    # 주사위 굴리기
+    def roll(self, win):
+
+        self.side = random.randint(1, 6)
+        self.drawDice(win, self.side)
+
        # 주사위 애니메이션
         if self.status == 'rolling':
-            self.x += random.randint(-5, 5)
-            self.y += random.randint(-5, 5)
+            self.x += random.randint(-4, 4)
+            self.y += random.randint(-4, 4)
+
+# 주사위 화면 출력
 
 
 def showDices(dices):
@@ -204,7 +213,7 @@ def showDices(dices):
             win.blit(mytext3, (65, 170))
             pygame.display.update()
 
-            # 점수 계산 및 점수판 출력
+        # 점수 계산 및 점수판 출력
         strategy.set_dices(dices)
         strategy.calculate()
         emptyRoundRect(win, (255, 255, 255),
@@ -283,6 +292,13 @@ def main(win):
     winner = (408, 45, 70, 40)
     giveup = (55, 45, 70, 40)
 
+    # 1~5번 주사위
+    Dice_1st = (65, 210, 90, 90)
+    Dice_2nd = (175, 210, 90, 90)
+    Dice_3rd = (285, 210, 90, 90)
+    Dice_4th = (395, 210, 90, 90)
+    Dice_5th = (505, 210, 90, 90)
+
     # 타이머
     counter, text = 10, '10'.rjust(3)
     pygame.time.set_timer(pygame.USEREVENT, 1000)
@@ -340,6 +356,24 @@ def main(win):
                 elif winner[0] < x < sum(winner[::2]) and winner[1] < y < sum(winner[1::2]):
                     coordinate = (200, 100, 500, 500)
                     Winner(win, coordinate)
+
+                # 주사위들 클릭했을 때 이벤트 설정(현재 임시로 winner 사용 추후 주사위 킵하는 것 연동)
+                elif Dice_1st[0] < x < sum(Dice_1st[::2]) and Dice_1st[1] < y < sum(Dice_1st[1::2]):
+                    coordinate = (200, 100, 500, 500)
+                    Winner(win, coordinate)
+                elif Dice_2nd[0] < x < sum(Dice_2nd[::2]) and Dice_2nd[1] < y < sum(Dice_2nd[1::2]):
+                    coordinate = (200, 100, 500, 500)
+                    Winner(win, coordinate)
+                elif Dice_3rd[0] < x < sum(Dice_3rd[::2]) and Dice_3rd[1] < y < sum(Dice_3rd[1::2]):
+                    coordinate = (200, 100, 500, 500)
+                    Winner(win, coordinate)
+                elif Dice_4th[0] < x < sum(Dice_4th[::2]) and Dice_4th[1] < y < sum(Dice_4th[1::2]):
+                    coordinate = (200, 100, 500, 500)
+                    Winner(win, coordinate)
+                elif Dice_5th[0] < x < sum(Dice_5th[::2]) and Dice_5th[1] < y < sum(Dice_5th[1::2]):
+                    coordinate = (200, 100, 500, 500)
+                    Winner(win, coordinate)
+
             elif event.type == pygame.QUIT:  # 파이 게임이 끝났으면
                 finish = True
 
