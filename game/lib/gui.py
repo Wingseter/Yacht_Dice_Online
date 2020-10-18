@@ -94,3 +94,4 @@ def drawScore(win, side, board, newScore=None):
 
 def drawButton(win):
     win.blit(YACHT.ROLL, [900, 500])
+

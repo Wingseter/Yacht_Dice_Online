@@ -47,49 +47,40 @@ def turn(win, side, board, dicelist):
 
 class Dicelist:
     def __init__(self, allDice):
-        self.__saved = {}
-        self.__dice = {"dice1" : 0, "dice2" : 0, "dice3" : 0, "dice4" : 0, "dice5" : 0}
-        for die in self.__dice:
-            self.__dice[die] = random.randint(ACE, SIXES)
+        self.__saved = []
+        self.__dice = [0,0,0,0,0]
+        for i in range(len(self.__dice)):
+            self.__dice[i] = random.randint(ACE, SIXES)
         self.dices = allDice
-        
+
     def lenDice(self):
         return len(self.__dice)
 
     def roll_dice(self, win): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
-        for die in self.__dice:
-            self.__dice[die] = random.randint(ACE, SIXES)
+        for i in range(len(self.__dice)):
+            self.__dice[i] = random.randint(ACE, SIXES)
         self.diceAnimation(win)
         pygame.draw.rect(win, (100, 200, 200), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
         self.drawDice(win)
+        print(self.__dice)
     
 
-    def keep_dice(self, saveList): # 선택한 주사위의 값을 리스트로 받아서 처리
-        if saveList == []:
+    def keep_dice(self, save): # 선택한 주사위의 값을 리스트로 받아서 처리
+        if save == None:
             return
-        for i in saveList:
-            for key, value in self.__dice.items():
-                if value == i:
-                    self.__saved[key] = value
-        for key in self.__saved.keys():
-            del(self.__dice[key])
+        self.__saved.append(self.__dice.pop(save))
     
 
     def disband_dice(self, unsaveList): # saved -> dice
-        if unsaveList == []:
+        if unsaveList == None:
             return
-        for i in unsaveList:
-            for key, value in self.__saved.items():
-                if value == i:
-                    self.__dice[key] = value
-        for key in self.__dice.keys():
-            del(self.__saved[key])
+        self.__dice.append(self.__saved)
     
 
     def give_dice(self):
         all_dice = []
-        if self.__saved == {}:
-            for value in self.__dice.values():
+        if self.__saved == []:
+            for value in self.__dice:
                 all_dice.append(value)
         else:
             for value in self.__saved:
@@ -100,7 +91,7 @@ class Dicelist:
 
     def drawDice(self, win):
         for dice, side in zip(self.dices, self.__dice):
-            dice.draw(win, self.__dice[side])
+            dice.draw(win, side)
     
     def diceAnimation(self, win):
         for i in range(0, 11):

@@ -23,7 +23,7 @@ def main(win, player):
                     for i in range(dicelist.lenDice()):
                         width = 515 + 20 * i + 90 * i
                         if width  < x < width + 90:
-                            print(i)
+                            dicelist.keep_dice(i)
             
         showScreen(win, side, board, player, dicelist, score)
         if side != player:
