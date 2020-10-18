@@ -1,4 +1,5 @@
 from game.onlinelib.utils import *
+from game.lib import *
 
 def lobby(win, sock, key):
     clock = pygame.time.Clock()
@@ -12,7 +13,7 @@ def lobby(win, sock, key):
         clock.tick(10)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame. QUIT:
                 write(sock, "quit")
                 return
             
@@ -72,3 +73,4 @@ def yacht(win, sock, player):
                 return True
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos 
+        showScreen(win)
