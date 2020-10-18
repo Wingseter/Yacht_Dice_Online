@@ -25,12 +25,18 @@ RED = (200, 20, 20)
 
 # 숫자 배열
 NUM = [vsmall.render(str(i), True, WHITE) for i in range(10)]
+GREYNUM = [vsmall.render(str(i), True, GREY) for i in range(10)]
 LNUM = [small.render(str(i), True, WHITE) for i in range(10)]
 
 # 숫자 입력
 def putNum(win, num, pos):
     for cnt, i in enumerate(list(str(num))):
         win.blit(NUM[int(i)], (pos[0] + (cnt * 20), pos[1]))
+
+# 회색 숫자 입력
+def putGreyNum(win, num, pos):
+    for cnt, i in enumerate(list(str(num))):
+        win.blit(GREYNUM[int(i)], (pos[0] + (cnt * 20), pos[1]))
 
 # 큰 숫자 입력
 def putLargeNum(win, num, pos):
@@ -151,3 +157,7 @@ class YACHT:
     text_yacht = font_obj16.render("Yacht", False, WHITE)
     text_com = font_obj24.render("COM", False, WHITE)
     text_player = font_obj24.render("P1", False, WHITE)
+
+    text_player = font_obj24.render("P1", False, WHITE)
+
+    ROLL = medium.render("Roll!", True, WHITE)

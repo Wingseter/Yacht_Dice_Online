@@ -1,5 +1,5 @@
 import pygame
-from loader import YACHT, putNum, WHITE
+from loader import YACHT, putNum, putGreyNum, WHITE
 
 def drawBoard(win):
     win.fill((100, 200, 200))
@@ -83,5 +83,14 @@ def drawBoard(win):
     pygame.draw.line(win, WHITE, [255, 655], [255, 705], 1)
     win.blit(YACHT.text_total, [53, 670])
 
-def drawScore(win, board, flip):
-    pass
+def drawScore(win, side, board, newScore=None):
+    for i, eachPlayer in enumerate(board):
+        for j, oldScore in enumerate(eachPlayer):
+            if oldScore[1] != -1:
+                putNum(win, oldScore[0], (100 + 100 * i, 100 + 100* j))
+            else:
+                if newScore != None and side == i:
+                    putGreyNum(win, newScore[j], (200 + 100 * i, 100 + 40* j))
+
+def drawButton(win):
+    win.blit(YACHT.ROLL, [900, 500])

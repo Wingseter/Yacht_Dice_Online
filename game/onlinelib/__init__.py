@@ -1,5 +1,7 @@
 from game.onlinelib.utils import *
 from game.lib import *
+from game.lib.utils import encode, decode
+from game.lib.core import Dice
 
 def lobby(win, sock, key):
     clock = pygame.time.Clock()
@@ -65,12 +67,12 @@ def lobby(win, sock, key):
 
 def yacht(win, sock, player):
     clock = pygame.time.Clock()
+
     while True:
         clock.tick(25)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT and prompt(win):
+            if event.type == pygame.QUIT:
                 write(sock, "quit")
                 return True
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos 
-        showScreen(win)

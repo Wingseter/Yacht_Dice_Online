@@ -1,29 +1,67 @@
 import random
+import pygame
+import time 
+from tools.utils import emptyRoundRect
+from loader import WHITE, BLACK
+from game.lib.gui import drawScore
+from game.lib.score import *
 
-ACE = 1
-DEUCES = 2
-THREES = 3
-FOURS = 4
-FIVES = 5
-SIXES = 6
-BONUS_SCORE = 35
-SSTRAIGHT_SCORE = 15
-LSTRAIGHT_SCORE = 30
-YACHT_SCORE = 50
-
-def inEnd(side):
+# 게임 끝났는지 판별
+def isEnd(side):
     return False
 
+# 턴 전환
+def flip(side):
+    return int(not side)
 
-class Dice:
-    def __init__(self):
+def calculate_score(allDice):
+    cal = Score(allDice)
+    ONES = cal.aces_score()
+    TWOS = cal.deuces_score()
+    THREES = cal.threes_score()
+    FOURS = cal.fours_score()
+    FIVES = cal.fives_score()
+    SIXES = cal.sixes_score()
+    SUB_TOTAL_SCORE = cal.sub_total_score()
+    BONUS_SCORE = cal.bonus_score()
+    CHOICE = cal.choice_score()
+    FOUR_OF_A_KIND = cal.four_of_a_kind_score()
+    FULL_HOUSE = cal.fullhouse_score()
+    SMALL_STRAIGHT = cal.sstraight_score()
+    LARGE_STRAIGHT = cal.lstraight_score()
+    YACHT = cal.yacht_score()
+    UPPER = cal.upper_section_score()
+    LOWER = cal.lower_section_score()
+    TOTAL = cal.total_score()
+
+    copy = [ONES, TWOS, THREES, FOURS, FIVES, SIXES,  CHOICE,
+     FOUR_OF_A_KIND, FULL_HOUSE, SMALL_STRAIGHT, LARGE_STRAIGHT, YACHT,
+     SUB_TOTAL_SCORE, BONUS_SCORE, UPPER, LOWER, TOTAL]
+    return copy
+
+def turn(win, side, board, dicelist):
+    dicelist.roll_dice(win)
+    allDice = dicelist.give_dice()
+    score = calculate_score(allDice)
+    return score
+    drawScore(win, side, board, copy)
+
+
+class Dicelist:
+    def __init__(self, allDice):
         self.__saved = {}
         self.__dice = {"dice1" : 0, "dice2" : 0, "dice3" : 0, "dice4" : 0, "dice5" : 0}
-
-
-    def roll_dice(self): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
         for die in self.__dice:
             self.__dice[die] = random.randint(ACE, SIXES)
+        self.dices = allDice
+
+
+    def roll_dice(self, win): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
+        for die in self.__dice:
+            self.__dice[die] = random.randint(ACE, SIXES)
+        self.diceAnimation(win)
+        pygame.draw.rect(win, (100, 200, 200), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
+        self.drawDice(win)
     
 
     def keep_dice(self, saveList): # 선택한 주사위의 값을 리스트로 받아서 처리
@@ -60,184 +98,70 @@ class Dice:
                 all_dice.append(value)
         return all_dice
 
-    def print_saved(self):
-        print("Saved =", self.__saved)
+    def drawDice(self, win):
+        for dice, side in zip(self.dices, self.__dice):
+            dice.draw(win, self.__dice[side])
     
+    def diceAnimation(self, win):
+        for i in range(0, 11):
+            time.sleep(0.1)
+            pygame.draw.rect(win, (100, 200, 200), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
+            for dice in self.dices:
+                if i == 9:
+                    dice.status = 'finalroll'
+                dice.roll(win)
+                if i == 10:
+                    dice.status = 'stopped'
 
-    def print_dice(self):
-        print("Dice =", self.__dice)
-
-
-class Turn: # 점수 판정 및 주사위 합쳐서 구성
-    dc = Dice()
-
-
-    def roll(self, onUp):
-        # if onUp == TRUE:
-        self.dc.roll_dice()
-
-    
-    # def set_turn(self):
+                pygame.display.update()
 
 
-class Score: # 점수 판정, 핸드 랭크
-    __all_dice = []
 
+class Dice:
+    def __init__(self, x= 0, y=0, width= 0, height=0):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.side = 0
+        self.status = 'stopped'
+        self.tempx = x  # 주사위를 원위치 시키기 위한 변수
+        self.tempy = y
 
-    def __init__(self, all_dice):
-        self.__all_dice = all_dice
-        self.__all_dice.sort()
+    # 주사위 눈에 따른 모습 변화
+    def draw(self, win, side):
+        pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
 
+        # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
+        if self.status == 'stopped':
+            self.status = 'rolling'
+        # 마지막으로 구르고나서 제자리로 돌아감
+        if self.status == 'finalroll':
+            self.x = self.tempx
+            self.y = self.tempy
 
-    def aces_score(self):
-        a_score = 0
-        for i in self.__all_dice:
-            if i == ACE:
-                a_score += ACE
-        return a_score
+        if side == 1 or side == 3 or side == 5:
+            pygame.draw.circle(win, BLACK, (self.x + 50, self.y + 50), 8, 8)
+        if side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 20), 8, 8)
+        if side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 50), 8, 8)
+        if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 80), 8, 8)
+        if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 20), 8, 8)
+        if side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 50), 8, 8)
+        if side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 80), 8, 8)
 
+    # 주사위 굴리기
+    def roll(self, win):
+        self.side = random.randint(1, 6)
+        self.draw(win, self.side)
 
-    def deuces_score(self):
-        d_score = 0
-        for i in self.__all_dice:
-            if i == DEUCES:
-                d_score += DEUCES
-        return d_score
+       # 주사위 애니메이션
+        if self.status == 'rolling':
+            self.x += random.randint(-4, 4)
+            self.y += random.randint(-4, 4)
 
-
-    def threes_score(self):
-        t_score = 0
-        for i in self.__all_dice:
-            if i == THREES:
-                t_score += THREES
-        return t_score
-
-
-    def fours_score(self):
-        f_score = 0
-        for i in self.__all_dice:
-            if i == FOURS:
-                f_score += FOURS
-        return f_score
-
-
-    def fives_score(self):
-        fv_score = 0
-        for i in self.__all_dice:
-            if i == FIVES:
-                fv_score += FIVES
-        return fv_score
-
-
-    def sixes_score(self):
-        s_score = 0
-        for i in self.__all_dice:
-            if i == SIXES:
-                s_score += SIXES
-        return s_score
-
-
-    def sub_total_score(self):
-        return (
-            self.aces_score() + 
-            self.deuces_score() + 
-            self.threes_score() + 
-            self.fours_score() +
-            self.fives_score() +
-            self.sixes_score() )
-
-
-    def bonus_score(self):
-        if self.sub_total_score() >= 63:
-            return BONUS_SCORE
-        else:
-            return 0
-
-
-    def choice_score(self):
-        sum_of_all_dice = 0
-        for i in self.__all_dice:
-            sum_of_all_dice += i
-        return sum_of_all_dice
-
-
-    def four_of_a_kind_score(self):
-        sum_of_all_dice = self.choice_score()
-        
-        if self.__all_dice[0] != self.__all_dice[1]:
-            if self.__all_dice[1] != self.__all_dice[4]:
-                return 0
-            else:
-                return sum_of_all_dice
-        else:
-            if self.__all_dice[0] != self.__all_dice[3]:
-                return 0
-            else:
-                if self.__all_dice[3] == self.__all_dice[4]:
-                    self.yacht_score()
-                return sum_of_all_dice
-
-
-    def fullhouse_score(self):
-        sum_of_all_dice = self.choice_score()
-
-        if self.__all_dice[0] == self.__all_dice[1]:
-            if self.__all_dice[2] == self.__all_dice[4]:
-                return sum_of_all_dice
-            else:
-                return 0
-        elif self.__all_dice[0] == self.__all_dice[2]:
-            if self.__all_dice[3] == self.__all_dice[4]:
-                return sum_of_all_dice
-            else:
-                return 0
-        return 0
-
-
-    def sstraight_score(self):
-        if self.__all_dice[0] == 1 and self.__all_dice[3] == 4:
-            if self.__all_dice[1] != 3 and self.__all_dice[2] != 2:
-                return SSTRAIGHT_SCORE
-        if self.__all_dice[0] == 2 and self.__all_dice[3] == 5:
-            if self.__all_dice[1] != 4 and self.__all_dice[2] != 3:
-                return SSTRAIGHT_SCORE
-        if self.__all_dice[1] == 2 and self.__all_dice[4] == 5:
-            if self.__all_dice[2] != 4 and self.__all_dice[3] != 3:
-                return SSTRAIGHT_SCORE
-        if self.__all_dice[1] == 3 and self.__all_dice[4] == 6:
-            if self.__all_dice[2] != 5 and self.__all_dice[3] != 4:
-                return SSTRAIGHT_SCORE
-        return 0
-
-
-    def lstraight_score(self):
-        if self.__all_dice is [1, 2, 3, 4, 5]:
-            return LSTRAIGHT_SCORE
-        if self.__all_dice is [2, 3, 4, 5, 6]:
-            return LSTRAIGHT_SCORE
-        return 0
-
-
-    def yacht_score(self):
-        for i in range(1, 7):
-            if self.__all_dice[0] == i and self.__all_dice[4] == i:
-                return YACHT_SCORE
-        return 0
-
-
-    def upper_section_score(self):
-        return (self.sub_total_score() + self.bonus_score())
-
-
-    def lower_section_score(self):
-        return (
-            self.choice_score() +
-            self.four_of_a_kind_score() +
-            self.fullhouse_score() +
-            self.sstraight_score() +
-            self.lstraight_score() +
-            self.yacht_score())
-
-
-    def total_score(self):
-        return (self.upper_section_score() + self.lower_section_score())
