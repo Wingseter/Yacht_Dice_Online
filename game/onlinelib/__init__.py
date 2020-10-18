@@ -1,7 +1,7 @@
 from game.onlinelib.utils import *
 from game.lib import *
 from game.lib.utils import encode, decode
-from game.lib.core import Dice
+from game.lib.gui import Dice
 
 def lobby(win, sock, key):
     clock = pygame.time.Clock()

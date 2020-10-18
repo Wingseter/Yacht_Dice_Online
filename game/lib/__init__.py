@@ -2,8 +2,8 @@ from game.lib.core import(
     isEnd,
     Dicelist,
     Score,
-    Dice,
-    turn
+    play,
+    turn,
 )
 
 from game.lib.gui import (
@@ -11,7 +11,10 @@ from game.lib.gui import (
     drawBoard,
     drawButton,
     drawScore,
+    drawDice,
+    diceAnimation,
     YACHT,
+    Dice,
 )
 
 def initialize(win):
@@ -29,20 +32,14 @@ def initialize(win):
         ]
     )
 
-    dices = [
-        Dice(465+50, 210+100, 90, 90),
-        Dice(575+50, 210+100, 90, 90),
-        Dice(685+50, 210+100, 90, 90),
-        Dice(795+50, 210+100, 90, 90),
-        Dice(905+50, 210+100, 90, 90)
-    ]
-    dice = Dicelist(dices)
+    
+    dice = Dicelist()
 
     return side, board, dice
 
-def showScreen(win, side, board, player, dicelist, score):
+def showScreen(win, side, board, player, score, dicelist, savelist, dices):
     drawBoard(win)
     drawButton(win)
     drawScore(win, side, board, score)
-    dicelist.drawDice(win)
+    drawDice(win, dices, dicelist)
     pygame.display.update()

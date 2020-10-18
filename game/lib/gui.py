@@ -1,5 +1,72 @@
 import pygame
-from loader import YACHT, putNum, putGreyNum, WHITE
+import random
+import time 
+from loader import YACHT, putNum, putGreyNum, WHITE, BLACK
+
+class Dice:
+    def __init__(self, x= 0, y=0, width= 0, height=0):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.side = 0
+        self.status = 'stopped'
+        self.tempx = x  # 주사위를 원위치 시키기 위한 변수
+        self.tempy = y
+
+    # 주사위 눈에 따른 모습 변화
+    def draw(self, win, side):
+        pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
+
+        # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
+        if self.status == 'stopped':
+            self.status = 'rolling'
+        # 마지막으로 구르고나서 제자리로 돌아감
+        if self.status == 'finalroll':
+            self.x = self.tempx
+            self.y = self.tempy
+
+        if side == 1 or side == 3 or side == 5:
+            pygame.draw.circle(win, BLACK, (self.x + 50, self.y + 50), 8, 8)
+        if side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 20), 8, 8)
+        if side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 50), 8, 8)
+        if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 80), 8, 8)
+        if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 20), 8, 8)
+        if side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 50), 8, 8)
+        if side == 4 or side == 5 or side == 6:
+            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 80), 8, 8)
+
+    # 주사위 굴리기
+    def roll(self, win):
+        self.side = random.randint(1, 6)
+        self.draw(win, self.side)
+
+       # 주사위 애니메이션
+        if self.status == 'rolling':
+            self.x += random.randint(-4, 4)
+            self.y += random.randint(-4, 4)
+
+def drawDice(win, dices, eyes):
+    for dice, eye in zip(dices, eyes):
+        dice.draw(win, eye)
+    
+def diceAnimation(win, dices, lenDice):
+    for i in range(0, 11):
+        time.sleep(0.1)
+        pygame.draw.rect(win, (100, 200, 200), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
+        for j in range(lenDice):
+            if i == 9:
+                dices[j].status = 'finalroll'
+            dices[j].roll(win)
+            if i == 10:
+                dices[j].status = 'stopped'
+
+            pygame.display.update()
 
 def drawBoard(win):
     win.fill((100, 200, 200))
