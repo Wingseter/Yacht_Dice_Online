@@ -44,8 +44,6 @@ def turn(win, side, board, dicelist):
     allDice = dicelist.give_dice()
     score = calculate_score(allDice)
     return score
-    drawScore(win, side, board, copy)
-
 
 class Dicelist:
     def __init__(self, allDice):
@@ -54,7 +52,9 @@ class Dicelist:
         for die in self.__dice:
             self.__dice[die] = random.randint(ACE, SIXES)
         self.dices = allDice
-
+        
+    def lenDice(self):
+        return len(self.__dice)
 
     def roll_dice(self, win): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
         for die in self.__dice:

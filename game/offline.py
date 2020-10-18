@@ -19,9 +19,12 @@ def main(win, player):
                 x, y = event.pos
                 if 900 < x < 1100 and 500 < y < 600:
                     score = turn(win, side, board, dicelist)
-                elif side == player or end:
-                    sel = [0, 0]
-          
+                elif 310 < y < 400:
+                    for i in range(dicelist.lenDice()):
+                        width = 515 + 20 * i + 90 * i
+                        if width  < x < width + 90:
+                            print(i)
+            
         showScreen(win, side, board, player, dicelist, score)
         if side != player:
             if not end:
