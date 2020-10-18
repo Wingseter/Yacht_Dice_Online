@@ -5,6 +5,13 @@ import random
 from loader import OFFLINEGAME
 import time
 
+side1 = pygame.image.load('res/img/1.jpg')
+side2 = pygame.image.load('res/img/2.jpg')
+side3 = pygame.image.load('res/img/3.jpg')
+side4 = pygame.image.load('res/img/4.jpg')
+side5 = pygame.image.load('res/img/5.jpg')
+side6 = pygame.image.load('res/img/6.jpg')
+
 state = 'player_turn'  # 누구의 턴인지 표시
 turn_cnt = 0  # 총 3번 주사위를 굴릴 수 있다.
 win = pygame.display.set_mode((1200, 750), 0, 32)
@@ -151,7 +158,7 @@ class Dice(object):
 
     # 주사위 눈에 따른 모습 변화
     def drawDice(self, win, side):
-        pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
+        #pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
 
         # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
         if self.status == 'stopped':
@@ -161,20 +168,18 @@ class Dice(object):
             self.x = self.tempx
             self.y = self.tempy
 
-        if self.side == 1 or self.side == 3 or self.side == 5:
-            pygame.draw.circle(win, BLACK, (self.x + 50, self.y + 50), 8, 8)
-        if self.side == 4 or self.side == 5 or self.side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 20), 8, 8)
+        if self.side == 1:
+            win.blit(side1, (self.x, self.y))
+        if self.side == 2:
+            win.blit(side2, (self.x, self.y))
+        if self.side == 3:
+            win.blit(side3, (self.x, self.y))
+        if self.side == 4:
+            win.blit(side4, (self.x, self.y))
+        if self.side == 5:
+            win.blit(side5, (self.x, self.y))
         if self.side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 50), 8, 8)
-        if self.side == 2 or self.side == 3 or self.side == 4 or self.side == 5 or self.side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 80), 8, 8)
-        if self.side == 2 or self.side == 3 or self.side == 4 or self.side == 5 or self.side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 20), 8, 8)
-        if self.side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 50), 8, 8)
-        if self.side == 4 or self.side == 5 or self.side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 80), 8, 8)
+            win.blit(side6, (self.x, self.y))
 
     # 주사위 굴리기
     def roll(self, win):
