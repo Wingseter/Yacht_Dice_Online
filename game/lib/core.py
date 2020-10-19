@@ -19,14 +19,14 @@ def calculate_score(allDice):
     FOURS = cal.fours_score()
     FIVES = cal.fives_score()
     SIXES = cal.sixes_score()
-    SUB_TOTAL_SCORE = cal.sub_total_score()
-    BONUS_SCORE = cal.bonus_score()
     CHOICE = cal.choice_score()
     FOUR_OF_A_KIND = cal.four_of_a_kind_score()
     FULL_HOUSE = cal.fullhouse_score()
     SMALL_STRAIGHT = cal.sstraight_score()
     LARGE_STRAIGHT = cal.lstraight_score()
     YACHT = cal.yacht_score()
+    SUB_TOTAL_SCORE = cal.sub_total_score()
+    BONUS_SCORE = cal.bonus_score()
     UPPER = cal.upper_section_score()
     LOWER = cal.lower_section_score()
     TOTAL = cal.total_score()
@@ -36,7 +36,7 @@ def calculate_score(allDice):
      SUB_TOTAL_SCORE, BONUS_SCORE, UPPER, LOWER, TOTAL]
     return copy
 
-def play(win, side, board, dicelist):
+def roll(win, side, board, dicelist):
     dicelist.roll_dice(win)
     allDice = dicelist.giveAllDice()
     score = calculate_score(allDice)
@@ -45,8 +45,32 @@ def play(win, side, board, dicelist):
 def turn():
     pass
 
+def isValid(side, player, board, sel):
+    if sel[0] == -1 or sel[1] == -1:
+        return False
+    if board[sel[0]][sel[1]][1] == -1:
+        return True
+    return False
+
+def finishTurn(side, board, score, dicelist, sel):
+    newSide = flip(side)
+    board[sel[0]][sel[1]][0] = score[sel[1]]
+    board[sel[0]][sel[1]][1] = 1
+    newBoard = board
+    newScore = None
+    newSel = [-1, -1]
+    dicelist.reset()
+    return newSide, newBoard, newScore, newSel
+
+
 class Dicelist:
     def __init__(self):
+        self.__saved = []
+        self.__dice = [0,0,0,0,0]
+        for i in range(len(self.__dice)):
+            self.__dice[i] = random.randint(ACE, SIXES)
+
+    def reset(self):
         self.__saved = []
         self.__dice = [0,0,0,0,0]
         for i in range(len(self.__dice)):
@@ -65,10 +89,10 @@ class Dicelist:
         self.__saved.append(self.__dice.pop(save))
     
 
-    def disband_dice(self, unsaveList): # saved -> dice
-        if unsaveList == None:
+    def disband_dice(self, unsave): # saved -> dice
+        if unsave == None:
             return
-        self.__dice.append(self.__saved)
+        self.__dice.append(self.__saved.pop(unsave))
     
 
     def giveAllDice(self):

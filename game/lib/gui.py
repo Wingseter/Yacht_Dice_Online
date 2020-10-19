@@ -16,7 +16,7 @@ class Dice:
 
     # 주사위 눈에 따른 모습 변화
     def draw(self, win, side):
-        pygame.draw.rect(win, WHITE, (self.x, self.y, 100, 100))
+        pygame.draw.rect(win, WHITE, (self.x, self.y, self.width, self.height))
 
         # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
         if self.status == 'stopped':
@@ -27,19 +27,19 @@ class Dice:
             self.y = self.tempy
 
         if side == 1 or side == 3 or side == 5:
-            pygame.draw.circle(win, BLACK, (self.x + 50, self.y + 50), 8, 8)
+            pygame.draw.circle(win, BLACK, (self.x + int(self.width/2)  , self.y + int(self.height/2)), 8, 8)
         if side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 20), 8, 8)
+            pygame.draw.circle(win, BLACK, (self.x + int(self.width/5)  , self.y + int(self.height/5)), 8, 8)
         if side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 50), 8, 8)
+            pygame.draw.circle(win, BLACK, (self.x + int(self.width/5)  , self.y + int(self.height/2)), 8, 8)
         if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 20, self.y + 80), 8, 8)
+            pygame.draw.circle(win, BLACK, (self.x + int(self.width/5)  , self.y + int(self.height*4/5)), 8, 8)
         if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 20), 8, 8)
+            pygame.draw.circle(win, BLACK, (self.x + int(self.width*4/5), self.y + int(self.height/5)), 8, 8)
         if side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 50), 8, 8)
+            pygame.draw.circle(win, BLACK, (self.x + int(self.width*4/5), self.y + int(self.height/2)), 8, 8)
         if side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + 80, self.y + 80), 8, 8)
+            pygame.draw.circle(win, BLACK, (self.x + int(self.width*4/5), self.y + int(self.height*4/5)), 8, 8)
 
     # 주사위 굴리기
     def roll(self, win):
@@ -54,7 +54,11 @@ class Dice:
 def drawDice(win, dices, eyes):
     for dice, eye in zip(dices, eyes):
         dice.draw(win, eye)
-    
+
+def drawSave(win, dices, eyes):
+    for dice, eye in zip(dices, eyes):
+        dice.draw(win, eye)
+
 def diceAnimation(win, dices, lenDice):
     for i in range(0, 11):
         time.sleep(0.1)
@@ -153,11 +157,29 @@ def drawBoard(win):
 def drawScore(win, side, board, newScore=None):
     for i, eachPlayer in enumerate(board):
         for j, oldScore in enumerate(eachPlayer):
+            # Upper
+            if j < 6:
+                height = 100 + 40 * j
+            # Choice
+            elif j == 6: 
+                height = 405
+            # Lower
+            else:
+                height = 450 + 40 * (j - 7)
+
             if oldScore[1] != -1:
-                putNum(win, oldScore[0], (100 + 100 * i, 100 + 100* j))
+                if oldScore[0] > 10:
+                    width = 190 + 100 * i
+                else:
+                    width = 200 + 100 * i
+                putNum(win, oldScore[0], (width, height))
             else:
                 if newScore != None and side == i:
-                    putGreyNum(win, newScore[j], (200 + 100 * i, 100 + 40* j))
+                    if newScore[j] > 9:
+                        width = 190 + 100 * i
+                    else:
+                        width = 200 + 100 * i
+                    putGreyNum(win, newScore[j], (width, height))
 
 def drawButton(win):
     win.blit(YACHT.ROLL, [900, 500])
