@@ -58,7 +58,9 @@ def roll(win, side, board, dicelist):
 
 def onlineRoll(win, side, board, dicelist, diceData):
     data = str(diceData)
-    dice = [int(data[0]), int(data[1]), int(data[2]), int(data[3]), int(data[4])]
+    dice = list()
+    for i in range(len(data)):
+        dice.append(int(data[i]))
     dicelist.setDice(dice)
     allDice = dicelist.giveAllDice()
     score = calculate_score(allDice, board)

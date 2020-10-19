@@ -37,7 +37,7 @@ def lobby(win, sock, key):
                                 stat = request(win, None, sock)
                                 if stat is None:
                                     return
-                                elif stat and yacht(win, sock, 0):
+                                elif stat and yacht(win, sock, 1):
                                     return
 
                             playerList = getPlayers(sock)
@@ -54,7 +54,7 @@ def lobby(win, sock, key):
             elif msg.startswith("gr"):
                 if request(win, msg[2:]):
                     write(sock, "gmOk" + msg[2:])
-                    if yacht(win, sock, 1):
+                    if yacht(win, sock, 0):
                         return
                     else:
                         playerList = getPlayers(sock)
@@ -100,51 +100,47 @@ def yacht(win, sock, player):
                 x, y = event.pos
                 if end == True:
                     return
-                if 900 < x < 1100 and 500 < y < 600:
-                    if turn < 3:
-                        score = roll(win, side, board, dicelist)
-                        diceAnimation(win, dices, dicelist.lenDice())
-                        turn = turn + 1
-                        write(sock, encode("roll", dicelist.getDice()))
-                if turn != 0:
-                    if 310 < y < 400:
-                        for i in range(dicelist.lenDice()):
-                            width = 515 + 20 * i + 90 * i
-                            if width  < x < width + 90:
-                                dicelist.keep_dice(i)
-                                write(sock, encode("keep", i))
-                    if 140 < y < 206:
-                        for j in range(5- dicelist.lenDice()):
-                            width = 375 + 4 * j + 66 * j
-                            if width < x < width + 66:
-                                dicelist.disband_dice(j)
-                                write(sock, encode("disb", j))
-                    if 155 < x < 370:
-                        for i in range(len(board)):
-                            width = 155 + 100 * i
-                            height = 0
-                            if width < x < width + 100:
-                                for j in range(len(board[i])):
-                                    # Upper
-                                    if j < 6:
-                                        height = 100 + 40 * j
-                                    # Choice
-                                    elif j == 6: 
-                                        height = 405
-                                    # Lower
-                                    else:
-                                        height = 450 + 40 * (j - 7)
+                if side == player:
+                    if 900 < x < 1100 and 500 < y < 600:
+                        if turn < 3:
+                            score = roll(win, side, board, dicelist)
+                            write(sock, encode("rol", dicelist.getDice()))
+                            diceAnimation(win, dices, dicelist.lenDice())
+                            turn = turn + 1
+                    if turn != 0:
+                        if 310 < y < 400:
+                            for i in range(dicelist.lenDice()):
+                                width = 515 + 20 * i + 90 * i
+                                if width  < x < width + 90:
+                                    dicelist.keep_dice(i)
+                                    write(sock, encode("kep", [i]))
+                        if 140 < y < 206:
+                            for j in range(5- dicelist.lenDice()):
+                                width = 375 + 4 * j + 66 * j
+                                if width < x < width + 66:
+                                    dicelist.disband_dice(j)
+                                    write(sock, encode("dis", [j]))
+                        if 155 < x < 370:
+                            for i in range(len(board)):
+                                width = 155 + 100 * i
+                                height = 0
+                                if width < x < width + 100:
+                                    for j in range(len(board[i])):
+                                        # Upper
+                                        if j < 6:
+                                            height = 100 + 40 * j
+                                        # Choice
+                                        elif j == 6: 
+                                            height = 405
+                                        # Lower
+                                        else:
+                                            height = 450 + 40 * (j - 7)
 
-                                    if height < y < height + 40:
-                                        sel = [i, j]
-                    else:
-                        sel = [-1, -1]
+                                        if height < y < height + 40:
+                                            sel = [i, j]
+                            
 
         showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total)
-        
-        if isValid(side, player, board, sel):
-            side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
-            total = calcTotalScore(board)
 
         if readable():
             msg = read()
@@ -158,24 +154,25 @@ def yacht(win, sock, player):
             elif side != player:
                 action, data= decode(msg)
 
-                if action == "roll":
+                if action == "rol":
                     score = onlineRoll(win, side, board, dicelist, data)
                     diceAnimation(win, dices, dicelist.lenDice())
                     turn = turn + 1
-                elif action == "keep":
+                elif action == "kep":
                     dicelist.keep_dice(data)
-                elif action == "disb":
+                elif action == "dis":
                     dicelist.disband_dice(data)
-                elif action == "fins":
-                    sel = [data/10 , data % 10]
+                elif action == "fin":
+                    sel = [int(data/10) , data % 10]
                     if isValid(side, player, board, sel):
                         side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
                         total = calcTotalScore(board)
+                        sel = [-1, -1]
                     else:
                         write(sock, "quit")
                         return True
 
         if side == player and isValid(side, player, board, sel):
-            write(sock, encode("fins", i * 10 + j))
+            write(sock, encode("fin", sel))
             side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
             total = calcTotalScore(board)

@@ -93,6 +93,7 @@ def rmBusy(*keys):
 def game(sock1, sock2):
     while True:
         msg = read(sock1)
+        print(msg)
         write(sock2, msg)
         if msg == "quit":
             return True
