@@ -13,9 +13,10 @@ class Score: # 점수 판정, 핸드 랭크
     __all_dice = []
 
 
-    def __init__(self, all_dice):
-        self.__all_dice = all_dice
-        self.__all_dice.sort()
+    def __init__(self, all_dice=None):
+        if all_dice != None:
+            self.__all_dice = all_dice
+            self.__all_dice.sort()
 
 
     def aces_score(self):
@@ -66,21 +67,6 @@ class Score: # 점수 판정, 핸드 랭크
         return s_score
 
 
-    def sub_total_score(self):
-        return (
-            self.aces_score() + 
-            self.deuces_score() + 
-            self.threes_score() + 
-            self.fours_score() +
-            self.fives_score() +
-            self.sixes_score() )
-
-
-    def bonus_score(self):
-        if self.sub_total_score() >= 63:
-            return BONUS_SCORE
-        else:
-            return 0
 
 
     def choice_score(self):
@@ -103,7 +89,7 @@ class Score: # 점수 판정, 핸드 랭크
                 return 0
             else:
                 if self.__all_dice[3] == self.__all_dice[4]:
-                    yacht_score()
+                    self.yacht_score()
                 return sum_of_all_dice
 
 
@@ -153,20 +139,34 @@ class Score: # 점수 판정, 핸드 랭크
                 return YACHT_SCORE
         return 0
 
-
-    def upper_section_score(self):
-        return (self.sub_total_score() + self.bonus_score())
-
-
-    def lower_section_score(self):
+    def sub_total_score(self, board):
         return (
-            self.choice_score() +
-            self.four_of_a_kind_score() +
-            self.fullhouse_score() +
-            self.sstraight_score() +
-            self.lstraight_score() +
-            self.yacht_score())
+            board[0][0] + 
+            board[1][0] + 
+            board[2][0] + 
+            board[3][0] +
+            board[4][0] +
+            board[5][0] )
 
 
-    def total_score(self):
-        return (self.upper_section_score() + self.lower_section_score())
+    def bonus_score(self, board):
+        if self.sub_total_score(board) >= 63:
+            return BONUS_SCORE
+        else:
+            return 0
+
+    def upper_section_score(self, board):
+        return (self.sub_total_score(board) + self.bonus_score(board))
+
+
+    def lower_section_score(self, board):
+        return (
+            board[6][0] + 
+            board[7][0] + 
+            board[8][0] + 
+            board[9][0] +
+            board[10][0])
+
+
+    def total_score(self, board):
+        return (self.upper_section_score(board) + self.lower_section_score(board))

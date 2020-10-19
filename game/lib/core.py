@@ -11,48 +11,59 @@ def isEnd(side):
 def flip(side):
     return int(not side)
 
-def calculate_score(allDice):
-    cal = Score(allDice)
-    ONES = cal.aces_score()
-    TWOS = cal.deuces_score()
-    THREES = cal.threes_score()
-    FOURS = cal.fours_score()
-    FIVES = cal.fives_score()
-    SIXES = cal.sixes_score()
-    CHOICE = cal.choice_score()
-    FOUR_OF_A_KIND = cal.four_of_a_kind_score()
-    FULL_HOUSE = cal.fullhouse_score()
-    SMALL_STRAIGHT = cal.sstraight_score()
-    LARGE_STRAIGHT = cal.lstraight_score()
+def calculate_score(allDice, board):
+    cal = Score(allDice)                            
+    ONES = cal.aces_score()                         #0
+    TWOS = cal.deuces_score()                       #1
+    THREES = cal.threes_score()                     #2
+    FOURS = cal.fours_score()                       #3
+    FIVES = cal.fives_score()                       #4
+    SIXES = cal.sixes_score()                       #5
+    CHOICE = cal.choice_score()                     #6
+    FOUR_OF_A_KIND = cal.four_of_a_kind_score()     #7
+    FULL_HOUSE = cal.fullhouse_score()              #8
+    SMALL_STRAIGHT = cal.sstraight_score()          #9
+    LARGE_STRAIGHT = cal.lstraight_score()          #10
     YACHT = cal.yacht_score()
-    SUB_TOTAL_SCORE = cal.sub_total_score()
-    BONUS_SCORE = cal.bonus_score()
-    UPPER = cal.upper_section_score()
-    LOWER = cal.lower_section_score()
-    TOTAL = cal.total_score()
 
     copy = [ONES, TWOS, THREES, FOURS, FIVES, SIXES,  CHOICE,
-     FOUR_OF_A_KIND, FULL_HOUSE, SMALL_STRAIGHT, LARGE_STRAIGHT, YACHT,
-     SUB_TOTAL_SCORE, BONUS_SCORE, UPPER, LOWER, TOTAL]
+     FOUR_OF_A_KIND, FULL_HOUSE, SMALL_STRAIGHT, LARGE_STRAIGHT, YACHT
+    ]
     return copy
+
+def calcTotalScore(board):
+    cal = Score()
+    total = list()
+    for i in range(2):
+        SUB_TOTAL_SCORE = cal.sub_total_score(board[i])
+        BONUS_SCORE = cal.bonus_score(board[i])
+        UPPER = SUB_TOTAL_SCORE + BONUS_SCORE
+        LOWER = cal.lower_section_score(board[i])
+        TOTAL = UPPER + LOWER
+
+        total.append([SUB_TOTAL_SCORE, BONUS_SCORE, UPPER, LOWER, TOTAL])
+    return total
 
 def roll(win, side, board, dicelist):
     dicelist.roll_dice(win)
     allDice = dicelist.giveAllDice()
-    score = calculate_score(allDice)
+    score = calculate_score(allDice, board)
+
     return score
 
 def turn():
     pass
 
 def isValid(side, player, board, sel):
+    if sel[0] != side:
+        return False
     if sel[0] == -1 or sel[1] == -1:
         return False
     if board[sel[0]][sel[1]][1] == -1:
         return True
     return False
 
-def finishTurn(side, board, score, dicelist, sel):
+def finishTurn(side, board, score, dicelist, sel, turn):
     newSide = flip(side)
     board[sel[0]][sel[1]][0] = score[sel[1]]
     board[sel[0]][sel[1]][1] = 1
@@ -60,7 +71,8 @@ def finishTurn(side, board, score, dicelist, sel):
     newScore = None
     newSel = [-1, -1]
     dicelist.reset()
-    return newSide, newBoard, newScore, newSel
+    newTurn = 0
+    return newSide, newBoard, newScore, newSel, newTurn
 
 
 class Dicelist:

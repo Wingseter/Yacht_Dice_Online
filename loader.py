@@ -155,9 +155,10 @@ class YACHT:
     text_sstraight = font_obj16.render("S.Strght", False, WHITE)
     text_lstraight = font_obj16.render("L.Strght", False, WHITE)
     text_yacht = font_obj16.render("Yacht", False, WHITE)
-    text_com = font_obj24.render("COM", False, WHITE)
+    text_com = font_obj24.render("P2", False, WHITE)
     text_player = font_obj24.render("P1", False, WHITE)
 
-    text_player = font_obj24.render("P1", False, WHITE)
+    PLAYER = font_obj24.render("Player", False, WHITE)
+    TURN = font_obj24.render("Turn", False, WHITE)
 
     ROLL = medium.render("Roll!", True, WHITE)

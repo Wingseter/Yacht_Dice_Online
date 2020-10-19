@@ -1,7 +1,7 @@
 import pygame
 import random
 import time 
-from loader import YACHT, putNum, putGreyNum, WHITE, BLACK
+from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, BLACK
 
 class Dice:
     def __init__(self, x= 0, y=0, width= 0, height=0):
@@ -94,7 +94,7 @@ def drawBoard(win):
     # player
     pygame.draw.rect(win, WHITE, [155, 40, 200, 60], 2)
     pygame.draw.line(win, WHITE, [255, 40], [255, 100], 2)
-    win.blit(YACHT.text_com, [270, 55])
+    win.blit(YACHT.text_com, [280, 55])
     win.blit(YACHT.text_player, [192, 55])
     
     # upper section
@@ -154,7 +154,7 @@ def drawBoard(win):
     pygame.draw.line(win, WHITE, [255, 655], [255, 705], 1)
     win.blit(YACHT.text_total, [53, 670])
 
-def drawScore(win, side, board, newScore=None):
+def drawScore(win, side, board, newScore=None, total= None):
     for i, eachPlayer in enumerate(board):
         for j, oldScore in enumerate(eachPlayer):
             # Upper
@@ -168,7 +168,7 @@ def drawScore(win, side, board, newScore=None):
                 height = 450 + 40 * (j - 7)
 
             if oldScore[1] != -1:
-                if oldScore[0] > 10:
+                if oldScore[0] > 9:
                     width = 190 + 100 * i
                 else:
                     width = 200 + 100 * i
@@ -180,7 +180,31 @@ def drawScore(win, side, board, newScore=None):
                     else:
                         width = 200 + 100 * i
                     putGreyNum(win, newScore[j], (width, height))
+    
+    for i in range(len(total)):
+        for j in range(len(total[i])):
+            if j == 1 or j == 2 or j == 4:
+                if total[i][j] > 9:
+                    width = 190 + 100 * i 
+                else:
+                    width = 200 + 100 * i
+                
+                if j == 1:
+                    height = 332
+                elif j == 2:
+                    height = 363
+                elif j == 4:
+                    height = 660
+                putNum(win, total[i][j], (width ,height))
 
-def drawButton(win):
-    win.blit(YACHT.ROLL, [900, 500])
+def drawButton(win, turn):
+    if turn < 3:
+        win.blit(YACHT.ROLL, [900, 500])
+
+def drawEtc(win, side):
+    win.blit(YACHT.PLAYER, [500, 50])
+    putLargeNum(win, side + 1, [600, 30])
+    win.blit(YACHT.TURN, [650, 50])
+
+    
 

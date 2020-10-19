@@ -6,6 +6,7 @@ from game.lib.core import(
     turn,
     isValid,
     finishTurn,
+    calcTotalScore
 )
 
 from game.lib.gui import (
@@ -16,6 +17,7 @@ from game.lib.gui import (
     drawDice,
     drawSave,
     diceAnimation,
+    drawEtc,
     YACHT,
     Dice,
 )
@@ -35,15 +37,19 @@ def initialize(win):
         ]
     )
 
-    
     dice = Dicelist()
 
-    return side, board, dice
+    score = None
+    turn = 0
 
-def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices):
+
+    return side, board, dice, score, turn
+
+def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total):
     drawBoard(win)
-    drawButton(win)
-    drawScore(win, side, board, score)
+    drawButton(win, turn)
+    drawScore(win, side, board, score, total)
     drawDice(win, dices, dicelist)
     drawSave(win, saveDices, savelist)
+    drawEtc(win, side)
     pygame.display.update()
