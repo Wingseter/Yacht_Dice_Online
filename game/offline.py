@@ -25,12 +25,14 @@ def main(win, player):
     sel = [-1,-1]
     while True:
         clock.tick(25)
-        end = isEnd(side)
+        end = isEnd(board)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
+                if end == True:
+                    return
                 if 900 < x < 1100 and 500 < y < 600:
                     if turn < 3:
                         score = roll(win, side, board, dicelist)

@@ -4,8 +4,12 @@ from tools.utils import emptyRoundRect
 from game.lib.score import *
 
 # 게임 끝났는지 판별
-def isEnd(side):
-    return False
+def isEnd(board):
+    for player in board:
+        for done in player:
+            if done[1] == -1:
+                return False
+    return True
 
 # 턴 전환
 def flip(side):
