@@ -3,7 +3,7 @@ from game.lib.core import(
     Dicelist,
     Score,
     roll,
-    turn,
+    onlineRoll,
     isValid,
     finishTurn,
     calcTotalScore

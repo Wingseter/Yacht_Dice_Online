@@ -33,6 +33,7 @@ def calculate_score(allDice, board):
     copy = [ONES, TWOS, THREES, FOURS, FIVES, SIXES,  CHOICE,
      FOUR_OF_A_KIND, FULL_HOUSE, SMALL_STRAIGHT, LARGE_STRAIGHT, YACHT
     ]
+    print(copy)
     return copy
 
 def calcTotalScore(board):
@@ -55,8 +56,13 @@ def roll(win, side, board, dicelist):
 
     return score
 
-def turn():
-    pass
+def onlineRoll(win, side, board, dicelist, diceData):
+    data = str(diceData)
+    dice = [int(data[0]), int(data[1]), int(data[2]), int(data[3]), int(data[4])]
+    dicelist.setDice(dice)
+    allDice = dicelist.giveAllDice()
+    score = calculate_score(allDice, board)
+    return score
 
 def isValid(side, player, board, sel):
     if sel[0] != side:
@@ -91,6 +97,12 @@ class Dicelist:
         self.__dice = [0,0,0,0,0]
         for i in range(len(self.__dice)):
             self.__dice[i] = random.randint(ACE, SIXES)
+    def getDice(self):
+        return self.__dice
+
+    def setDice(self, diceData):
+        for i in range(len(self.__dice)):
+            self.__dice[i] = diceData[i]
 
     def lenDice(self):
         return len(self.__dice)
