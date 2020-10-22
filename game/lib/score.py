@@ -77,67 +77,66 @@ class Score: # 점수 판정, 핸드 랭크
 
 
     def four_of_a_kind_score(self):
+        kind = set(self.__all_dice)
         sum_of_all_dice = self.choice_score()
-        
-        if self.__all_dice[0] != self.__all_dice[1]:
-            if self.__all_dice[1] != self.__all_dice[4]:
-                return 0
-            else:
+        for i in kind:
+            count = 0
+            for j in self.__all_dice:
+                if i == j:
+                    count += 1
+
+            if count >= 4:
                 return sum_of_all_dice
-        else:
-            if self.__all_dice[0] != self.__all_dice[3]:
-                return 0
-            else:
-                if self.__all_dice[3] == self.__all_dice[4]:
-                    self.yacht_score()
-                return sum_of_all_dice
+
+        return 0
 
 
     def fullhouse_score(self):
+        kind = set(self.__all_dice)
         sum_of_all_dice = self.choice_score()
+        count = [0 for _ in range(6)]
 
-        if self.__all_dice[0] == self.__all_dice[1]:
-            if self.__all_dice[2] == self.__all_dice[4]:
-                return sum_of_all_dice
-            else:
-                return 0
-        elif self.__all_dice[0] == self.__all_dice[2]:
-            if self.__all_dice[3] == self.__all_dice[4]:
-                return sum_of_all_dice
-            else:
-                return 0
-        return 0
+        for i in kind:
+            for j in self.__all_dice:
+                if i == j:
+                    count[i-1] += 1
+
+        if 3 in count and 2 in count:
+            return sum_of_all_dice
+        else:
+            return 0
+       
 
 
     def sstraight_score(self):
-        if self.__all_dice[0] == 1 and self.__all_dice[3] == 4:
-            if self.__all_dice[1] != 3 and self.__all_dice[2] != 2:
-                return SSTRAIGHT_SCORE
-        if self.__all_dice[0] == 2 and self.__all_dice[3] == 5:
-            if self.__all_dice[1] != 4 and self.__all_dice[2] != 3:
-                return SSTRAIGHT_SCORE
-        if self.__all_dice[1] == 2 and self.__all_dice[4] == 5:
-            if self.__all_dice[2] != 4 and self.__all_dice[3] != 3:
-                return SSTRAIGHT_SCORE
-        if self.__all_dice[1] == 3 and self.__all_dice[4] == 6:
-            if self.__all_dice[2] != 5 and self.__all_dice[3] != 4:
-                return SSTRAIGHT_SCORE
-        return 0
+        count = 1
+        for i in range(4):
+            if self.__all_dice[i + 1] - self.__all_dice[i] == 1:
+                count += 1
 
+        if count >= 4:
+            return SSTRAIGHT_SCORE
+        else:
+            return 0
+        
 
     def lstraight_score(self):
-        if self.__all_dice is [1, 2, 3, 4, 5]:
-            return LSTRAIGHT_SCORE
-        if self.__all_dice is [2, 3, 4, 5, 6]:
-            return LSTRAIGHT_SCORE
-        return 0
+        count = 1
+        for i in range(4):
+            if self.__all_dice[i + 1] - self.__all_dice[i] == 1:
+                count += 1
 
+        if count >= 5:
+            return LSTRAIGHT_SCORE
+        else:
+            return 0
+        
 
     def yacht_score(self):
-        for i in range(1, 7):
-            if self.__all_dice[0] == i and self.__all_dice[4] == i:
-                return YACHT_SCORE
-        return 0
+        if len(set(self.__all_dice)) == 1:
+            return YACHT_SCORE
+        else:
+            return 0
 
     def sub_total_score(self, board):
         return (
