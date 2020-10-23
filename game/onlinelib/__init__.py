@@ -112,11 +112,11 @@ def yacht(win, sock, player, LOAD):
                     else:
                         popup(win, "lose" )
                         write(sock, "end")
-                    return True
+                    return False
                 else:
                     if 750 < x < 850 and 10 < y < 110:
                         write(sock, "resign")
-                        return True
+                        return False
 
                 if side == player:
                     if 900 < x < 1100 and 500 < y < 600:
@@ -172,7 +172,7 @@ def yacht(win, sock, player, LOAD):
             elif msg == "quit" or msg == "resign":
                 popup(win, msg)
                 write(sock, "end")
-                return True
+                return False
 
             elif side != player:
                 action, data= decode(msg)
@@ -182,9 +182,9 @@ def yacht(win, sock, player, LOAD):
                     diceAnimation(win, dices, dicelist.lenDice())
                     turn = turn + 1
                 elif action == "kep":
-                    dicelist.keep_dice(data)
+                    dicelist.keep_dice(int(data))
                 elif action == "dis":
-                    dicelist.disband_dice(data)
+                    dicelist.disband_dice(int(data))
                 elif action == "fin":
                     sel = [int(data[:1]) , int(data[1:])]
                     if isValid(side, player, board, sel):

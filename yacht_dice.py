@@ -57,6 +57,7 @@ while running:
     elif qit[0] < x < sum(qit[::2]) and qit[1] < y < sum(qit[1::2]):
         win.blit(MAIN.QUIT_H, qit[:2])
     
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

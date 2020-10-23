@@ -35,7 +35,7 @@ def showLobby(win, key, playerlist):
     
     for cnt, player in enumerate(playerlist):
         pkey, stat = int(player[:4]), player[4]
-        yCord = 170 + cnt * 30
+        yCord = 170 + cnt * 50
         
         putNum(win, cnt + 1, (70, yCord))
         win.blit(ONLINE.DOT, (86, yCord))
