@@ -1,8 +1,8 @@
-
+from tools import sound
 from game.lib import *
 
 # offline 코드
-def main(win, player):
+def main(win, player, LOAD):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
     dices = [
@@ -35,6 +35,7 @@ def main(win, player):
                     return
                 if 900 < x < 1100 and 500 < y < 600:
                     if turn < 3:
+                        sound.play_roll(LOAD)
                         score = roll(win, side, board, dicelist)
                         diceAnimation(win, dices, dicelist.lenDice())
                         turn = turn + 1
@@ -43,11 +44,13 @@ def main(win, player):
                         for i in range(dicelist.lenDice()):
                             width = 515 + 20 * i + 90 * i
                             if width  < x < width + 90:
+                                sound.play_click(LOAD)
                                 dicelist.keep_dice(i)
                     if 140 < y < 206:
                         for j in range(5- dicelist.lenDice()):
                             width = 375 + 4 * j + 66 * j
                             if width < x < width + 66:
+                                sound.play_click(LOAD)
                                 dicelist.disband_dice(j)
                     if 155 < x < 370:
                         for i in range(len(board)):
@@ -66,6 +69,7 @@ def main(win, player):
                                         height = 450 + 40 * (j - 7)
 
                                     if height < y < height + 40:
+                                        sound.play_select(LOAD)
                                         sel = [i, j]
                     else:
                         sel = [-1, -1]

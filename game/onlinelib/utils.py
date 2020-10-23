@@ -1,6 +1,7 @@
 import pygame
 from game.onlinelib.sockutils import *
 from loader import ONLINE, putLargeNum, putNum
+from tools import sound
 
 def showLoading(win, errcode= -1):
     pygame.draw.rect(win, (255, 255, 255), (300, 500, 600, 60))
@@ -54,7 +55,7 @@ def showLobby(win, key, playerlist):
     pygame.display.update()
 
 # 게임 요청
-def request(win, key, sock=None):
+def request(win, key, LOAD, sock=None):
     if sock is None:
         pygame.draw.rect(win, (0, 0, 0), (240, 260, 650, 200))
         pygame.draw.rect(win, (255, 255, 255), (240, 260, 650, 200), 4)
@@ -75,8 +76,10 @@ def request(win, key, sock=None):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if 380 < event.pos[1] < 430:
                         if 370 < event.pos[0] < 470:
+                            sound.play_click(LOAD)
                             return True
                         elif 600 < event.pos[0] < 700:
+                            sound.play_click(LOAD)
                             return False
     else:
         pygame.draw.rect(win, (0, 0, 0), (240, 260, 650, 200))

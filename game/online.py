@@ -2,7 +2,7 @@ from game.onlinelib import *
 import threading
 
 VERSION = "1.0"
-def main(win, addr):
+def main(win, addr, LOAD):
     if addr is None:
         return 
     
@@ -25,7 +25,6 @@ def main(win, addr):
 
     # 서버에서 정보 수신
     msg = read()
-    print(msg)
     if msg == "errVer":
         showLoading(win, 1)
 
@@ -36,7 +35,7 @@ def main(win, addr):
         showLoading(win, 3)
     
     elif msg.startswith("GTag"):
-        lobby(win, sock, int(msg[4:]))
+        lobby(win, sock, int(msg[4:]), LOAD)
 
     sock.close()
     thread.join()

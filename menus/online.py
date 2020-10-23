@@ -1,6 +1,7 @@
 import pygame
 from tools.utils import emptyRoundRect
 from tools.textBox import textBox
+from tools import sound
 from loader import ONLINEMENU as ONLINE, FONT
 
 def showScreen(win):
@@ -20,7 +21,7 @@ def showScreen(win):
     win.blit(ONLINE.CONNECT, (500, 400))
 
 
-def main(win):
+def main(win, LOAD):
     clock = pygame.time.Clock()
 
     serverInput = textBox(FONT, (0, 0, 0), (350, 350, 500, 40))
@@ -42,6 +43,7 @@ def main(win):
 
                 # CONNECT 버튼 클릭
                 if 450 < x < 750 and 400 < y < 480:
+                    sound.play_click(LOAD)
                     return serverInput.text
 
         pygame.display.update()

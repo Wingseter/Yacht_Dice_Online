@@ -2,8 +2,9 @@ from game.onlinelib.utils import *
 from game.lib import *
 from game.lib.utils import encode, decode
 from game.lib.gui import Dice
+from tools import sound
 
-def lobby(win, sock, key):
+def lobby(win, sock, key, LOAD):
     clock = pygame.time.Clock()
 
     playerList = getPlayers(sock)
@@ -23,6 +24,7 @@ def lobby(win, sock, key):
                 x, y = event.pos
                 # 새로고침 했을때
                 if 450 < x < 480 and 120 < y < 150:
+                    sound.play_click(LOAD)
                     playerList = getPlayers(sock)
                     if playerList is None:
                         return
@@ -31,19 +33,20 @@ def lobby(win, sock, key):
                 if 30 < x < 1100:
                     for i in range(len(playerList)):
                         if 172 + 30 * i < y < 208 + 30 * i:
+                            sound.play_click(LOAD)
                             write(sock, "rg" + playerList[i][:4])
                             newMsg = read()
                             if newMsg == "msgOk":
-                                stat = request(win, None, sock)
+                                stat = request(win, None, LOAD, sock)
                                 if stat is None:
                                     return
-                                elif stat and yacht(win, sock, 1):
+                                elif stat and yacht(win, sock, LOAD, 1):
                                     return
 
                             playerList = getPlayers(sock)
                             if playerList is None:
                                 return
-                            showLobby(win, key, playerList)
+                            showLobby(win, key, playerList,)
                             
         if readable():
             msg = read()
@@ -52,9 +55,9 @@ def lobby(win, sock, key):
                 return
 
             elif msg.startswith("gr"):
-                if request(win, msg[2:]):
+                if request(win, msg[2:], LOAD):
                     write(sock, "gmOk" + msg[2:])
-                    if yacht(win, sock, 0):
+                    if yacht(win, sock, 0, LOAD):
                         return
                     else:
                         playerList = getPlayers(sock)
@@ -68,7 +71,7 @@ def lobby(win, sock, key):
 
 
 # offline 코드
-def yacht(win, sock, player):
+def yacht(win, sock, player, LOAD):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
     dices = [
@@ -103,6 +106,7 @@ def yacht(win, sock, player):
                 if side == player:
                     if 900 < x < 1100 and 500 < y < 600:
                         if turn < 3:
+                            sound.play_roll(LOAD)
                             score = roll(win, side, board, dicelist)
                             write(sock, encode("rol", dicelist.getDice()))
                             diceAnimation(win, dices, dicelist.lenDice())
@@ -112,12 +116,14 @@ def yacht(win, sock, player):
                             for i in range(dicelist.lenDice()):
                                 width = 515 + 20 * i + 90 * i
                                 if width  < x < width + 90:
+                                    sound.play_click(LOAD)
                                     dicelist.keep_dice(i)
                                     write(sock, encode("kep", [i]))
                         if 140 < y < 206:
                             for j in range(5- dicelist.lenDice()):
                                 width = 375 + 4 * j + 66 * j
                                 if width < x < width + 66:
+                                    sound.play_click(LOAD)
                                     dicelist.disband_dice(j)
                                     write(sock, encode("dis", [j]))
                         if 155 < x < 370:
@@ -125,6 +131,7 @@ def yacht(win, sock, player):
                                 width = 155 + 100 * i
                                 height = 0
                                 if width < x < width + 100:
+                                    sound.play_select(LOAD)
                                     for j in range(len(board[i])):
                                         # Upper
                                         if j < 6:

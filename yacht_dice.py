@@ -64,12 +64,12 @@ while running:
             
             if offln[0] < x < sum(offln[::2]) and offln[1] < y < sum(offln[1::2]):
                 sound.play_click(LOAD)
-                game.offline(win, 0)
+                game.offline(win, 0, LOAD)
             # 온라인 버튼 클릭
             elif onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
                 sound.play_click(LOAD)
-                server = menus.onlinemenu(win)
-                game.online(win, server)
+                server = menus.onlinemenu(win, LOAD)
+                game.online(win, server, LOAD)
             elif opt[0] < x < sum(opt[::2]) and opt[1] < y < sum(opt[1::2]):
                 sound.play_click(LOAD)
             # 종료 버튼 클릭
