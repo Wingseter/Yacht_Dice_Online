@@ -54,7 +54,8 @@ class MAIN:
     OPTION_H = medium.render("Option", True, GREY)
     QUIT = medium.render("Quit", True, WHITE)
     QUIT_H = medium.render("Quit", True, GREY)
-
+    OPPQUIT = small.render("Your Opponent has left", True, WHITE)
+ 
 class ONLINEMENU:
     HEAD = large.render("Online", True, WHITE)
     with open(os.path.join("res", "texts", "online.txt")) as f:
@@ -100,21 +101,12 @@ class ONLINE:
         vsmall.render("wants to play with you.", True, WHITE),
         vsmall.render("you will play as PLAYER 1.", True, WHITE),
     )
-
-    OPPQUIT = small.render("Your Opponent has left", True, WHITE)
-    RESIGN = small.render("Your Opponent has resigned", True, WHITE)
-    DRAWAGREED = small.render("Draw has been agreed", True, WHITE)
-
-    DRAW = (
-        vsmall.render("Sent a request to your opponent for", True, WHITE),
-        vsmall.render("draw, wait for reply.", True, WHITE),
-    )
-
-    DRAW2 = (
-        vsmall.render("Your opponent is requesting for a", True, WHITE),
-        vsmall.render("draw, please reply.", True, WHITE),
-    )
-
+    WIN = small.render("You Win!", True, WHITE)
+    LOSE = small.render("You Lose..", True, WHITE)
+    OPPQUIT = vsmall.render("Your Opponent has left", True, WHITE)
+    RESIGN = vsmall.render("Your Opponent has resigned", True, WHITE)
+    P1WIN = small.render("Player  1   win", True, WHITE)
+    P2WIN = small.render("Player  2   win", True, WHITE)
     NO = small.render("NO", True, WHITE)
     OK = small.render("OK", True, WHITE)
 
@@ -182,3 +174,13 @@ class YACHT:
     TURN = font_obj24.render("Turn", False, WHITE)
 
     ROLL = medium.render("Roll!", True, WHITE)
+
+    QUIT = medium.render("QUIT", True, WHITE)
+    SURREND = medium.render("RESIGN", True, WHITE)
+    YES = small.render("YES", True, WHITE)
+    NO = small.render("NO", True, WHITE)
+
+    MESSAGE = (
+        vsmall.render("Do you want to quit", True, WHITE),
+        vsmall.render("this game?", True, WHITE),
+    )

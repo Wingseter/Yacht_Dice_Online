@@ -6,7 +6,8 @@ from game.lib.core import(
     onlineRoll,
     isValid,
     finishTurn,
-    calcTotalScore
+    calcTotalScore,
+    whoIsWinner,
 )
 
 from game.lib.gui import (
@@ -20,6 +21,7 @@ from game.lib.gui import (
     drawEtc,
     YACHT,
     Dice,
+    prompt,
 )
 
 def initialize(win):
@@ -45,9 +47,9 @@ def initialize(win):
 
     return side, board, dice, score, turn
 
-def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total):
+def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total, online):
     drawBoard(win)
-    drawButton(win, turn)
+    drawButton(win, turn, online)
     drawScore(win, side, board, score, total)
     drawDice(win, dices, dicelist)
     drawSave(win, saveDices, savelist)

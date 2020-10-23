@@ -2,6 +2,7 @@ import pygame
 from game.onlinelib.sockutils import *
 from loader import ONLINE, putLargeNum, putNum
 from tools import sound
+from tools.utils import emptyRoundRect
 
 def showLoading(win, errcode= -1):
     pygame.draw.rect(win, (255, 255, 255), (300, 500, 600, 60))
@@ -53,6 +54,33 @@ def showLobby(win, key, playerlist):
     putLargeNum(win, key, (650, 650))
 
     pygame.display.update()
+
+def popup(win, typ):
+    emptyRoundRect(win, (255, 255, 255), (300, 350, 600, 160), 4, 4)
+    
+    if typ == "quit":
+        win.blit(ONLINE.OPPQUIT, (350, 377))
+    elif typ == "resign":
+        win.blit(ONLINE.RESIGN, (350, 377))
+    elif typ == "winner1":
+        win.blit(ONLINE.P1WIN, (350, 377))
+    elif typ == "winner2":
+        win.blit(ONLINE.P2WIN, (350, 377))
+    elif typ == "win":
+        win.blit(ONLINE.WIN, (350, 377))
+    elif typ == "lose":
+        win.blit(ONLINE.LOSE, (350, 377))
+
+    win.blit(ONLINE.OK, (525, 440))
+    pygame.draw.rect(win, (255, 255, 255), (520, 440, 100, 50), 2)
+
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if 520 < event.pos[0] < 620:
+                    if 440 < event.pos[1] < 490:
+                        return
 
 # 게임 요청
 def request(win, key, LOAD, sock=None):

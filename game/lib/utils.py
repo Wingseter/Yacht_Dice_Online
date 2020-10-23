@@ -5,4 +5,4 @@ def encode(action, data):
     return msg
 
 def decode(data):
-    return data[0:3], int(data[3:])
+    return data[0:3], data[3:]

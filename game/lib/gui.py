@@ -2,6 +2,7 @@ import pygame
 import random
 import time 
 from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, BLACK
+from tools.utils import emptyRoundRect
 
 class Dice:
     def __init__(self, x= 0, y=0, width= 0, height=0):
@@ -197,14 +198,38 @@ def drawScore(win, side, board, newScore=None, total= None):
                     height = 660
                 putNum(win, total[i][j], (width ,height))
 
-def drawButton(win, turn):
+def drawButton(win, turn, online):
     if turn < 3:
         win.blit(YACHT.ROLL, [900, 500])
+    if online == True:
+        win.blit(YACHT.SURREND, [650, 10])
+    else:
+        win.blit(YACHT.QUIT, [1000, 10])
 
 def drawEtc(win, side):
-    win.blit(YACHT.PLAYER, [500, 50])
-    putLargeNum(win, side + 1, [600, 30])
-    win.blit(YACHT.TURN, [650, 50])
+    win.blit(YACHT.PLAYER, [400, 50])
+    putLargeNum(win, side + 1, [500, 30])
+    win.blit(YACHT.TURN, [550, 50])
 
     
+def prompt(win):
+    emptyRoundRect(win, (255, 255, 255), (300, 350, 600, 160), 4, 4)
+
+    win.blit(YACHT.MESSAGE[0], (350, 365))
+    win.blit(YACHT.MESSAGE[1], (350, 390))
+
+    win.blit(YACHT.YES, (445, 440))
+    win.blit(YACHT.NO, (605, 440))
+    pygame.draw.rect(win, (255, 255, 255), (440, 440, 100, 50), 2)
+    pygame.draw.rect(win, (255, 255, 255), (600, 440, 100, 50), 2)
+
+    pygame.display.flip()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if 440 < event.pos[1] < 490:
+                    if 440 < event.pos[0] < 540:
+                        return True
+                    elif 600 < event.pos[0] < 700:
+                        return False
 

@@ -1,5 +1,6 @@
 from tools import sound
 from game.lib import *
+from game.onlinelib.utils import popup
 
 # offline 코드
 def main(win, player, LOAD):
@@ -23,16 +24,23 @@ def main(win, player, LOAD):
     clock = pygame.time.Clock()
     total = [[0,0,0,0,0], [0,0,0,0,0]]
     sel = [-1,-1]
+    online = False
     while True:
         clock.tick(25)
         end = isEnd(board)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                if prompt(win):
+                    return
+            if end == True:
+                    winner = whoIsWinner(total)
+                    popup(win, "winner" + winner)
+                    return
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
-                if end == True:
-                    return
+                if 1000< x < 1100 and 10 < y < 110:
+                    if prompt(win):
+                        return
                 if 900 < x < 1100 and 500 < y < 600:
                     if turn < 3:
                         sound.play_roll(LOAD)
@@ -71,10 +79,11 @@ def main(win, player, LOAD):
                                     if height < y < height + 40:
                                         sound.play_select(LOAD)
                                         sel = [i, j]
+                                        print(sel)
                     else:
                         sel = [-1, -1]
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online)
         if isValid(side, player, board, sel):
             side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
             total = calcTotalScore(board)

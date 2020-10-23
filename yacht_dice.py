@@ -34,6 +34,7 @@ def showMain():
     win.blit(MAIN.ONLINE, onln[:2]) # Online 버튼
     win.blit(MAIN.OPTION, opt[:2]) # 설정 버튼
     win.blit(MAIN.QUIT, qit[:2]) # 종료 버튼
+    
 
 LOAD = menus.pref.load()
 music = sound.Music()

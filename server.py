@@ -97,7 +97,7 @@ def game(sock1, sock2):
         if msg == "quit":
             return True
 
-        elif msg in ["draw", "resign", "end"]:
+        elif msg in ["resign", "end"]:
             return False
 
 # 플레이어 가 접속 해제되었을때 호출

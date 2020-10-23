@@ -11,6 +11,13 @@ def isEnd(board):
                 return False
     return True
 
+# 승자 판별
+def whoIsWinner(total):
+    if total[0][4] > total[1][4]:
+        return "1"
+    else :
+        return "2"
+
 # 턴 전환
 def flip(side):
     return int(not side)
