@@ -34,7 +34,7 @@ def showLobby(win, key, playerlist):
         win.blit(ONLINE.EMPTY, (100, 220))
     
     for cnt, player in enumerate(playerlist):
-        pkey, stat = int(player[:4]), player[4]
+        pkey, count, stat = int(player[:4]), int(player[4:-1]), player[-1] 
         yCord = 170 + cnt * 50
         
         putNum(win, cnt + 1, (70, yCord))
@@ -45,7 +45,9 @@ def showLobby(win, key, playerlist):
             win.blit(ONLINE.ACTIVE, (350, yCord))
         elif stat == "b":
             win.blit(ONLINE.BUSY, (350, yCord))
-        pygame.draw.rect(win, (255, 255, 255), (70, yCord + 2, 700, 40), 2)
+        putNum(win, count, (800, yCord))
+        win.blit(ONLINE.COUNT, (820, yCord))
+        pygame.draw.rect(win, (255, 255, 255), (70, yCord + 2, 900, 40), 2)
         win.blit(ONLINE.REQ, (500, yCord))
 
     win.blit(ONLINE.YOUARE, (100, 630))

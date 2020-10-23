@@ -83,6 +83,7 @@ class ONLINE:
     PLAYER = vsmall.render("Player", True, WHITE)
     PLAYER2 = small.render("Player", True, WHITE)
     DOT = vsmall.render(".", True, WHITE)
+    COUNT = vsmall.render("WIN", True, WHITE)
 
     ACTIVE = vsmall.render("ACTIVE", True, GREEN)
     BUSY = vsmall.render("BUSY", True, RED)

@@ -108,10 +108,10 @@ def yacht(win, sock, player, LOAD):
                     winner = whoIsWinner(total)
                     if int(winner) == player +1:
                         popup(win, "win")
-                        write(sock, "end")
+                        write(sock, "win")
                     else:
                         popup(win, "lose" )
-                        write(sock, "end")
+                        write(sock, "lose")
                     return False
                 else:
                     if 750 < x < 850 and 10 < y < 110:

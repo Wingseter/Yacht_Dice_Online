@@ -29,7 +29,7 @@ def getTime():
     days, hours = divmod(hours, 24)
     return f"{days} days, {hours} hours, {minutes} minutes, {sec} seconds"
 
-players = []
+players = list()
 busyPpl = set()
 lock = False
 total = 0
@@ -71,10 +71,14 @@ def getByKey(key):
         if player[1] == int(key):
             return player[0]
 
+def countByKey(key):
+    for player in players:
+        if player[1] == int(key):
+            return player[2]
 # 플레이어키 삭제
 def rmKey(key):
     global players
-    players.remove((getByKey(key), key))
+    players.remove((getByKey(key),key, countByKey(key)))
 
 # 플레이어 바쁜것 삭제
 def mkBusy(*keys):
@@ -96,7 +100,16 @@ def game(sock1, sock2):
         write(sock2, msg)
         if msg == "quit":
             return True
-
+        elif msg =="win":
+            for player in players:
+                if player[0] == sock1:
+                    player[2] = player[2] + 1
+            return False
+        elif msg == "lose":
+            for player in players:
+                if player[0] == sock1:
+                    player[2] = 0
+            return False
         elif msg in ["resign", "end"]:
             return False
 
@@ -117,16 +130,16 @@ def player(sock, key):
                 return
             elif msg == "pStat":
                 print(f"플레이어 {key}: 플레이어들의 상태를 요청했습니다.")
-                data = list(zip(*players))[1], list(busyPpl)
+                data = list(zip(*players))[1], list(zip(*players))[2], list(busyPpl)
                 if len(data[0]) - 1 in range(10):
                     write(sock, "enum" + str(len(data[0]) -1))
 
-                for i in data[0]:
+                for i,j in zip(data[0], data[1]):
                     if i != key:
-                        if i in data[1]:
-                            write(sock, str(i) + "b")
+                        if i in data[2]:
+                            write(sock, str(i) + str(j) + "b")
                         else:
-                            write(sock, str(i) + "a")
+                            write(sock, str(i) + str(j) + "a")
             elif msg.startswith("rg"):
                 print(f"플레이어{key}: 플레이어{msg[2:]} 에게 게임 요청했습니다.")
                 oSock = getByKey(msg[2:])
@@ -201,7 +214,7 @@ while True:
         if len(players) < 10:
             if not lock:
                 key = genKey()
-                players.append((newSock, key))
+                players.append([newSock, key, 0])
                 print(f"서버: 성공적으로 연결되었습니다. 게임테그 - {key}")
                 write(newSock, "GTag" + str(key))
                 threading.Thread(target=player, args=(newSock, key)).start()
