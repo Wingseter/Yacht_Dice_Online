@@ -3,6 +3,7 @@ import menus
 import os
 import game
 from loader import MAIN
+from tools import sound
 
 # pygame 시작
 pygame.init()
@@ -34,6 +35,11 @@ def showMain():
     win.blit(MAIN.OPTION, opt[:2]) # 설정 버튼
     win.blit(MAIN.QUIT, qit[:2]) # 종료 버튼
 
+LOAD = [1, 0]
+music = sound.Music()
+music.play(LOAD)
+
+
 # 게임 메인 루프
 while running:
     clock.tick(30)
@@ -57,16 +63,18 @@ while running:
             x, y = event.pos
             
             if offln[0] < x < sum(offln[::2]) and offln[1] < y < sum(offln[1::2]):
+                sound.play_click(LOAD)
                 game.offline(win, 0)
             # 온라인 버튼 클릭
             elif onln[0] < x < sum(onln[::2]) and onln[1] < y < sum(onln[1::2]):
+                sound.play_click(LOAD)
                 server = menus.onlinemenu(win)
-                print(server)
                 game.online(win, server)
             elif opt[0] < x < sum(opt[::2]) and opt[1] < y < sum(opt[1::2]):
-                pass
+                sound.play_click(LOAD)
             # 종료 버튼 클릭
             elif qit[0] < x < sum(qit[::2]) and qit[1] < y < sum(qit[1::2]):
+                sound.play_click(LOAD)
                 running = False
                 
 
