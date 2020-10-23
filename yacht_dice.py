@@ -35,7 +35,7 @@ def showMain():
     win.blit(MAIN.OPTION, opt[:2]) # 설정 버튼
     win.blit(MAIN.QUIT, qit[:2]) # 종료 버튼
 
-LOAD = [1, 0]
+LOAD = menus.pref.load()
 music = sound.Music()
 music.play(LOAD)
 
@@ -72,6 +72,13 @@ while running:
                 game.online(win, server, LOAD)
             elif opt[0] < x < sum(opt[::2]) and opt[1] < y < sum(opt[1::2]):
                 sound.play_click(LOAD)
+                menus.prefmenu(win)
+                LOAD = menus.pref.load()
+                if LOAD[0] and not music.is_playing():
+                    music.play(LOAD)
+
+                if not LOAD[0]:
+                    music.stop()
             # 종료 버튼 클릭
             elif qit[0] < x < sum(qit[::2]) and qit[1] < y < sum(qit[1::2]):
                 sound.play_click(LOAD)

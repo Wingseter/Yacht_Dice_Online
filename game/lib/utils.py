@@ -5,5 +5,4 @@ def encode(action, data):
     return msg
 
 def decode(data):
-    print(data)
     return data[0:3], int(data[3:])

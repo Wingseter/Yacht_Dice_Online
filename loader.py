@@ -93,12 +93,12 @@ class ONLINE:
     MSG1 = (
         vsmall.render("Please wait for the other player to", True, WHITE),
         vsmall.render("accept your request. Game will begin", True, WHITE),
-        vsmall.render("you will play second.", True, WHITE),
+        vsmall.render("you will play as PLAYER 2.", True, WHITE),
     )
     MSG2 = (
         vsmall.render("Player", True, WHITE),
         vsmall.render("wants to play with you.", True, WHITE),
-        vsmall.render("you will play first.", True, WHITE),
+        vsmall.render("you will play as PLAYER 1.", True, WHITE),
     )
 
     OPPQUIT = small.render("Your Opponent has left", True, WHITE)
@@ -117,6 +117,26 @@ class ONLINE:
 
     NO = small.render("NO", True, WHITE)
     OK = small.render("OK", True, WHITE)
+
+class PREF:
+    HEAD = large.render("Preferences", True, WHITE)
+
+    SOUNDS = medium.render("Sounds", True, WHITE)
+   
+    COLON = medium.render(":", True, WHITE)
+
+    TRUE = medium.render("True", True, WHITE)
+    FALSE = medium.render("False", True, WHITE)
+
+    BSAVE = medium.render("Save", True, WHITE)
+  
+    PROMPT = (
+        vsmall.render("Are you sure you want to quit?", True, WHITE),
+        vsmall.render("Any changes will not be saved.", True, WHITE),
+    )
+
+    YES = small.render("YES", True, WHITE)
+    NO = small.render("NO", True, WHITE)
 
 class YACHT:
     dice32 = pygame.image.load("res/img/dice32.png")

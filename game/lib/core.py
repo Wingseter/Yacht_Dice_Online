@@ -33,7 +33,6 @@ def calculate_score(allDice, board):
     copy = [ONES, TWOS, THREES, FOURS, FIVES, SIXES,  CHOICE,
      FOUR_OF_A_KIND, FULL_HOUSE, SMALL_STRAIGHT, LARGE_STRAIGHT, YACHT
     ]
-    print(copy)
     return copy
 
 def calcTotalScore(board):
