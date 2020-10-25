@@ -78,7 +78,7 @@ def countByKey(key):
 # 플레이어키 삭제
 def rmKey(key):
     global players
-    players.remove((getByKey(key),key, countByKey(key)))
+    players.remove([getByKey(key), key, countByKey(key)])
 
 # 플레이어 바쁜것 삭제
 def mkBusy(*keys):
@@ -97,8 +97,8 @@ def rmBusy(*keys):
 def game(sock1, sock2):
     while True:
         msg = read(sock1)
-        write(sock2, msg)
         if msg == "quit":
+            write(sock2, msg)
             return True
         elif msg =="win":
             for player in players:
@@ -110,8 +110,17 @@ def game(sock1, sock2):
                 if player[0] == sock1:
                     player[2] = 0
             return False
-        elif msg in ["resign", "end"]:
+        elif msg == "resign":
+            write(sock2, msg)
+            for player in players:
+                if player[0] == sock1:
+                    player[2] = 0
             return False
+        elif msg == "end":
+            write(sock2, msg)
+            return False
+        else:
+            write(sock2, msg)
 
 # 플레이어 가 접속 해제되었을때 호출
 def onQuit(sock, key):
@@ -211,7 +220,7 @@ while True:
     total += 1
     print("서버: 클라이언트가 연결 시도중입니다.")
     if read(newSock, 3) == VERSION:
-        if len(players) < 10:
+        if len(players) < 30:
             if not lock:
                 key = genKey()
                 players.append([newSock, key, 0])

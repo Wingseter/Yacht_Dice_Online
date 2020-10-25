@@ -3,6 +3,7 @@ from game.lib import *
 from game.lib.utils import encode, decode
 from game.lib.gui import Dice
 from tools import sound
+import time
 
 def lobby(win, sock, key, LOAD):
     clock = pygame.time.Clock()
@@ -46,7 +47,7 @@ def lobby(win, sock, key, LOAD):
                             playerList = getPlayers(sock)
                             if playerList is None:
                                 return
-                            showLobby(win, key, playerList,)
+                            showLobby(win, key, playerList)
                             
         if readable():
             msg = read()
@@ -108,10 +109,10 @@ def yacht(win, sock, player, LOAD):
                     winner = whoIsWinner(total)
                     if int(winner) == player +1:
                         popup(win, "win")
-                        write(sock, "win")
+                        write(sock, "win")  
                     else:
-                        popup(win, "lose" )
-                        write(sock, "lose")
+                        popup(win, "lose")
+                        write(sock, "lose") 
                     return False
                 else:
                     if 750 < x < 850 and 10 < y < 110:
@@ -167,13 +168,16 @@ def yacht(win, sock, player, LOAD):
         if readable():
             msg = read()
             if msg == "close":
-                return True
+                return False
 
-            elif msg == "quit" or msg == "resign":
+            elif msg == "quit":
                 popup(win, msg)
                 write(sock, "end")
                 return False
-
+            elif msg == "resign":
+                popup(win, msg)
+                write(sock, "win")
+                return False
             elif side != player:
                 action, data= decode(msg)
 
@@ -193,7 +197,7 @@ def yacht(win, sock, player, LOAD):
                         sel = [-1, -1]
                     else:
                         write(sock, "quit")
-                        return False
+                        return True
 
         if side == player and isValid(side, player, board, sel):
             write(sock, encode("fin", sel))
