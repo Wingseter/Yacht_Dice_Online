@@ -15,7 +15,7 @@ font_obj18 = pygame.font.Font("res/font/FFFFORWA.TTF", 18)
 font_obj24 = pygame.font.Font("res/font/FFFFORWA.TTF", 24)
 font_obj32 = pygame.font.Font("res/font/FFFFORWA.TTF", 32)
 font_obj52 = pygame.font.Font("res/font/FFFFORWA.TTF", 52)
- 
+
 # 색상 정의
 WHITE = (255, 255, 255)
 GREY = (180, 180, 180)
@@ -29,19 +29,26 @@ GREYNUM = [vsmall.render(str(i), True, GREY) for i in range(10)]
 LNUM = [small.render(str(i), True, WHITE) for i in range(10)]
 
 # 숫자 입력
+
+
 def putNum(win, num, pos):
     for cnt, i in enumerate(list(str(num))):
         win.blit(NUM[int(i)], (pos[0] + (cnt * 20), pos[1]))
 
 # 회색 숫자 입력
+
+
 def putGreyNum(win, num, pos):
     for cnt, i in enumerate(list(str(num))):
         win.blit(GREYNUM[int(i)], (pos[0] + (cnt * 20), pos[1]))
 
 # 큰 숫자 입력
+
+
 def putLargeNum(win, num, pos):
     for cnt, i in enumerate(list(str(num))):
         win.blit(LNUM[int(i)], (pos[0] + (cnt * 30), pos[1]))
+
 
 class MAIN:
     ICON = pygame.image.load(os.path.join("res", "img", "icon.gif"))
@@ -55,17 +62,19 @@ class MAIN:
     QUIT = medium.render("Quit", True, WHITE)
     QUIT_H = medium.render("Quit", True, GREY)
     OPPQUIT = small.render("Your Opponent has left", True, WHITE)
- 
+
+
 class ONLINEMENU:
     HEAD = large.render("Online", True, WHITE)
     with open(os.path.join("res", "texts", "online.txt")) as f:
         TEXT = [vsmall.render(i, True, WHITE)
-        for i in f.read().splitlines()]
-    
+                for i in f.read().splitlines()]
+
     ENTER = small.render("Input Server IP", True, WHITE)
     CLICK = vsmall.render("Click Here", True, WHITE)
     BACK = vsmall.render("Go Back", True, WHITE)
     CONNECT = small.render("Connect", True, WHITE)
+
 
 class ONLINE:
     TRYCONN = vsmall.render("Trying to connect to server....", True, WHITE)
@@ -75,7 +84,7 @@ class ONLINE:
         vsmall.render("[ERR 3] Server is full..,", True, WHITE),
         vsmall.render("[ERR 4] The server is Locked...", True, WHITE),
     ]
-        
+
     EMPTY = small.render("No one's online", True, WHITE)
 
     LOBBY = large.render("Online Lobby", True, WHITE)
@@ -111,18 +120,27 @@ class ONLINE:
     NO = small.render("NO", True, WHITE)
     OK = small.render("OK", True, WHITE)
 
+
 class PREF:
     HEAD = large.render("Preferences", True, WHITE)
 
     SOUNDS = medium.render("Sounds", True, WHITE)
-   
+
+    THEMES = medium.render("Themes", True, WHITE)
+
+    # 주사위 테마
+    DICES = medium.render("Dices", True, WHITE)
+    WHITEDICE = pygame.image.load("res/img/themes_select/white.png")
+    REDDICE = pygame.image.load("res/img/themes_select/red.png")
+    BLUEDICE = pygame.image.load("res/img/themes_select/blue.png")
+
     COLON = medium.render(":", True, WHITE)
 
     TRUE = medium.render("True", True, WHITE)
     FALSE = medium.render("False", True, WHITE)
 
     BSAVE = medium.render("Save", True, WHITE)
-  
+
     PROMPT = (
         vsmall.render("Are you sure you want to quit?", True, WHITE),
         vsmall.render("Any changes will not be saved.", True, WHITE),
@@ -130,6 +148,7 @@ class PREF:
 
     YES = small.render("YES", True, WHITE)
     NO = small.render("NO", True, WHITE)
+
 
 class YACHT:
     dice32 = pygame.image.load("res/img/dice32.png")

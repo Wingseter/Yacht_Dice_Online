@@ -11,26 +11,34 @@ Level of development = STABLE
 import os.path
 import pygame
 from loader import PREF
-from tools.utils import emptyRoundRect
+from tools.utils import emptyRoundRect, solidRoundRect
 
 # 참 거짓을 문자열에서 반환한다
+
+
 def makeBool(x):
     return x.strip() == "True" or x.strip() == "true"
 
 # 사용자 설정 택스트 파일로 저장
+
+
 def save(*params):
     text = ""
     text += "sounds = " + str(params[0]) + '\n'
-    
+
     with open(os.path.join("res", "preferences.txt"), "w") as f:
         f.write(text)
 
 # 사용자 설정 로드
+
+
 def load():
     with open(os.path.join("res", "preferences.txt"), "r") as f:
         return [makeBool(i.split("=")[1]) for i in f.read().splitlines()]
-    
+
 # 사용자 설정 화면
+
+
 def prompt(win):
     emptyRoundRect(win, (255, 255, 255), (300, 350, 600, 160), 4, 4)
 
@@ -53,27 +61,46 @@ def prompt(win):
                         return False
 
 # 옵션 화면 설정
+
+
 def showScreen(win, prefs):
     win.fill((100, 100, 200))
-    
+
     emptyRoundRect(win, (255, 255, 255), (100, 10, 1000, 120), 20, 4)
     emptyRoundRect(win, (255, 255, 255), (10, 150, 1150, 500), 12, 4)
     win.blit(PREF.HEAD, (200, -20))
 
-    
     win.blit(PREF.SOUNDS, (90, 150))
 
     for i in range(len(prefs)):
         win.blit(PREF.COLON, (400, 150 + (i * 60)))
         if prefs[i]:
-            emptyRoundRect(win, (255, 255, 255), (440, 152 + (100 * i), 250, 100), 8, 2)
+            emptyRoundRect(win, (255, 255, 255),
+                           (440, 152 + (100 * i), 250, 100), 8, 2)
         else:
-            emptyRoundRect(win, (255, 255, 255), (750, 152 + (100 * i), 250, 100), 8, 2)
+            emptyRoundRect(win, (255, 255, 255),
+                           (750, 152 + (100 * i), 250, 100), 8, 2)
         win.blit(PREF.TRUE, (470, 150 + (i * 100)))
         win.blit(PREF.FALSE, (770, 150 + (i * 100)))
-    
+
+    # 테마
+    win.blit(PREF.THEMES, (90, 250))
+    win.blit(PREF.COLON, (400, 250))
+    solidRoundRect(win, (210, 110, 0), (500, 275, 64, 64), 10)  # 주황
+    solidRoundRect(win, (255, 100, 180), (600, 275, 64, 64), 10)  # 빨강
+    solidRoundRect(win, (65, 65, 65), (700, 275, 64, 64), 10)  # 검정
+
+    # 다이스
+    win.blit(PREF.DICES, (90, 350))
+    win.blit(PREF.COLON, (400, 350))
+    win.blit(PREF.WHITEDICE, (500, 380))
+    win.blit(PREF.REDDICE, (600, 380))
+    win.blit(PREF.BLUEDICE, (700, 380))
+
     emptyRoundRect(win, (255, 255, 255), (470, 652, 250, 100), 10, 3)
+
     win.blit(PREF.BSAVE, (500, 650))
+
 
 def main(win):
     prefs = load()
@@ -93,5 +120,5 @@ def main(win):
                         if 440 < event.pos[0] < 690:
                             prefs[cnt] = True
                         if 750 < event.pos[0] < 1000:
-                            prefs[cnt] = False                  
+                            prefs[cnt] = False
         pygame.display.update()
