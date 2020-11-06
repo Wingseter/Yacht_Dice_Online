@@ -1,1 +1,5 @@
-sounds = False
+sounds=False
+themes_brown=False
+themes_green=False
+themes_black=True
+themes_sky=False

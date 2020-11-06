@@ -23,8 +23,13 @@ def makeBool(x):
 
 
 def save(*params):
+    print(params)
     text = ""
-    text += "sounds = " + str(params[0]) + '\n'
+    text += "sounds=" + str(params[0]) + '\n'
+    text += "themes_brown=" + str(params[1]) + '\n'
+    text += "themes_green=" + str(params[2]) + '\n'
+    text += "themes_black=" + str(params[3]) + '\n'
+    text += "themes_sky=" + str(params[4]) + '\n'
 
     with open(os.path.join("res", "preferences.txt"), "w") as f:
         f.write(text)
@@ -35,6 +40,15 @@ def save(*params):
 def load():
     with open(os.path.join("res", "preferences.txt"), "r") as f:
         return [makeBool(i.split("=")[1]) for i in f.read().splitlines()]
+
+def load_themes():
+    with open(os.path.join("res", "preferences.txt"), "r") as f:
+        result = f.readlines()
+        temp = result[1].split("=")
+        result_list = temp[1].split("\n")
+        print(result_list[0])
+        return result_list
+# 0, 1, 2 들을 리턴
 
 # 사용자 설정 화면
 
@@ -73,26 +87,39 @@ def showScreen(win, prefs):
     win.blit(PREF.SOUNDS, (90, 150))
 
     for i in range(len(prefs)):
-        win.blit(PREF.COLON, (400, 150 + (i * 60)))
-        if prefs[i]:
+        print(prefs)
+        win.blit(PREF.COLON, (400, 150))
+        if prefs[0]==True:
             emptyRoundRect(win, (255, 255, 255),
-                           (440, 152 + (100 * i), 250, 100), 8, 2)
-        else:
+                           (440, 152, 250, 100), 8, 2)
+        elif prefs[0]==False:
             emptyRoundRect(win, (255, 255, 255),
-                           (750, 152 + (100 * i), 250, 100), 8, 2)
-        win.blit(PREF.TRUE, (470, 150 + (i * 100)))
-        win.blit(PREF.FALSE, (770, 150 + (i * 100)))
+                           (750, 152, 250, 100), 8, 2)
+        win.blit(PREF.TRUE, (470, 150))
+        win.blit(PREF.FALSE, (770, 150))
 
-    # 테마
+    # 백그라운드
     win.blit(PREF.THEMES, (90, 250))
     win.blit(PREF.COLON, (400, 250))
-    solidRoundRect(win, (210, 110, 0), (500, 275, 64, 64), 10)  # 주황
-    solidRoundRect(win, (255, 100, 180), (600, 275, 64, 64), 10)  # 빨강
-    solidRoundRect(win, (65, 65, 65), (700, 275, 64, 64), 10)  # 검정
+
+    emptyRoundRect(win, (255, 255, 255),(490, 265, 84, 84), 8, 2) # 우드 선택
+    emptyRoundRect(win, (255, 255, 255),(590, 265, 84, 84), 8, 2) # 초록 선택
+    emptyRoundRect(win, (255, 255, 255),(690, 265, 84, 84), 8, 2) # 검정 선택
+    emptyRoundRect(win, (255, 255, 255),(790, 265, 84, 84), 8, 2) # 하늘 선택
+
+    solidRoundRect(win, (185, 120, 90), (500, 275, 64, 64), 10)  # 우드
+    solidRoundRect(win, (0, 128, 0), (600, 275, 64, 64), 10)  #  초록
+    solidRoundRect(win, (65, 65, 65), (700, 275, 64, 64), 10)  # 검정 
+    solidRoundRect(win, (100, 200, 200), (800, 275, 64, 64), 10) # 하늘
 
     # 다이스
     win.blit(PREF.DICES, (90, 350))
     win.blit(PREF.COLON, (400, 350))
+
+    emptyRoundRect(win, (255, 255, 255),(490, 370, 84, 84), 8, 2) # 흰주사위 선택
+    emptyRoundRect(win, (255, 255, 255),(590, 370, 84, 84), 8, 2) # 빨강 주사위 선택
+    emptyRoundRect(win, (255, 255, 255),(690, 370, 84, 84), 8, 2) # 파랑 주사위 선택
+    
     win.blit(PREF.WHITEDICE, (500, 380))
     win.blit(PREF.REDDICE, (600, 380))
     win.blit(PREF.BLUEDICE, (700, 380))
@@ -116,9 +143,35 @@ def main(win):
                     save(*prefs)
                     return
                 for cnt in range(len(prefs)):
-                    if 152 + cnt*100 < event.pos[1] < 252 + cnt*100:
+                    if 152 < event.pos[1] < 252:
                         if 440 < event.pos[0] < 690:
-                            prefs[cnt] = True
+                            prefs[0] = True
                         if 750 < event.pos[0] < 1000:
-                            prefs[cnt] = False
+                            prefs[0] = False
+                    if 265 < event.pos[1] < 349:
+                        # 갈색 뒷배경 클릭
+                        if 490 < event.pos[0] < 574:
+                            prefs[1] = True
+                            prefs[2] = False
+                            prefs[3] = False
+                            prefs[4] = False
+                        # 초록 뒷배경 클릭
+                        if 590 < event.pos[0] < 674:
+                            prefs[1] = False
+                            prefs[2] = True
+                            prefs[3] = False
+                            prefs[4] = False
+                        # 검정 뒷배경 클릭
+                        if 690 < event.pos[0] < 774:
+                            prefs[1] = False
+                            prefs[2] = False
+                            prefs[3] = True
+                            prefs[4] = False
+                        # 하늘색 뒷배경 클릭
+                        if 790 < event.pos[0] < 874:
+                            prefs[1] = False
+                            prefs[2] = False
+                            prefs[3] = False
+                            prefs[4] = True
+
         pygame.display.update()
