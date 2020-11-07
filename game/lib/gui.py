@@ -2,10 +2,12 @@ import pygame
 import random
 import time 
 import menus.pref
-from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, BLACK, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
+from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, RED, BLACK, BLUE, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
 from tools.utils import emptyRoundRect
 
 BG_COLOR = (255, 255, 255)
+DICE_COLOR = WHITE
+DICE_DOT = BLACK
 
 # 설정에 따른 백그라운드 변경
 def checkBackground():
@@ -17,9 +19,30 @@ def checkBackground():
         BG_COLOR = BG_GREEN
     elif LOAD_BACKGROUND[3] == True:
         BG_COLOR = BG_BLACK
-    else:
+    elif LOAD_BACKGROUND[4] == True:
         BG_COLOR = BG_SKY
     return BG_COLOR
+
+# 설정에 따른 주사위 테마 변경
+def checkDiceDesign():
+    LOAD_DICE_DESIGN = menus.pref.load()
+    if LOAD_DICE_DESIGN[5] == True:
+        DICE_COLOR = WHITE
+    elif LOAD_DICE_DESIGN[6] == True:
+        DICE_COLOR = RED
+    elif LOAD_DICE_DESIGN[7] == True:
+        DICE_COLOR = BLUE
+    return DICE_COLOR
+
+def checkDiceDot(dice_color):
+    if dice_color == WHITE:
+        DICE_DOT = BLACK
+    elif dice_color == RED:
+        DICE_DOT = WHITE
+    elif dice_color == BLUE:
+        DICE_DOT = WHITE
+    return DICE_DOT
+
 
 class Dice:
     def __init__(self, x= 0, y=0, width= 0, height=0):
@@ -34,7 +57,7 @@ class Dice:
 
     # 주사위 눈에 따른 모습 변화
     def draw(self, win, side):
-        pygame.draw.rect(win, WHITE, (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(win, checkDiceDesign(), (self.x, self.y, self.width, self.height))
 
         # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
         if self.status == 'stopped':
@@ -45,19 +68,19 @@ class Dice:
             self.y = self.tempy
 
         if side == 1 or side == 3 or side == 5:
-            pygame.draw.circle(win, BLACK, (self.x + int(self.width/2)  , self.y + int(self.height/2)), 8, 8)
+            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/2)  , self.y + int(self.height/2)), 8, 8)
         if side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + int(self.width/5)  , self.y + int(self.height/5)), 8, 8)
+            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/5)  , self.y + int(self.height/5)), 8, 8)
         if side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + int(self.width/5)  , self.y + int(self.height/2)), 8, 8)
+            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/5)  , self.y + int(self.height/2)), 8, 8)
         if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + int(self.width/5)  , self.y + int(self.height*4/5)), 8, 8)
+            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/5)  , self.y + int(self.height*4/5)), 8, 8)
         if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + int(self.width*4/5), self.y + int(self.height/5)), 8, 8)
+            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width*4/5), self.y + int(self.height/5)), 8, 8)
         if side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + int(self.width*4/5), self.y + int(self.height/2)), 8, 8)
+            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width*4/5), self.y + int(self.height/2)), 8, 8)
         if side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, BLACK, (self.x + int(self.width*4/5), self.y + int(self.height*4/5)), 8, 8)
+            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width*4/5), self.y + int(self.height*4/5)), 8, 8)
 
     # 주사위 굴리기
     def roll(self, win):
