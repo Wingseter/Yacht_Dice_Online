@@ -1,8 +1,25 @@
 import pygame
 import random
 import time 
-from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, BLACK
+import menus.pref
+from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, BLACK, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
 from tools.utils import emptyRoundRect
+
+BG_COLOR = (255, 255, 255)
+
+# 설정에 따른 백그라운드 변경
+def checkBackground():
+    LOAD_BACKGROUND = menus.pref.load()
+
+    if LOAD_BACKGROUND[1] == True:
+        BG_COLOR = BG_WOOD
+    elif LOAD_BACKGROUND[2] == True:
+        BG_COLOR = BG_GREEN
+    elif LOAD_BACKGROUND[3] == True:
+        BG_COLOR = BG_BLACK
+    else:
+        BG_COLOR = BG_SKY
+    return BG_COLOR
 
 class Dice:
     def __init__(self, x= 0, y=0, width= 0, height=0):
@@ -63,7 +80,7 @@ def drawSave(win, dices, eyes):
 def diceAnimation(win, dices, lenDice):
     for i in range(0, 11):
         time.sleep(0.1)
-        pygame.draw.rect(win, (100, 200, 200), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
+        pygame.draw.rect(win,checkBackground(), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
         for j in range(lenDice):
             if i == 9:
                 dices[j].status = 'finalroll'
@@ -74,7 +91,7 @@ def diceAnimation(win, dices, lenDice):
             pygame.display.update()
 
 def drawBoard(win):
-    win.fill((100, 200, 200))
+    win.fill(checkBackground())
     # updown grid
     pygame.draw.line(win, WHITE, [5, 125], [10, 125], 2)
     pygame.draw.line(win, WHITE, [360, 125], [1275, 125], 2)

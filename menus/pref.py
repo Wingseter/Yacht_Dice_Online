@@ -23,7 +23,7 @@ def makeBool(x):
 
 
 def save(*params):
-    print(params)
+    #print(params)
     text = ""
     text += "sounds=" + str(params[0]) + '\n'
     text += "themes_brown=" + str(params[1]) + '\n'
@@ -43,15 +43,6 @@ def save(*params):
 def load():
     with open(os.path.join("res", "preferences.txt"), "r") as f:
         return [makeBool(i.split("=")[1]) for i in f.read().splitlines()]
-
-def load_themes():
-    with open(os.path.join("res", "preferences.txt"), "r") as f:
-        result = f.readlines()
-        temp = result[1].split("=")
-        result_list = temp[1].split("\n")
-        print(result_list[0])
-        return result_list
-# 0, 1, 2 들을 리턴
 
 # 사용자 설정 화면
 
@@ -90,7 +81,7 @@ def showScreen(win, prefs):
     win.blit(PREF.SOUNDS, (90, 150))
 
     for i in range(len(prefs)):
-        print(prefs)
+        #print(prefs)
         win.blit(PREF.COLON, (400, 150))
         if prefs[0]==True:
             emptyRoundRect(win, (255, 255, 255),

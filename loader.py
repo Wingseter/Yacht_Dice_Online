@@ -23,6 +23,12 @@ BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 RED = (200, 20, 20)
 
+#백그라운드 색상 정의
+BG_WOOD = (185, 120, 90)  # 우드
+BG_GREEN = (0, 128, 0)  #  초록
+BG_BLACK = (65, 65, 65)  # 검정 
+BG_SKY = (100, 200, 200) # 하늘
+
 # 숫자 배열
 NUM = [vsmall.render(str(i), True, WHITE) for i in range(10)]
 GREYNUM = [vsmall.render(str(i), True, GREY) for i in range(10)]
