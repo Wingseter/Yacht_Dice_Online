@@ -78,52 +78,52 @@ def showScreen(win, prefs):
     emptyRoundRect(win, (255, 255, 255), (10, 150, 1150, 500), 12, 4)
     win.blit(PREF.HEAD, (200, -20))
 
-    win.blit(PREF.SOUNDS, (90, 150))
+    win.blit(PREF.SOUNDS, (90, 160))
 
     for i in range(len(prefs)):
         #print(prefs)
-        win.blit(PREF.COLON, (400, 150))
+        win.blit(PREF.COLON, (400, 160))
         if prefs[0]==True:
             emptyRoundRect(win, (255, 255, 255),
-                           (440, 152, 250, 100), 8, 2)
+                           (465, 162, 170, 60), 8, 2)
         elif prefs[0]==False:
             emptyRoundRect(win, (255, 255, 255),
-                           (750, 152, 250, 100), 8, 2)
-        win.blit(PREF.TRUE, (470, 150))
-        win.blit(PREF.FALSE, (770, 150))
+                           (755, 162, 170, 60), 8, 2)
+        win.blit(PREF.TRUE, (490, 160))
+        win.blit(PREF.FALSE, (770, 160))
 
     # 백그라운드
-    win.blit(PREF.THEMES, (90, 250))
-    win.blit(PREF.COLON, (400, 250))
+    win.blit(PREF.THEMES, (90, 230))
+    win.blit(PREF.COLON, (400, 230))
 
     for i in range(len(prefs)):
         if prefs[1] == True:
-            emptyRoundRect(win, (255, 255, 255),(490, 265, 84, 84), 8, 2) # 우드 선택
+            emptyRoundRect(win, (255, 255, 255),(495, 235, 60, 60), 8, 2) # 우드 선택
         elif prefs[2] == True:
-            emptyRoundRect(win, (255, 255, 255),(590, 265, 84, 84), 8, 2) # 초록 선택
+            emptyRoundRect(win, (255, 255, 255),(595, 235, 60, 60), 8, 2) # 초록 선택
         elif prefs[3] == True:
-            emptyRoundRect(win, (255, 255, 255),(690, 265, 84, 84), 8, 2) # 검정 선택
+            emptyRoundRect(win, (255, 255, 255),(695, 235, 60, 60), 8, 2) # 검정 선택
         elif prefs[4] == True:
-            emptyRoundRect(win, (255, 255, 255),(790, 265, 84, 84), 8, 2) # 하늘 선택
-        solidRoundRect(win, (185, 120, 90), (500, 275, 64, 64), 10)  # 우드
-        solidRoundRect(win, (0, 128, 0), (600, 275, 64, 64), 10)  #  초록
-        solidRoundRect(win, (65, 65, 65), (700, 275, 64, 64), 10)  # 검정 
-        solidRoundRect(win, (100, 200, 200), (800, 275, 64, 64), 10) # 하늘
+            emptyRoundRect(win, (255, 255, 255),(795, 235, 60, 60), 8, 2) # 하늘 선택
+        solidRoundRect(win, (185, 120, 90), (500, 240, 50, 50), 10)  # 우드
+        solidRoundRect(win, (0, 128, 0), (600, 240, 50, 50), 10)  #  초록
+        solidRoundRect(win, (65, 65, 65), (700, 240, 50, 50), 10)  # 검정 
+        solidRoundRect(win, (100, 200, 200), (800, 240, 50, 50), 10) # 하늘
 
     # 다이스
-    win.blit(PREF.DICES, (90, 350))
-    win.blit(PREF.COLON, (400, 350))
+    win.blit(PREF.DICES, (90, 300))
+    win.blit(PREF.COLON, (400, 300))
 
     for i in range(len(prefs)):
         if prefs[5] == True:
-            emptyRoundRect(win, (255, 255, 255),(490, 370, 84, 84), 8, 2) # 흰주사위 선택
+            emptyRoundRect(win, (255, 255, 255),(495, 310, 60, 60), 8, 2) # 흰주사위 선택
         elif prefs[6] == True:
-            emptyRoundRect(win, (255, 255, 255),(590, 370, 84, 84), 8, 2) # 빨강 주사위 선택
+            emptyRoundRect(win, (255, 255, 255),(595, 310, 60, 60), 8, 2) # 빨강 주사위 선택
         elif prefs[7] == True:
-            emptyRoundRect(win, (255, 255, 255),(690, 370, 84, 84), 8, 2) # 파랑 주사위 선택
-        win.blit(PREF.WHITEDICE, (500, 380))
-        win.blit(PREF.REDDICE, (600, 380))
-        win.blit(PREF.BLUEDICE, (700, 380))
+            emptyRoundRect(win, (255, 255, 255),(695, 310, 60, 60), 8, 2) # 파랑 주사위 선택
+        win.blit(PREF.WHITEDICE, (500, 315))
+        win.blit(PREF.REDDICE, (600, 315))
+        win.blit(PREF.BLUEDICE, (700, 315))
 
     emptyRoundRect(win, (255, 255, 255), (470, 652, 250, 100), 10, 3)
 
@@ -144,51 +144,51 @@ def main(win):
                     save(*prefs)
                     return
                 for cnt in range(len(prefs)):
-                    if 152 < event.pos[1] < 252:
-                        if 440 < event.pos[0] < 690:
+                    if 170 < event.pos[1] < 220:
+                        if 450 < event.pos[0] < 590:
                             prefs[0] = True
-                        if 750 < event.pos[0] < 1000:
+                        if 730 < event.pos[0] < 970:
                             prefs[0] = False
                     # 뒷배경 바꾸기
-                    if 265 < event.pos[1] < 349:
+                    if 215 < event.pos[1] < 300:
                         # 갈색 뒷배경 클릭
-                        if 490 < event.pos[0] < 574:
+                        if 500 < event.pos[0] < 550:
                             prefs[1] = True
                             prefs[2] = False
                             prefs[3] = False
                             prefs[4] = False
                         # 초록 뒷배경 클릭
-                        if 590 < event.pos[0] < 674:
+                        if 600 < event.pos[0] < 650:
                             prefs[1] = False
                             prefs[2] = True
                             prefs[3] = False
                             prefs[4] = False
                         # 검정 뒷배경 클릭
-                        if 690 < event.pos[0] < 774:
+                        if 700 < event.pos[0] < 750:
                             prefs[1] = False
                             prefs[2] = False
                             prefs[3] = True
                             prefs[4] = False
                         # 하늘색 뒷배경 클릭
-                        if 790 < event.pos[0] < 874:
+                        if 800 < event.pos[0] < 850:
                             prefs[1] = False
                             prefs[2] = False
                             prefs[3] = False
                             prefs[4] = True
                     # 주사위 바꾸기
-                    if 370 < event.pos[1] < 454:
+                    if 315 < event.pos[1] < 365:
                         # 흰 주사위
-                        if 490 < event.pos[0] < 574:
+                        if 490 < event.pos[0] < 540:
                             prefs[5] = True
                             prefs[6] = False
                             prefs[7] = False
                         # 빨강 주사위
-                        if 590 < event.pos[0] < 674:
+                        if 590 < event.pos[0] < 640:
                             prefs[5] = False
                             prefs[6] = True
                             prefs[7] = False
                         # 파랑 주사위
-                        if 690 < event.pos[0] < 774:
+                        if 690 < event.pos[0] < 740:
                             prefs[5] = False
                             prefs[6] = False
                             prefs[7] = True

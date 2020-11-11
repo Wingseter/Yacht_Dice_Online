@@ -131,20 +131,20 @@ class ONLINE:
 class PREF:
     HEAD = large.render("Preferences", True, WHITE)
 
-    SOUNDS = medium.render("Sounds", True, WHITE)
+    SOUNDS = small.render("Sounds", True, WHITE)
 
-    THEMES = medium.render("Themes", True, WHITE)
+    THEMES = small.render("Themes", True, WHITE)
 
     # 주사위 테마
-    DICES = medium.render("Dices", True, WHITE)
+    DICES = small.render("Dices", True, WHITE)
     WHITEDICE = pygame.image.load("res/img/themes_select/white.png")
     REDDICE = pygame.image.load("res/img/themes_select/red.png")
     BLUEDICE = pygame.image.load("res/img/themes_select/blue.png")
 
-    COLON = medium.render(":", True, WHITE)
+    COLON = small.render(":", True, WHITE)
 
-    TRUE = medium.render("True", True, WHITE)
-    FALSE = medium.render("False", True, WHITE)
+    TRUE = small.render("True", True, WHITE)
+    FALSE = small.render("False", True, WHITE)
 
     BSAVE = medium.render("Save", True, WHITE)
 
