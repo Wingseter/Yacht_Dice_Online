@@ -24,6 +24,8 @@ from game.lib.gui import (
     prompt,
     drawHelp,
     drawHelpScreen,
+    is_draw_help,
+    HELP,
 )
 
 def initialize(win):

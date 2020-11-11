@@ -1,7 +1,7 @@
 import pygame
 import random
 import time 
-from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, BLACK
+from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, BLACK, HELP
 from tools.utils import emptyRoundRect
 
 class Dice:
@@ -205,7 +205,7 @@ def drawButton(win, turn, online):
         win.blit(YACHT.SURREND, [650, 10])
     else:
         win.blit(YACHT.QUIT, [1000, 10])
-
+        
 def drawEtc(win, side):
     win.blit(YACHT.PLAYER, [400, 50])
     putLargeNum(win, side + 1, [500, 30])
@@ -238,16 +238,39 @@ def drawHelp(win):
     win.blit(YACHT.help1, [1150, 715])
 
 def drawHelpScreen(win):
-    pygame.draw.rect(win, (200, 20, 20), (5, 5, 357, 710), 4)
-    pygame.draw.rect(win, (200, 20, 20), (380, 30, 360, 70), 4)
-    pygame.draw.rect(win, (200, 20, 20), (368, 135, 358, 77), 4)
-    pygame.draw.rect(win, (200, 20, 20), (980, 30, 186, 70), 4)
-    pygame.draw.rect(win, (200, 20, 20), (500, 298, 570, 120), 4)
-    pygame.draw.rect(win, (200, 20, 20), (890, 520, 207, 77), 4)
-    pygame.display.flip()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if 720 < event.pos[1] < 750:
-                    if 1150 < event.pos[0] < 1190:
-                        return False
+    pygame.draw.rect(win, (200, 20, 20), (5, 5, 357, 710), 4)  #score board
+    pygame.draw.rect(win, (200, 20, 20), (370, 10, 380, 90), 4)  #player / turn
+    pygame.draw.rect(win, (200, 20, 20), (368, 135, 368, 110), 4)  
+    #pygame.draw.rect(win, (200, 20, 20), (980, 30, 186, 70), 4)  #QUIT THIS GAME
+    pygame.draw.rect(win, (200, 20, 20), (500, 298, 570, 165), 4)
+    pygame.draw.rect(win, (200, 20, 20), (850, 510, 340, 128), 4)
+    win.blit(HELP.SCORE_BOARD, [4, 0])
+
+    win.blit(HELP.ACES, [195, 100])
+    win.blit(HELP.TWOS, [195, 140])
+    win.blit(HELP.THREE, [195, 180])
+    win.blit(HELP.FOURS, [195, 220])
+    win.blit(HELP.FIVES, [195, 260])
+    win.blit(HELP.SIXES, [195, 300])
+
+    win.blit(HELP.CHOICE, [195, 405])
+    win.blit(HELP.FOUR_OF_A_KIND, [195, 450])
+    win.blit(HELP.F_HOUSE, [195, 490])
+    win.blit(HELP.S_STRAIGHT, [195, 530])
+    win.blit(HELP.L_STRAIGHT, [195, 570])
+    win.blit(HELP.YACHT, [195, 610])
+
+    win.blit(HELP.PLAYER_TURN, [380, 0])
+    win.blit(HELP.SAVING_DICES, [385, 190])
+    win.blit(HELP.DICES, [560, 400])
+    win.blit(HELP.TO_DO_DICES, [860, 580])
+    time.sleep(0.5)
+    pygame.display.update()
+    #pygame.display.flip()
+
+
+def is_draw_help(x, y):
+    if 1130< x < 1190 and 710 < y < 735:
+        return True
+    elif 1130< x < 1190 and 710 < y < 735:
+        return False

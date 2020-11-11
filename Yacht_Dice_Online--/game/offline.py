@@ -47,6 +47,10 @@ def main(win, player, LOAD):
                         score = roll(win, side, board, dicelist)
                         diceAnimation(win, dices, dicelist.lenDice())
                         turn = turn + 1
+                if 1130< x < 1190 and 710 < y < 735:  
+                    if is_draw_help(x,y):
+                        drawHelpScreen(win)
+                        
                 if turn != 0:
                     if 310 < y < 400:
                         for i in range(dicelist.lenDice()):
@@ -82,9 +86,7 @@ def main(win, player, LOAD):
                                         print(sel)
                     else:
                         sel = [-1, -1]
-                if 1130< x < 1190 and 710 < y < 735:
-                    drawHelpScreen(win)
-                    
+
         showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online)
         if isValid(side, player, board, sel):
             side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)

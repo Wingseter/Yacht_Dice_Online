@@ -186,3 +186,23 @@ class YACHT:
         vsmall.render("Do you want to quit", True, WHITE),
         vsmall.render("this game?", True, WHITE),
     )
+
+class HELP:
+    SCORE_BOARD = small.render("Score board", True, RED)
+    PLAYER_TURN = small.render("Player / turn", True, RED)
+    SAVING_DICES = small.render("saving dices", True, RED)
+    DICES = small.render("dices", True, RED)
+    TO_DO_DICES = small.render("to roll dices", True, RED)
+
+    ACES = vsmall.render("sum of 1", True, RED)
+    TWOS = vsmall.render("sum of 2", True, RED)
+    THREE = vsmall.render("sum of 3", True, RED)
+    FOURS = vsmall.render("sum of 4", True, RED)
+    FIVES = vsmall.render("sum of 5", True, RED)
+    SIXES = vsmall.render("sum of 6", True, RED)
+    CHOICE = vsmall.render("Any combination", True, RED)
+    FOUR_OF_A_KIND = vsmall.render("At least four dice showing the same face", True, RED)
+    F_HOUSE = vsmall.render("Three of one number and two of another", True, RED)
+    S_STRAIGHT = vsmall.render("1-2-3-4-5", True, RED)
+    L_STRAIGHT = vsmall.render("2-3-4-5-6", True, RED)
+    YACHT = vsmall.render("All five dice showing the same face", True, RED)
