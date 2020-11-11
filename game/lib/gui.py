@@ -5,23 +5,8 @@ import menus.pref
 from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, RED, BLACK, BLUE, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
 from tools.utils import emptyRoundRect
 
-BG_COLOR = (255, 255, 255)
-
-
-# 설정에 따른 백그라운드 변경
-def checkBackground(LOAD):
-    if LOAD[1] == True:
-        BG_COLOR = BG_WOOD
-    elif LOAD[2] == True:
-        BG_COLOR = BG_GREEN
-    elif LOAD[3] == True:
-        BG_COLOR = BG_BLACK
-    elif LOAD[4] == True:
-        BG_COLOR = BG_SKY
-    return BG_COLOR
-
 class Dice:
-    def __init__(self, x= 0, y=0, width= 0, height=0):
+    def __init__(self, x, y, width, height, LOAD):
         self.x = x
         self.y = y
         self.width = width
@@ -30,11 +15,6 @@ class Dice:
         self.status = 'stopped'
         self.tempx = x  # 주사위를 원위치 시키기 위한 변수
         self.tempy = y
-        self.diceColor = WHITE
-        self.diceDot = BLACK
-
-    # 주사위 눈에 따른 모습 변화
-    def draw(self, win, side, LOAD):
         if LOAD[5] == True:
             self.diceColor = WHITE
             self.diceDot = BLACK
@@ -45,6 +25,8 @@ class Dice:
             self.diceColor = BLUE
             self.diceDot = WHITE
 
+    # 주사위 눈에 따른 모습 변화
+    def draw(self, win, side, LOAD):
         pygame.draw.rect(win, self.diceColor, (self.x, self.y, self.width, self.height))
 
         # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
@@ -80,6 +62,19 @@ class Dice:
             self.x += random.randint(-4, 4)
             self.y += random.randint(-4, 4)
 
+# 설정에 따른 백그라운드 변경
+def checkBackground(LOAD):
+    BG_COLOR = (255, 255, 255)
+    if LOAD[1] == True:
+        BG_COLOR = BG_WOOD
+    elif LOAD[2] == True:
+        BG_COLOR = BG_GREEN
+    elif LOAD[3] == True:
+        BG_COLOR = BG_BLACK
+    elif LOAD[4] == True:
+        BG_COLOR = BG_SKY
+    return BG_COLOR
+
 def drawDice(win, dices, eyes, LOAD):
     for dice, eye in zip(dices, eyes):
         dice.draw(win, eye, LOAD)
@@ -101,7 +96,7 @@ def diceAnimation(win, dices, lenDice, LOAD):
 
             pygame.display.update()
 
-def drawBoard(win, LOAD):
+def drawBoard(win, charactor, LOAD):
     win.fill(checkBackground(LOAD))
     # updown grid
     pygame.draw.line(win, WHITE, [5, 125], [10, 125], 2)
@@ -123,8 +118,13 @@ def drawBoard(win, LOAD):
     # player
     pygame.draw.rect(win, WHITE, [155, 40, 200, 60], 2)
     pygame.draw.line(win, WHITE, [255, 40], [255, 100], 2)
-    win.blit(YACHT.text_com, [280, 55])
-    win.blit(YACHT.text_player, [192, 55])
+
+    for i, chara in enumerate(charactor):
+        x = 192 + (i * 95) 
+        if chara == True:
+            win.blit(YACHT.MINILISA, [x, 50])
+        else:
+            win.blit(YACHT.MINIBABEL, [x, 50])
     
     # upper section
     pygame.draw.rect(win, WHITE, [15, 100, 340, 300], 2)

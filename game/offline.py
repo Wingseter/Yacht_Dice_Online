@@ -7,19 +7,20 @@ def main(win, player, LOAD):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
     charactor = [LOAD[8], not LOAD[8]]
+    print(charactor)
     dices = [
-        Dice(465+50, 210+100, 100, 100),
-        Dice(575+50, 210+100, 100, 100),
-        Dice(685+50, 210+100, 100, 100),
-        Dice(795+50, 210+100, 100, 100),
-        Dice(905+50, 210+100, 100, 100)
+        Dice(465+50, 210+100, 100, 100, LOAD),
+        Dice(575+50, 210+100, 100, 100, LOAD),
+        Dice(685+50, 210+100, 100, 100, LOAD),
+        Dice(795+50, 210+100, 100, 100, LOAD),
+        Dice(905+50, 210+100, 100, 100, LOAD)
     ]
     saveDices = [
-        Dice(375, 140, 66, 66),
-        Dice(445, 140, 66, 66),
-        Dice(515, 140, 66, 66),
-        Dice(585, 140, 66, 66),
-        Dice(655, 140, 66, 66),
+        Dice(375, 140, 66, 66, LOAD),
+        Dice(445, 140, 66, 66, LOAD),
+        Dice(515, 140, 66, 66, LOAD),
+        Dice(585, 140, 66, 66, LOAD),
+        Dice(655, 140, 66, 66, LOAD),
     ]
     drawDice(win, dices, dicelist.giveAllDice(), LOAD)
     clock = pygame.time.Clock()

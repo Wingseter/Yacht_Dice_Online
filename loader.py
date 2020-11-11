@@ -205,6 +205,8 @@ class YACHT:
     text_yacht = font_obj16.render("Yacht", False, WHITE)
     text_com = font_obj24.render("P2", False, WHITE)
     text_player = font_obj24.render("P1", False, WHITE)
+    MINILISA = pygame.image.load("res/img/charactor/1iconsm.png")
+    MINIBABEL = pygame.image.load("res/img/charactor/2iconsm.png")
 
     PLAYER = font_obj24.render("Player", False, WHITE)
     TURN = font_obj24.render("Turn", False, WHITE)
