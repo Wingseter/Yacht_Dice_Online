@@ -6,43 +6,19 @@ from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, RED, BLACK, BLU
 from tools.utils import emptyRoundRect
 
 BG_COLOR = (255, 255, 255)
-DICE_COLOR = WHITE
-DICE_DOT = BLACK
+
 
 # 설정에 따른 백그라운드 변경
-def checkBackground():
-    LOAD_BACKGROUND = menus.pref.load()
-
-    if LOAD_BACKGROUND[1] == True:
+def checkBackground(LOAD):
+    if LOAD[1] == True:
         BG_COLOR = BG_WOOD
-    elif LOAD_BACKGROUND[2] == True:
+    elif LOAD[2] == True:
         BG_COLOR = BG_GREEN
-    elif LOAD_BACKGROUND[3] == True:
+    elif LOAD[3] == True:
         BG_COLOR = BG_BLACK
-    elif LOAD_BACKGROUND[4] == True:
+    elif LOAD[4] == True:
         BG_COLOR = BG_SKY
     return BG_COLOR
-
-# 설정에 따른 주사위 테마 변경
-def checkDiceDesign():
-    LOAD_DICE_DESIGN = menus.pref.load()
-    if LOAD_DICE_DESIGN[5] == True:
-        DICE_COLOR = WHITE
-    elif LOAD_DICE_DESIGN[6] == True:
-        DICE_COLOR = RED
-    elif LOAD_DICE_DESIGN[7] == True:
-        DICE_COLOR = BLUE
-    return DICE_COLOR
-
-def checkDiceDot(dice_color):
-    if dice_color == WHITE:
-        DICE_DOT = BLACK
-    elif dice_color == RED:
-        DICE_DOT = WHITE
-    elif dice_color == BLUE:
-        DICE_DOT = WHITE
-    return DICE_DOT
-
 
 class Dice:
     def __init__(self, x= 0, y=0, width= 0, height=0):
@@ -54,10 +30,22 @@ class Dice:
         self.status = 'stopped'
         self.tempx = x  # 주사위를 원위치 시키기 위한 변수
         self.tempy = y
+        self.diceColor = WHITE
+        self.diceDot = BLACK
 
     # 주사위 눈에 따른 모습 변화
-    def draw(self, win, side):
-        pygame.draw.rect(win, checkDiceDesign(), (self.x, self.y, self.width, self.height))
+    def draw(self, win, side, LOAD):
+        if LOAD[5] == True:
+            self.diceColor = WHITE
+            self.diceDot = BLACK
+        elif LOAD[6] == True:
+            self.diceColor = RED
+            self.diceDot = WHITE
+        elif LOAD[7] == True:
+            self.diceColor = BLUE
+            self.diceDot = WHITE
+
+        pygame.draw.rect(win, self.diceColor, (self.x, self.y, self.width, self.height))
 
         # 만약 멈춰 있는 상태라면 굴리는 상태로 변환
         if self.status == 'stopped':
@@ -68,53 +56,53 @@ class Dice:
             self.y = self.tempy
 
         if side == 1 or side == 3 or side == 5:
-            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/2)  , self.y + int(self.height/2)), 8, 8)
+            pygame.draw.circle(win, self.diceDot, (self.x + int(self.width/2)  , self.y + int(self.height/2)), 8, 8)
         if side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/5)  , self.y + int(self.height/5)), 8, 8)
+            pygame.draw.circle(win, self.diceDot, (self.x + int(self.width/5)  , self.y + int(self.height/5)), 8, 8)
         if side == 6:
-            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/5)  , self.y + int(self.height/2)), 8, 8)
+            pygame.draw.circle(win, self.diceDot, (self.x + int(self.width/5)  , self.y + int(self.height/2)), 8, 8)
         if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width/5)  , self.y + int(self.height*4/5)), 8, 8)
+            pygame.draw.circle(win, self.diceDot, (self.x + int(self.width/5)  , self.y + int(self.height*4/5)), 8, 8)
         if side == 2 or side == 3 or side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width*4/5), self.y + int(self.height/5)), 8, 8)
+            pygame.draw.circle(win, self.diceDot, (self.x + int(self.width*4/5), self.y + int(self.height/5)), 8, 8)
         if side == 6:
-            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width*4/5), self.y + int(self.height/2)), 8, 8)
+            pygame.draw.circle(win, self.diceDot, (self.x + int(self.width*4/5), self.y + int(self.height/2)), 8, 8)
         if side == 4 or side == 5 or side == 6:
-            pygame.draw.circle(win, checkDiceDot(checkDiceDesign()), (self.x + int(self.width*4/5), self.y + int(self.height*4/5)), 8, 8)
+            pygame.draw.circle(win, self.diceDot, (self.x + int(self.width*4/5), self.y + int(self.height*4/5)), 8, 8)
 
     # 주사위 굴리기
-    def roll(self, win):
+    def roll(self, win, LOAD):
         self.side = random.randint(1, 6)
-        self.draw(win, self.side)
+        self.draw(win, self.side, LOAD)
 
        # 주사위 애니메이션
         if self.status == 'rolling':
             self.x += random.randint(-4, 4)
             self.y += random.randint(-4, 4)
 
-def drawDice(win, dices, eyes):
+def drawDice(win, dices, eyes, LOAD):
     for dice, eye in zip(dices, eyes):
-        dice.draw(win, eye)
+        dice.draw(win, eye, LOAD)
 
 def drawSave(win, dices, eyes):
     for dice, eye in zip(dices, eyes):
         dice.draw(win, eye)
 
-def diceAnimation(win, dices, lenDice):
+def diceAnimation(win, dices, lenDice, LOAD):
     for i in range(0, 11):
         time.sleep(0.1)
-        pygame.draw.rect(win,checkBackground(), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
+        pygame.draw.rect(win,checkBackground(LOAD), (465, 260, 635, 200)) # 주사위 굴리는 패널 부분만 업데이트
         for j in range(lenDice):
             if i == 9:
                 dices[j].status = 'finalroll'
-            dices[j].roll(win)
+            dices[j].roll(win, LOAD)
             if i == 10:
                 dices[j].status = 'stopped'
 
             pygame.display.update()
 
-def drawBoard(win):
-    win.fill(checkBackground())
+def drawBoard(win, LOAD):
+    win.fill(checkBackground(LOAD))
     # updown grid
     pygame.draw.line(win, WHITE, [5, 125], [10, 125], 2)
     pygame.draw.line(win, WHITE, [360, 125], [1275, 125], 2)

@@ -6,6 +6,7 @@ from game.onlinelib.utils import popup
 def main(win, player, LOAD):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
+    charactor = [LOAD[8], not LOAD[8]]
     dices = [
         Dice(465+50, 210+100, 100, 100),
         Dice(575+50, 210+100, 100, 100),
@@ -20,7 +21,7 @@ def main(win, player, LOAD):
         Dice(585, 140, 66, 66),
         Dice(655, 140, 66, 66),
     ]
-    drawDice(win, dices, dicelist.giveAllDice())
+    drawDice(win, dices, dicelist.giveAllDice(), LOAD)
     clock = pygame.time.Clock()
     total = [[0,0,0,0,0], [0,0,0,0,0]]
     sel = [-1,-1]
@@ -45,7 +46,7 @@ def main(win, player, LOAD):
                     if turn < 3:
                         sound.play_roll(LOAD)
                         score = roll(win, side, board, dicelist)
-                        diceAnimation(win, dices, dicelist.lenDice())
+                        diceAnimation(win, dices, dicelist.lenDice(), LOAD)
                         turn = turn + 1
                 if turn != 0:
                     if 310 < y < 400:
@@ -83,7 +84,7 @@ def main(win, player, LOAD):
                     else:
                         sel = [-1, -1]
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD)
         if isValid(side, player, board, sel):
             side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
             total = calcTotalScore(board)
