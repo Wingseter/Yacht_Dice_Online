@@ -70,6 +70,9 @@ class MAIN:
     QUIT_H = medium.render("Quit", True, GREY)
     OPPQUIT = small.render("Your Opponent has left", True, WHITE)
 
+    CHRLISA = pygame.image.load("res/img/charactor/1chr.png")
+    CHRBABEL = pygame.image.load("res/img/charactor/2chr.png")
+
 
 class ONLINEMENU:
     HEAD = large.render("Online", True, WHITE)
@@ -149,9 +152,7 @@ class PREF:
     BSAVE = medium.render("Save", True, WHITE)
     # 케릭터 선택
     CHARACTOR = small.render("charactor", True, WHITE)
-    CHRLISA = pygame.image.load("res/img/charactor/1chr.png")
     ICONLISA = pygame.image.load("res/img/charactor/1icon.png")
-    CHRBABEL = pygame.image.load("res/img/charactor/2chr.png")
     ICONBABEL = pygame.image.load("res/img/charactor/2icon.png")
     TXTLISA = small.render("Lisa", True, WHITE)
     TXTBABEL = small.render("Babel", True, WHITE)

@@ -6,4 +6,4 @@ themes_sky=False
 dices_white=False
 dices_red=True
 dices_blue=False
-charactor=True
+charactor=False

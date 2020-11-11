@@ -20,10 +20,10 @@ running = True
 
 # x, y, width, height
 title = (200, 50, 300, 100)
-offln = (600, 250, 300, 100)
-onln = (600, 350, 300, 100)
-opt = (600, 450, 300, 100)
-qit = (600, 550, 300, 100)
+offln = (650, 250, 300, 100)
+onln = (650, 350, 300, 100)
+opt = (650, 450, 300, 100)
+qit = (650, 550, 300, 100)
 
 
 LOAD = menus.pref.load()
@@ -38,6 +38,12 @@ def showMain(LOAD):
     win.blit(MAIN.ONLINE, onln[:2]) # Online 버튼
     win.blit(MAIN.OPTION, opt[:2]) # 설정 버튼
     win.blit(MAIN.QUIT, qit[:2]) # 종료 버튼
+
+    if LOAD[8]:
+        win.blit(MAIN.CHRLISA, (100, 300))
+    else:
+        win.blit(MAIN.CHRBABEL, (100, 300))
+
     
 # 게임 메인 루프
 while running:
