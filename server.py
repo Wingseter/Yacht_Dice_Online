@@ -5,7 +5,7 @@ import time
 from urllib.request import urlopen
 
 VERSION = "1.0"
-START_TIME = time.perf_counter()
+START_TIME = time.perf_counter() 
 
 print("서버 시작중 잠시만 기다려 주세요.....")
 mainSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

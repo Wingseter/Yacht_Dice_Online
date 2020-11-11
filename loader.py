@@ -147,6 +147,14 @@ class PREF:
     FALSE = small.render("False", True, WHITE)
 
     BSAVE = medium.render("Save", True, WHITE)
+    # 케릭터 선택
+    CHARACTOR = small.render("charactor", True, WHITE)
+    CHRLISA = pygame.image.load("res/img/charactor/1chr.png")
+    ICONLISA = pygame.image.load("res/img/charactor/1icon.png")
+    CHRBABEL = pygame.image.load("res/img/charactor/2chr.png")
+    ICONBABEL = pygame.image.load("res/img/charactor/2icon.png")
+    TXTLISA = small.render("Lisa", True, WHITE)
+    TXTBABEL = small.render("Babel", True, WHITE)
 
     PROMPT = (
         vsmall.render("Are you sure you want to quit?", True, WHITE),

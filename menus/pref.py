@@ -33,13 +33,12 @@ def save(*params):
     text += "dices_white=" + str(params[5]) + '\n'
     text += "dices_red=" + str(params[6]) + '\n'
     text += "dices_blue=" + str(params[7]) + '\n'
+    text += "charactor=" + str(params[8]) + '\n'
 
     with open(os.path.join("res", "preferences.txt"), "w") as f:
         f.write(text)
 
 # 사용자 설정 로드
-
-
 def load():
     with open(os.path.join("res", "preferences.txt"), "r") as f:
         return [makeBool(i.split("=")[1]) for i in f.read().splitlines()]
@@ -81,7 +80,6 @@ def showScreen(win, prefs):
     win.blit(PREF.SOUNDS, (90, 160))
 
     for i in range(len(prefs)):
-        #print(prefs)
         win.blit(PREF.COLON, (400, 160))
         if prefs[0]==True:
             emptyRoundRect(win, (255, 255, 255),
@@ -89,8 +87,8 @@ def showScreen(win, prefs):
         elif prefs[0]==False:
             emptyRoundRect(win, (255, 255, 255),
                            (755, 162, 170, 60), 8, 2)
-        win.blit(PREF.TRUE, (490, 160))
-        win.blit(PREF.FALSE, (770, 160))
+    win.blit(PREF.TRUE, (490, 160))
+    win.blit(PREF.FALSE, (770, 160))
 
     # 백그라운드
     win.blit(PREF.THEMES, (90, 230))
@@ -105,10 +103,10 @@ def showScreen(win, prefs):
             emptyRoundRect(win, (255, 255, 255),(695, 235, 60, 60), 8, 2) # 검정 선택
         elif prefs[4] == True:
             emptyRoundRect(win, (255, 255, 255),(795, 235, 60, 60), 8, 2) # 하늘 선택
-        solidRoundRect(win, (185, 120, 90), (500, 240, 50, 50), 10)  # 우드
-        solidRoundRect(win, (0, 128, 0), (600, 240, 50, 50), 10)  #  초록
-        solidRoundRect(win, (65, 65, 65), (700, 240, 50, 50), 10)  # 검정 
-        solidRoundRect(win, (100, 200, 200), (800, 240, 50, 50), 10) # 하늘
+    solidRoundRect(win, (185, 120, 90), (500, 240, 50, 50), 10)  # 우드
+    solidRoundRect(win, (0, 128, 0), (600, 240, 50, 50), 10)  #  초록
+    solidRoundRect(win, (65, 65, 65), (700, 240, 50, 50), 10)  # 검정 
+    solidRoundRect(win, (100, 200, 200), (800, 240, 50, 50), 10) # 하늘
 
     # 다이스
     win.blit(PREF.DICES, (90, 300))
@@ -121,9 +119,27 @@ def showScreen(win, prefs):
             emptyRoundRect(win, (255, 255, 255),(595, 310, 60, 60), 8, 2) # 빨강 주사위 선택
         elif prefs[7] == True:
             emptyRoundRect(win, (255, 255, 255),(695, 310, 60, 60), 8, 2) # 파랑 주사위 선택
-        win.blit(PREF.WHITEDICE, (500, 315))
-        win.blit(PREF.REDDICE, (600, 315))
-        win.blit(PREF.BLUEDICE, (700, 315))
+    win.blit(PREF.WHITEDICE, (500, 315))
+    win.blit(PREF.REDDICE, (600, 315))
+    win.blit(PREF.BLUEDICE, (700, 315))
+
+
+    # 캐릭터 선택창
+    win.blit(PREF.CHARACTOR, (90, 500))
+    win.blit(PREF.COLON, (400, 500))
+    
+    for i in range(len(prefs)):
+        win.blit(PREF.COLON, (400, 160))
+        if prefs[8]==True:
+            emptyRoundRect(win, (255, 255, 255),
+                        (445, 480, 275, 130), 8, 2)
+        elif prefs[8]==False:
+            emptyRoundRect(win, (255, 255, 255),
+                        (795, 480, 310, 130), 8, 2)
+    win.blit(PREF.TXTLISA, (600, 500))
+    win.blit(PREF.TXTBABEL, (950, 500))
+    win.blit(PREF.ICONLISA, (450, 485))
+    win.blit(PREF.ICONBABEL, (800, 485))
 
     emptyRoundRect(win, (255, 255, 255), (470, 652, 250, 100), 10, 3)
 
@@ -192,5 +208,12 @@ def main(win):
                             prefs[5] = False
                             prefs[6] = False
                             prefs[7] = True
-
+                # 캐릭터 바꾸기
+                if 480 < event.pos[1] < 630:
+                    # 리사
+                    if 445 < event.pos[0] < 720:
+                        prefs[8] = True
+                    # 바벨
+                    if 795 < event.pos[0] < 1070:
+                        prefs[8] = False
         pygame.display.update()

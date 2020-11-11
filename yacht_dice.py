@@ -26,8 +26,12 @@ opt = (600, 450, 300, 100)
 qit = (600, 550, 300, 100)
 
 
+LOAD = menus.pref.load()
+music = sound.Music()
+music.play(LOAD)
+
 # 메인 메뉴
-def showMain():
+def showMain(LOAD):
     win.fill((255, 209, 155))
     win.blit(MAIN.TITLE, title[:2]) # 게임 타이틀
     win.blit(MAIN.OFFLINE, offln[:2]) # Offline 버튼
@@ -35,16 +39,10 @@ def showMain():
     win.blit(MAIN.OPTION, opt[:2]) # 설정 버튼
     win.blit(MAIN.QUIT, qit[:2]) # 종료 버튼
     
-
-LOAD = menus.pref.load()
-music = sound.Music()
-music.play(LOAD)
-
-
 # 게임 메인 루프
 while running:
     clock.tick(30)
-    showMain()
+    showMain(LOAD)
     x, y = pygame.mouse.get_pos()
 
     # 마우스 올라갈때의 효과 설정
