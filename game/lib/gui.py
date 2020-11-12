@@ -148,20 +148,32 @@ def drawBoard(win, charactor, LOAD):
     win.blit(YACHT.dice_fours32, [20, 225])
     win.blit(YACHT.dice_fives32, [20, 265])
     win.blit(YACHT.dice_sixes32, [20, 305])
-    win.blit(YACHT.text_ace, [65, 112])
-    win.blit(YACHT.text_deuces, [65, 152])
-    win.blit(YACHT.text_threes, [65, 192])
-    win.blit(YACHT.text_fours, [65, 232])
-    win.blit(YACHT.text_fives, [65, 272])
-    win.blit(YACHT.text_sixes, [65, 312])
-    win.blit(YACHT.text_subtotal, [34, 360])
-    
+    if LOAD[9] == False:
+        win.blit(YACHT.text_ace_b, [65, 112])
+        win.blit(YACHT.text_deuces_b, [65, 152])
+        win.blit(YACHT.text_threes_b, [65, 192])
+        win.blit(YACHT.text_fours_b, [65, 232])
+        win.blit(YACHT.text_fives_b, [65, 272])
+        win.blit(YACHT.text_sixes_b, [65, 312])
+        win.blit(YACHT.text_subtotal_b, [34, 360])
+    elif LOAD[9] == True:
+        win.blit(YACHT.text_ace_w, [65, 112])
+        win.blit(YACHT.text_deuces_w, [65, 152])
+        win.blit(YACHT.text_threes_w, [65, 192])
+        win.blit(YACHT.text_fours_w, [65, 232])
+        win.blit(YACHT.text_fives_w, [65, 272])
+        win.blit(YACHT.text_sixes_w, [65, 312])
+        win.blit(YACHT.text_subtotal_w, [34, 360])
+
     # choice score
     pygame.draw.rect(win,BOARDCOLOR, [15, 405, 340, 40], 2)
     pygame.draw.line(win, BOARDCOLOR, [155, 405], [155, 445], 4)
     pygame.draw.line(win, BOARDCOLOR, [255, 405], [255, 445], 1)
     win.blit(YACHT.choice32, [20, 410])
-    win.blit(YACHT.text_choice, [65, 415])
+    if LOAD[9] == False:
+        win.blit(YACHT.text_choice_b, [65, 415])
+    elif LOAD[9] == True:
+        win.blit(YACHT.text_choice_w, [65, 415])
     
     # lower section
     pygame.draw.rect(win, BOARDCOLOR, [15, 450, 340, 200], 2)
@@ -176,17 +188,27 @@ def drawBoard(win, charactor, LOAD):
     win.blit(YACHT.sstraight32, [20, 535])
     win.blit(YACHT.lstraight32, [20, 575])
     win.blit(YACHT.yacht32, [20, 615])
-    win.blit(YACHT.text_fourofakind, [65, 460])
-    win.blit(YACHT.text_fullhouse, [65, 500])
-    win.blit(YACHT.text_sstraight, [65, 540])
-    win.blit(YACHT.text_lstraight, [65, 580])
-    win.blit(YACHT.text_yacht, [65, 620])
+    if LOAD[9] == False:
+        win.blit(YACHT.text_fourofakind_b, [65, 460])
+        win.blit(YACHT.text_fullhouse_b, [65, 500])
+        win.blit(YACHT.text_sstraight_b, [65, 540])
+        win.blit(YACHT.text_lstraight_b, [65, 580])
+        win.blit(YACHT.text_yacht_b, [65, 620])
+    elif LOAD[9] == True:
+        win.blit(YACHT.text_fourofakind_w, [65, 460])
+        win.blit(YACHT.text_fullhouse_w, [65, 500])
+        win.blit(YACHT.text_sstraight_w, [65, 540])
+        win.blit(YACHT.text_lstraight_w, [65, 580])
+        win.blit(YACHT.text_yacht_w, [65, 620])        
     
     # total
     pygame.draw.rect(win, BOARDCOLOR, [15, 655, 340, 50], 2)
     pygame.draw.line(win, BOARDCOLOR, [155, 655], [155, 705], 4)
     pygame.draw.line(win, BOARDCOLOR, [255, 655], [255, 705], 1)
-    win.blit(YACHT.text_total, [53, 670])
+    if LOAD[9] == False:
+        win.blit(YACHT.text_total_b, [53, 670])
+    elif LOAD[9] == True:
+         win.blit(YACHT.text_total_w, [53, 670])
 
 def drawScore(win, side, board, newScore=None, total= None):
     for i, eachPlayer in enumerate(board):
@@ -233,16 +255,30 @@ def drawScore(win, side, board, newScore=None, total= None):
 
 def drawButton(win, turn, online, LOAD):
     if turn < 3:
-        win.blit(YACHT.ROLL, [900, 500])
+        if LOAD[9] == False:
+            win.blit(YACHT.ROLL_b, [900, 500])
+        elif LOAD[9] == True:
+            win.blit(YACHT.ROLL_w, [900, 500])
     if online == True:
-        win.blit(YACHT.SURREND, [650, 10])
+        if LOAD[9] == False:
+            win.blit(YACHT.SURREND_b, [650, 10])
+        elif LOAD[9] == True:
+            win.blit(YACHT.SURREND_w, [650, 10])
     else:
-        win.blit(YACHT.QUIT, [1000, 10])
+        if LOAD[9] == False:
+            win.blit(YACHT.QUIT_b, [1000, 10])
+        elif LOAD[9] == True:
+            win.blit(YACHT.QUIT_w, [1000, 10])
+        
 
-def drawEtc(win, side):
-    win.blit(YACHT.PLAYER, [400, 50])
+def drawEtc(win, side, LOAD):
+    if LOAD[9] == False:
+        win.blit(YACHT.PLAYER_b, [400, 50])
+        win.blit(YACHT.TURN_b, [550, 50])
+    elif LOAD[9] == True:
+        win.blit(YACHT.PLAYER_w, [400, 50])
+        win.blit(YACHT.TURN_w, [550, 50])
     putLargeNum(win, side + 1, [500, 30])
-    win.blit(YACHT.TURN, [550, 50])
 
     
 def prompt(win):

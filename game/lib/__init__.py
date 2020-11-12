@@ -53,5 +53,5 @@ def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveD
     drawScore(win, side, board, score, total)
     drawDice(win, dices, dicelist, LOAD)
     drawSave(win, saveDices, savelist)
-    drawEtc(win, side)
+    drawEtc(win, side, LOAD)
     pygame.display.update()

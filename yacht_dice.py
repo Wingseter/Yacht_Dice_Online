@@ -49,6 +49,7 @@ def showMain(LOAD):
 while running:
     clock.tick(30)
     showMain(LOAD)
+
     x, y = pygame.mouse.get_pos()
 
     # 마우스 올라갈때의 효과 설정
