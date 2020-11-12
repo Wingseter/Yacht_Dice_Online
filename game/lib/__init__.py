@@ -52,6 +52,6 @@ def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveD
     drawButton(win, turn, online, LOAD)
     drawScore(win, side, board, score, total)
     drawDice(win, dices, dicelist, LOAD)
-    drawSave(win, saveDices, savelist)
+    drawSave(win, saveDices, savelist, LOAD)
     drawEtc(win, side, LOAD)
     pygame.display.update()

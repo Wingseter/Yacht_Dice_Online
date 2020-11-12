@@ -79,7 +79,7 @@ def drawDice(win, dices, eyes, LOAD):
     for dice, eye in zip(dices, eyes):
         dice.draw(win, eye, LOAD)
 
-def drawSave(win, dices, eyes):
+def drawSave(win, dices, eyes, LOAD):
     for dice, eye in zip(dices, eyes):
         dice.draw(win, eye)
 
