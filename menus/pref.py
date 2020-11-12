@@ -34,7 +34,7 @@ def save(*params):
     text += "dices_red=" + str(params[6]) + '\n'
     text += "dices_blue=" + str(params[7]) + '\n'
     text += "charactor=" + str(params[8]) + '\n'
-    text += "font=" + str(params[8]) + '\n'
+    text += "font=" + str(params[9]) + '\n'
 
     with open(os.path.join("res", "preferences.txt"), "w") as f:
         f.write(text)

@@ -98,26 +98,31 @@ def diceAnimation(win, dices, lenDice, LOAD):
 
 def drawBoard(win, charactor, LOAD):
     win.fill(checkBackground(LOAD))
+    BOARDCOLOR = WHITE
+    if LOAD[9] == False:
+        BOARDCOLOR = BLACK
+    elif LOAD[9] == True:
+        BOARDCOLOR == WHITE
     # updown grid
-    pygame.draw.line(win, WHITE, [5, 125], [10, 125], 2)
-    pygame.draw.line(win, WHITE, [360, 125], [1275, 125], 2)
+    pygame.draw.line(win, BOARDCOLOR, [5, 125], [10, 125], 2)
+    pygame.draw.line(win, BOARDCOLOR, [360, 125], [1275, 125], 2)
     
     # board
-    pygame.draw.rect(win, WHITE, [370, 135, 900, 575], 2)
+    pygame.draw.rect(win, BOARDCOLOR, [370, 135, 900, 575], 2)
     
     # keep disband
-    pygame.draw.rect(win, WHITE, [375, 140, 66, 66], 1)
-    pygame.draw.rect(win, WHITE, [445, 140, 66, 66], 1)
-    pygame.draw.rect(win, WHITE, [515, 140, 66, 66], 1)
-    pygame.draw.rect(win, WHITE, [585, 140, 66, 66], 1)
-    pygame.draw.rect(win, WHITE, [655, 140, 66, 66], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [375, 140, 66, 66], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [445, 140, 66, 66], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [515, 140, 66, 66], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [585, 140, 66, 66], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [655, 140, 66, 66], 1)
     
     # score board
-    pygame.draw.rect(win, WHITE, [10, 10, 350, 700], 2)
+    pygame.draw.rect(win, BOARDCOLOR, [10, 10, 350, 700], 2)
     
     # player
-    pygame.draw.rect(win, WHITE, [155, 40, 200, 60], 2)
-    pygame.draw.line(win, WHITE, [255, 40], [255, 100], 2)
+    pygame.draw.rect(win, BOARDCOLOR, [155, 40, 200, 60], 2)
+    pygame.draw.line(win, BOARDCOLOR, [255, 40], [255, 100], 2)
 
     for i, chara in enumerate(charactor):
         x = 192 + (i * 95) 
@@ -127,16 +132,16 @@ def drawBoard(win, charactor, LOAD):
             win.blit(YACHT.MINIBABEL, [x, 50])
     
     # upper section
-    pygame.draw.rect(win, WHITE, [15, 100, 340, 300], 2)
-    pygame.draw.line(win, WHITE, [15, 140], [355, 140], 2)
-    pygame.draw.line(win, WHITE, [15, 180], [355, 180], 2)
-    pygame.draw.line(win, WHITE, [15, 220], [355, 220], 2)
-    pygame.draw.line(win, WHITE, [15, 260], [355, 260], 2)
-    pygame.draw.line(win, WHITE, [15, 300], [355, 300], 2)
-    pygame.draw.line(win, WHITE, [15, 340], [355, 340], 2)
-    pygame.draw.line(win, WHITE, [155, 365], [355, 365], 1)
-    pygame.draw.line(win, WHITE, [155, 100], [155, 400], 4)
-    pygame.draw.line(win, WHITE, [255, 100], [255, 400], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [15, 100, 340, 300], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 140], [355, 140], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 180], [355, 180], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 220], [355, 220], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 260], [355, 260], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 300], [355, 300], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 340], [355, 340], 2)
+    pygame.draw.line(win, BOARDCOLOR, [155, 365], [355, 365], 1)
+    pygame.draw.line(win, BOARDCOLOR, [155, 100], [155, 400], 4)
+    pygame.draw.line(win, BOARDCOLOR, [255, 100], [255, 400], 1)
     win.blit(YACHT.dice_ace32, [20, 105])
     win.blit(YACHT.dice_deuces32, [20, 145])
     win.blit(YACHT.dice_threes32, [20, 185])
@@ -152,20 +157,20 @@ def drawBoard(win, charactor, LOAD):
     win.blit(YACHT.text_subtotal, [34, 360])
     
     # choice score
-    pygame.draw.rect(win,WHITE, [15, 405, 340, 40], 2)
-    pygame.draw.line(win, WHITE, [155, 405], [155, 445], 4)
-    pygame.draw.line(win, WHITE, [255, 405], [255, 445], 1)
+    pygame.draw.rect(win,BOARDCOLOR, [15, 405, 340, 40], 2)
+    pygame.draw.line(win, BOARDCOLOR, [155, 405], [155, 445], 4)
+    pygame.draw.line(win, BOARDCOLOR, [255, 405], [255, 445], 1)
     win.blit(YACHT.choice32, [20, 410])
     win.blit(YACHT.text_choice, [65, 415])
     
     # lower section
-    pygame.draw.rect(win, WHITE, [15, 450, 340, 200], 2)
-    pygame.draw.line(win, WHITE, [15, 490], [355, 490], 2)
-    pygame.draw.line(win, WHITE, [15, 530], [355, 530], 2)
-    pygame.draw.line(win, WHITE, [15, 570], [355, 570], 2)
-    pygame.draw.line(win, WHITE, [15, 610], [355, 610], 2)
-    pygame.draw.line(win, WHITE, [155, 450], [155, 650], 4)
-    pygame.draw.line(win, WHITE, [255, 450], [255, 650], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [15, 450, 340, 200], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 490], [355, 490], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 530], [355, 530], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 570], [355, 570], 2)
+    pygame.draw.line(win, BOARDCOLOR, [15, 610], [355, 610], 2)
+    pygame.draw.line(win, BOARDCOLOR, [155, 450], [155, 650], 4)
+    pygame.draw.line(win, BOARDCOLOR, [255, 450], [255, 650], 1)
     win.blit(YACHT.fourofakind32, [20, 455])
     win.blit(YACHT.fullhouse32, [20, 495])
     win.blit(YACHT.sstraight32, [20, 535])
@@ -178,9 +183,9 @@ def drawBoard(win, charactor, LOAD):
     win.blit(YACHT.text_yacht, [65, 620])
     
     # total
-    pygame.draw.rect(win, WHITE, [15, 655, 340, 50], 2)
-    pygame.draw.line(win, WHITE, [155, 655], [155, 705], 4)
-    pygame.draw.line(win, WHITE, [255, 655], [255, 705], 1)
+    pygame.draw.rect(win, BOARDCOLOR, [15, 655, 340, 50], 2)
+    pygame.draw.line(win, BOARDCOLOR, [155, 655], [155, 705], 4)
+    pygame.draw.line(win, BOARDCOLOR, [255, 655], [255, 705], 1)
     win.blit(YACHT.text_total, [53, 670])
 
 def drawScore(win, side, board, newScore=None, total= None):
@@ -226,7 +231,7 @@ def drawScore(win, side, board, newScore=None, total= None):
                     height = 660
                 putNum(win, total[i][j], (width ,height))
 
-def drawButton(win, turn, online):
+def drawButton(win, turn, online, LOAD):
     if turn < 3:
         win.blit(YACHT.ROLL, [900, 500])
     if online == True:

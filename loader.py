@@ -24,6 +24,14 @@ GREEN = (0, 255, 0)
 RED = (200, 20, 20)
 BLUE = (0, 160, 230)
 
+#폰트 색 정의
+def checkFont(LOAD):
+    if LOAD[9] == False:
+        FONTCOLOR = BLACK
+    elif LOAD[9] == True:
+        FONTCOLOR = WHITE
+FONTCOLOR = (0, 0, 0)
+
 #백그라운드 색상 정의
 BG_WOOD = (185, 120, 90)  # 우드
 BG_GREEN = (0, 128, 0)  #  초록
@@ -170,6 +178,7 @@ class PREF:
 
 
 class YACHT:
+    
     dice32 = pygame.image.load("res/img/dice32.png")
     dice64 = pygame.image.load("res/img/dice64.png")
     dice_ace32 = pygame.image.load("res/img/ace32.png")
@@ -191,33 +200,33 @@ class YACHT:
     lstraight32 = pygame.image.load("res/img/lstraight32.png")
     yacht32 = pygame.image.load("res/img/yacht32.png")
 
-    text_title = font_obj52.render("Yacht Dice", False, WHITE)
-    text_total = font_obj18.render("Total", False, WHITE)
-    text_ace = font_obj16.render("Ace", False, WHITE)
-    text_deuces = font_obj16.render("Deuces", False, WHITE)
-    text_threes = font_obj16.render("Threes", False, WHITE)
-    text_fours = font_obj16.render("Fours", False, WHITE)
-    text_fives = font_obj16.render("Fives", False, WHITE)
-    text_sixes = font_obj16.render("Sixes", False, WHITE)
-    text_subtotal = font_obj18.render("SubTotal", False, WHITE)
-    text_choice = font_obj16.render("Choice", False, WHITE)
-    text_fourofakind = font_obj16.render("Quads", False, WHITE)
-    text_fullhouse = font_obj16.render("F.House", False, WHITE)
-    text_sstraight = font_obj16.render("S.Strght", False, WHITE)
-    text_lstraight = font_obj16.render("L.Strght", False, WHITE)
-    text_yacht = font_obj16.render("Yacht", False, WHITE)
-    text_com = font_obj24.render("P2", False, WHITE)
-    text_player = font_obj24.render("P1", False, WHITE)
+    text_title = font_obj52.render("Yacht Dice", False, FONTCOLOR)
+    text_total = font_obj18.render("Total", False, FONTCOLOR)
+    text_ace = font_obj16.render("Ace", False, FONTCOLOR)
+    text_deuces = font_obj16.render("Deuces", False, FONTCOLOR)
+    text_threes = font_obj16.render("Threes", False, FONTCOLOR)
+    text_fours = font_obj16.render("Fours", False, FONTCOLOR)
+    text_fives = font_obj16.render("Fives", False, FONTCOLOR)
+    text_sixes = font_obj16.render("Sixes", False, FONTCOLOR)
+    text_subtotal = font_obj18.render("SubTotal", False, FONTCOLOR)
+    text_choice = font_obj16.render("Choice", False, FONTCOLOR)
+    text_fourofakind = font_obj16.render("Quads", False, FONTCOLOR)
+    text_fullhouse = font_obj16.render("F.House", False, FONTCOLOR)
+    text_sstraight = font_obj16.render("S.Strght", False, FONTCOLOR)
+    text_lstraight = font_obj16.render("L.Strght", False, FONTCOLOR)
+    text_yacht = font_obj16.render("Yacht", False, FONTCOLOR)
+    text_com = font_obj24.render("P2", False, FONTCOLOR)
+    text_player = font_obj24.render("P1", False, FONTCOLOR)
     MINILISA = pygame.image.load("res/img/charactor/1iconsm.png")
     MINIBABEL = pygame.image.load("res/img/charactor/2iconsm.png")
 
-    PLAYER = font_obj24.render("Player", False, WHITE)
-    TURN = font_obj24.render("Turn", False, WHITE)
+    PLAYER = font_obj24.render("Player", False, FONTCOLOR)
+    TURN = font_obj24.render("Turn", False, FONTCOLOR)
 
-    ROLL = medium.render("Roll!", True, WHITE)
+    ROLL = medium.render("Roll!", True, FONTCOLOR)
 
-    QUIT = medium.render("QUIT", True, WHITE)
-    SURREND = medium.render("RESIGN", True, WHITE)
+    QUIT = medium.render("QUIT", True, FONTCOLOR)
+    SURREND = medium.render("RESIGN", True, FONTCOLOR)
     YES = small.render("YES", True, WHITE)
     NO = small.render("NO", True, WHITE)
 

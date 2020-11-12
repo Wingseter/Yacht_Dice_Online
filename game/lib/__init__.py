@@ -49,7 +49,7 @@ def initialize(win):
 
 def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total, online, charactor, LOAD):
     drawBoard(win, charactor, LOAD)
-    drawButton(win, turn, online)
+    drawButton(win, turn, online, LOAD)
     drawScore(win, side, board, score, total)
     drawDice(win, dices, dicelist, LOAD)
     drawSave(win, saveDices, savelist)
