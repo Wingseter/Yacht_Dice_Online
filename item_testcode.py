@@ -46,13 +46,13 @@ def roll(win, side, board, dicelist, item_num):
         allDice = dicelist.giveAllDice()
         score = calculate_score(allDice, board)
 
-    def roll_dice(self, win, item_num): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
-        if item_num == 0:
-            for i in range(len(self.__dice)):
-                self.__dice[i] = random.randint(ACE, SIXES)
-        elif item_num == 1:
-            for i in range(len(self.__dice)):
-                self.__dice[i] = random.randint(ACE, SIXES, 2)
-        elif item_num == 2:
-            for i in range(len(self.__dice)):
-                self.__dice[i] = random.randint(DEUCES, SIXES, 2)
+def roll_dice(self, win, item_num): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
+    if item_num == 0:
+        for i in range(len(self.__dice)):
+            self.__dice[i] = random.randint(ACE, SIXES)
+    elif item_num == 1:
+        for i in range(len(self.__dice)):
+            self.__dice[i] = random.randint(ACE, SIXES, 2)
+    elif item_num == 2:
+        for i in range(len(self.__dice)):
+            self.__dice[i] = random.randint(DEUCES, SIXES, 2)
