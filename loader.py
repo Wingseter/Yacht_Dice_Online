@@ -138,6 +138,8 @@ class PREF:
 
     THEMES = small.render("Themes", True, WHITE)
 
+    FONTS = small.render("Fonts", True, WHITE)
+
     # 주사위 테마
     DICES = small.render("Dices", True, WHITE)
     WHITEDICE = pygame.image.load("res/img/themes_select/white.png")
@@ -150,6 +152,7 @@ class PREF:
     FALSE = small.render("False", True, WHITE)
 
     BSAVE = medium.render("Save", True, WHITE)
+
     # 케릭터 선택
     CHARACTOR = small.render("charactor", True, WHITE)
     ICONLISA = pygame.image.load("res/img/charactor/1icon.png")
