@@ -7,4 +7,4 @@ dices_white=False
 dices_red=False
 dices_blue=True
 charactor=False
-font=False
+font=True

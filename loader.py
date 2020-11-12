@@ -31,16 +31,21 @@ BG_BLACK = (65, 65, 65)  # 검정
 BG_SKY = (100, 200, 200) # 하늘
 
 # 숫자 배열
-NUM = [vsmall.render(str(i), True, WHITE) for i in range(10)]
+NUM_w = [vsmall.render(str(i), True, WHITE) for i in range(10)]
+NUM_b = [vsmall.render(str(i), True, BLACK) for i in range(10)]
 GREYNUM = [vsmall.render(str(i), True, GREY) for i in range(10)]
-LNUM = [small.render(str(i), True, WHITE) for i in range(10)]
+LNUM_w = [small.render(str(i), True, WHITE) for i in range(10)]
+LNUM_b = [small.render(str(i), True, BLACK) for i in range(10)]
 
 # 숫자 입력
 
 
-def putNum(win, num, pos):
+def putNum(win, num, pos, LOAD):
     for cnt, i in enumerate(list(str(num))):
-        win.blit(NUM[int(i)], (pos[0] + (cnt * 20), pos[1]))
+        if LOAD[9] == False:
+            win.blit(NUM_b[int(i)], (pos[0] + (cnt * 20), pos[1]))
+        elif LOAD[9] == True:
+            win.blit(NUM_w[int(i)], (pos[0] + (cnt * 20), pos[1]))
 
 # 회색 숫자 입력
 
@@ -52,9 +57,13 @@ def putGreyNum(win, num, pos):
 # 큰 숫자 입력
 
 
-def putLargeNum(win, num, pos):
+def putLargeNum(win, num, pos, LOAD):
     for cnt, i in enumerate(list(str(num))):
-        win.blit(LNUM[int(i)], (pos[0] + (cnt * 30), pos[1]))
+        if LOAD[9] == False:
+            win.blit(LNUM_b[int(i)], (pos[0] + (cnt * 30), pos[1]))
+        elif LOAD[9] == True:
+            win.blit(LNUM_w[int(i)], (pos[0] + (cnt * 30), pos[1]))
+
 
 
 class MAIN:

@@ -210,7 +210,7 @@ def drawBoard(win, charactor, LOAD):
     elif LOAD[9] == True:
          win.blit(YACHT.text_total_w, [53, 670])
 
-def drawScore(win, side, board, newScore=None, total= None):
+def drawScore(win, side, board, LOAD, newScore=None, total= None):
     for i, eachPlayer in enumerate(board):
         for j, oldScore in enumerate(eachPlayer):
             # Upper
@@ -228,7 +228,7 @@ def drawScore(win, side, board, newScore=None, total= None):
                     width = 190 + 100 * i
                 else:
                     width = 200 + 100 * i
-                putNum(win, oldScore[0], (width, height))
+                putNum(win, oldScore[0], (width, height), LOAD)
             else:
                 if newScore != None and side == i:
                     if newScore[j] > 9:
@@ -251,7 +251,7 @@ def drawScore(win, side, board, newScore=None, total= None):
                     height = 363
                 elif j == 4:
                     height = 660
-                putNum(win, total[i][j], (width ,height))
+                putNum(win, total[i][j], (width ,height), LOAD)
 
 def drawButton(win, turn, online, LOAD):
     if turn < 3:
@@ -278,7 +278,7 @@ def drawEtc(win, side, LOAD):
     elif LOAD[9] == True:
         win.blit(YACHT.PLAYER_w, [400, 50])
         win.blit(YACHT.TURN_w, [550, 50])
-    putLargeNum(win, side + 1, [500, 30])
+    putLargeNum(win, side + 1, [500, 30], LOAD)
 
     
 def prompt(win):
