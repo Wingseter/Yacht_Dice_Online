@@ -2,6 +2,7 @@ from game.onlinelib import *
 import threading
 
 VERSION = "1.0"
+
 def main(win, addr, LOAD):
     if addr is None:
         return 
@@ -20,8 +21,9 @@ def main(win, addr, LOAD):
     thread = threading.Thread(target=bgThread, args=(sock,))
     thread.start()
 
+    charactor = lambda chara: "1" if chara else "2"
     # 서버에 클라이언트의 버전 전송
-    write(sock, VERSION)
+    write(sock, VERSION + charactor(LOAD[8]))
 
     # 서버에서 정보 수신
     msg = read()

@@ -71,16 +71,17 @@ def getByKey(key):
         if player[1] == int(key):
             return player[0]
 
-def countByKey(key):
+def AllByKey(key):
     for player in players:
         if player[1] == int(key):
-            return player[2]
+            return player[2], player[3]
 # 플레이어키 삭제
 def rmKey(key):
     global players
-    players.remove([getByKey(key), key, countByKey(key)])
+    count, chara = AllByKey(key)
+    players.remove([getByKey(key), key, count, chara])
 
-# 플레이어 바쁜것 삭제
+# 플레이어 바쁜것 만들기
 def mkBusy(*keys):
     global busyPpl
     for key in keys:
@@ -139,9 +140,9 @@ def player(sock, key):
                 return
             elif msg == "pStat":
                 print(f"플레이어 {key}: 플레이어들의 상태를 요청했습니다.")
-                data = list(zip(*players))[1], list(zip(*players))[2], list(busyPpl)
+                data = list(zip(*players))[1], list(zip(*players))[2], list(busyPpl), 
                 if len(data[0]) - 1 in range(10):
-                    write(sock, "enum" + str(len(data[0]) -1))
+                    write(sock, "enu" + str(len(data[0]) -1))
 
                 for i,j in zip(data[0], data[1]):
                     if i != key:
@@ -219,11 +220,14 @@ while True:
 
     total += 1
     print("서버: 클라이언트가 연결 시도중입니다.")
-    if read(newSock, 3) == VERSION:
+    msg = read(newSock, 3)
+    version = msg[0:3]
+    chara = msg[3:]
+    if version == VERSION:
         if len(players) < 30:
             if not lock:
                 key = genKey()
-                players.append([newSock, key, 0])
+                players.append([newSock, key, 0, chara])
                 print(f"서버: 성공적으로 연결되었습니다. 게임테그 - {key}")
                 write(newSock, "GTag" + str(key))
                 threading.Thread(target=player, args=(newSock, key)).start()
