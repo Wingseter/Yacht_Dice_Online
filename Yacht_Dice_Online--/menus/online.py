@@ -3,10 +3,14 @@ from tools.utils import emptyRoundRect
 from tools.textBox import textBox
 from tools import sound
 from loader import ONLINEMENU as ONLINE, FONT
+from game.lib.gui import drawHelp_server, drawHelpScreen_server, is_draw_help
 
 def showScreen(win):
     win.fill((100,0,0))
     
+    # 도움말
+    drawHelp_server(win)
+
     # 배경
     emptyRoundRect(win, (255, 255, 255), (20, 100, 1150, 630), 14, 4)
     win.blit(ONLINE.HEAD, (30, -20))
@@ -40,6 +44,11 @@ def main(win, LOAD):
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
+
+                # HELP 클릭
+                if 1150< x < 1200 and 710 < y < 745:  
+                    if is_draw_help(x,y):
+                        drawHelpScreen_server(win)
 
                 # CONNECT 버튼 클릭
                 if 450 < x < 750 and 400 < y < 480:

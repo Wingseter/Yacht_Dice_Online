@@ -41,16 +41,15 @@ def main(win, player, LOAD):
                 if 1000< x < 1100 and 10 < y < 110:
                     if prompt(win):
                         return
+                if 1130< x < 1190 and 710 < y < 745:  
+                    if is_draw_help(x,y):
+                        drawHelpScreen(win)
                 if 900 < x < 1100 and 500 < y < 600:
                     if turn < 3:
                         sound.play_roll(LOAD)
                         score = roll(win, side, board, dicelist)
                         diceAnimation(win, dices, dicelist.lenDice())
-                        turn = turn + 1
-                if 1130< x < 1190 and 710 < y < 735:  
-                    if is_draw_help(x,y):
-                        drawHelpScreen(win)
-                        
+                        turn = turn + 1                        
                 if turn != 0:
                     if 310 < y < 400:
                         for i in range(dicelist.lenDice()):

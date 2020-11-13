@@ -132,7 +132,7 @@ class PREF:
     NO = small.render("NO", True, WHITE)
 
 class YACHT:
-    help1 = pygame.image.load("res/img/help.png")
+    helps = pygame.image.load("res/img/help_s.png")
     dice32 = pygame.image.load("res/img/dice32.png")
     dice64 = pygame.image.load("res/img/dice64.png")
     dice_ace32 = pygame.image.load("res/img/ace32.png")
@@ -188,12 +188,14 @@ class YACHT:
     )
 
 class HELP:
+    # in game(help)
     SCORE_BOARD = small.render("Score board", True, RED)
     PLAYER_TURN = small.render("Player / turn", True, RED)
     SAVING_DICES = small.render("saving dices", True, RED)
     DICES = small.render("dices", True, RED)
     TO_DO_DICES = small.render("to roll dices", True, RED)
-
+    
+    #scores in game
     ACES = vsmall.render("sum of 1", True, RED)
     TWOS = vsmall.render("sum of 2", True, RED)
     THREE = vsmall.render("sum of 3", True, RED)
@@ -206,3 +208,7 @@ class HELP:
     S_STRAIGHT = vsmall.render("1-2-3-4-5", True, RED)
     L_STRAIGHT = vsmall.render("2-3-4-5-6", True, RED)
     YACHT = vsmall.render("All five dice showing the same face", True, RED)
+
+    #online server(help)
+    PUT_YOUR_IP = vsmall.render("please put your IP", True, RED)
+    CLICK = small.render("then, please click here", True, RED)

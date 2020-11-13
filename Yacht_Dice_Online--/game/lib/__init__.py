@@ -23,7 +23,9 @@ from game.lib.gui import (
     Dice,
     prompt,
     drawHelp,
+    drawHelp_server,
     drawHelpScreen,
+    drawHelpScreen_server,
     is_draw_help,
     HELP,
 )

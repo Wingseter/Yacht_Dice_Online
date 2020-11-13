@@ -235,14 +235,25 @@ def prompt(win):
 
 def drawHelp(win):
     # 도움말 "?" 표시
-    win.blit(YACHT.help1, [1150, 715])
+    win.blit(YACHT.helps, [1150, 715])
 
+def drawHelp_server(win): 
+    #online에 표시되는 도움말 "?".
+    win.blit(YACHT.helps, [1167, 715])
+
+def drawHelpScreen_server(win):
+    pygame.draw.rect(win, (200, 20, 20), (340, 345, 515, 50), 7) 
+    pygame.draw.rect(win, (200, 20, 20), (445, 400, 309, 80), 7)
+    win.blit(HELP.PUT_YOUR_IP, [460, 355])
+    win.blit(HELP.CLICK, [455, 410])
+    time.sleep(0.8)
+    
 def drawHelpScreen(win):
     pygame.draw.rect(win, (200, 20, 20), (5, 5, 357, 710), 4)  #score board
     pygame.draw.rect(win, (200, 20, 20), (370, 10, 380, 90), 4)  #player / turn
     pygame.draw.rect(win, (200, 20, 20), (368, 135, 368, 110), 4)  
     #pygame.draw.rect(win, (200, 20, 20), (980, 30, 186, 70), 4)  #QUIT THIS GAME
-    pygame.draw.rect(win, (200, 20, 20), (500, 298, 570, 165), 4)
+    pygame.draw.rect(win, (200, 20, 20), (500, 260, 570, 165), 4)
     pygame.draw.rect(win, (200, 20, 20), (850, 510, 340, 128), 4)
     win.blit(HELP.SCORE_BOARD, [4, 0])
 
@@ -262,11 +273,12 @@ def drawHelpScreen(win):
 
     win.blit(HELP.PLAYER_TURN, [380, 0])
     win.blit(HELP.SAVING_DICES, [385, 190])
-    win.blit(HELP.DICES, [560, 400])
+    win.blit(HELP.DICES, [900, 250])
     win.blit(HELP.TO_DO_DICES, [860, 580])
+
     time.sleep(0.5)
     pygame.display.update()
-    #pygame.display.flip()
+    
 
 
 def is_draw_help(x, y):
