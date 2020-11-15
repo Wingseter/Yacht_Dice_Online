@@ -117,14 +117,26 @@ class Dicelist:
 
     def roll_dice(self, win, item_num): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
         if item_num == 0:
-            for i in range(len(self.__dice)):
+            for i in range(len(self.__dice)):                 
                 self.__dice[i] = random.randint(ACE, SIXES)
+
         elif item_num == 1:
             for i in range(len(self.__dice)):
-                self.__dice[i] = random.randint(ACE, SIXES, 2)
+                x = random.randint(ACE, SIXES)
+                if(x % 2 == 1):
+                    self.__dice[i] = x
+                else:
+                    x += 1
+                    self.__dice[i] = x
+                    
         elif item_num == 2:
             for i in range(len(self.__dice)):
-                self.__dice[i] = random.randint(DEUCES, SIXES, 2)
+                x = random.randint(ACE, SIXES)
+                if(x % 2 == 0):
+                    self.__dice[i] = x
+                else:
+                    x += 1
+                    self.__dice[i] = x       
 
     def keep_dice(self, save): # 선택한 주사위의 값을 리스트로 받아서 처리
         if save == None:
