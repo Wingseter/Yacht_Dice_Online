@@ -50,24 +50,26 @@ def main(win, player, LOAD):
                         score = roll(win, side, board, dicelist, item_num)
                         diceAnimation(win, dices, dicelist.lenDice())
                         turn = turn + 1
-                        item_num = 0
-
+                        if item_num > 0:
+                            item_num = 0
+                            n_select -= 1
                 # 한번 더 찬스
-                if 900 < x < 1000 and 380 < y < 480:
+                if 950 < x < 1080 and 450 < y < 500:
                     if dice_chance != 0:
+                        sound.play_click(LOAD)
                         turn = turn -1
                         dice_chance = dice_chance - 1         
                 # 홀
                 if 920 < x < 970 and 610 < y < 660:
+                    sound.play_click(LOAD)
                     if n_select != 0:
                         item_num = 1
-                        n_select = n_select - 1
-              
+         
                 # 짝        
                 if 1000 < x < 1050 and 610 < y < 660:
                     if n_select != 0:
+                        sound.play_click(LOAD)
                         item_num = 2
-                        n_select = n_select - 1
 
                 if turn != 0:
                     if 310 < y < 400:
