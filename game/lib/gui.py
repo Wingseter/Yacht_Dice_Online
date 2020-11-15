@@ -201,6 +201,10 @@ def drawScore(win, side, board, newScore=None, total= None):
 def drawButton(win, turn, online):
     if turn < 3:
         win.blit(YACHT.ROLL, [900, 500])
+        win.blit(YACHT.CHANCE, [930, 450])
+        win.blit(YACHT.ODD, [920, 610])
+        win.blit(YACHT.EVEN, [1000, 610])
+
     if online == True:
         win.blit(YACHT.SURREND, [650, 10])
     else:

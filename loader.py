@@ -175,6 +175,10 @@ class YACHT:
     TURN = font_obj24.render("Turn", False, WHITE)
 
     ROLL = medium.render("Roll!", True, WHITE)
+    
+    CHANCE = pygame.font.Font(FONT, 40).render("Chance", True, WHITE)
+    ODD = vsmall.render("Odd", True, WHITE) # 홀
+    EVEN = vsmall.render("Even", True, WHITE) # 짝
 
     QUIT = medium.render("QUIT", True, WHITE)
     SURREND = medium.render("RESIGN", True, WHITE)
