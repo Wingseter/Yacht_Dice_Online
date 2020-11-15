@@ -14,10 +14,10 @@ if event.type == pygame.MOUSEBUTTONDOWN:
             dice_chance = dice_chance - 1
     
     #홀
-    if 880 < x < 980 and 650 < y < 750:
+    if 920 < x < 970 and 650 < y < 700:
         if n_select != 0:
             item_num = 1
-             if 900 < x < 1100 and 500 < y < 600:
+             if 900 < x < 1100 and 530 < y < 600:
                     if turn < 3:
                         sound.play_roll(LOAD)
                         score = roll(win, side, board, dicelist, item_num)
@@ -27,10 +27,10 @@ if event.type == pygame.MOUSEBUTTONDOWN:
             item_num = 0
     
     #짝        
-    elif 1000 < x < 1100 and 650 < y < 750:
+    elif 1000 < x < 1050 and 650 < y < 700:
         if n_select != 0:
             item_num = 2
-            if 900 < x < 1100 and 500 < y < 600:
+            if 900 < x < 1100 and 530 < y < 600:
                     if turn < 3:
                         sound.play_roll(LOAD)
                         score = roll(win, side, board, dicelist, item_num)

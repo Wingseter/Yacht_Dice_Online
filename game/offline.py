@@ -6,6 +6,9 @@ from game.onlinelib.utils import popup
 def main(win, player, LOAD):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
+    dice_chance = 1 #한번 더 굴리기 찬스 횟수
+    n_select = 3 # 홀짝 가능 횟수
+    item_num = 0 # 기본 = 0, 홀수 = 1, 짝수 = 2 배정 번호
     dices = [
         Dice(465+50, 210+100, 100, 100),
         Dice(575+50, 210+100, 100, 100),
@@ -41,12 +44,39 @@ def main(win, player, LOAD):
                 if 1000< x < 1100 and 10 < y < 110:
                     if prompt(win):
                         return
-                if 900 < x < 1100 and 500 < y < 600:
+                if 900 < x < 1100 and 530 < y < 600:
                     if turn < 3:
                         sound.play_roll(LOAD)
-                        score = roll(win, side, board, dicelist)
+                        score = roll(win, side, board, dicelist, item_num)
                         diceAnimation(win, dices, dicelist.lenDice())
                         turn = turn + 1
+                # 한번 더 찬스
+                if 900 < x < 1000 and 380 < y < 480:
+                    if dice_chance != 0:
+                        turn = turn -1
+                        dice_chance = dice_chance - 1         
+                #홀
+                if 920 < x < 970 and 650 < y < 700:
+                    if n_select != 0:
+                        item_num = 1
+                        if turn < 3:
+                            sound.play_roll(LOAD)
+                            score = roll(win, side, board, dicelist, item_num)
+                            diceAnimation(win, dices, dicelist.lenDice())
+                            turn = turn + 1
+                        n_select = n_select - 1
+                        item_num = 0                
+                #짝        
+                if 1000 < x < 1050 and 650 < y < 700:
+                    if n_select != 0:
+                        item_num = 2
+                        if turn < 3:
+                            sound.play_roll(LOAD)
+                            score = roll(win, side, board, dicelist, item_num)
+                            diceAnimation(win, dices, dicelist.lenDice())
+                            turn = turn + 1
+                        n_select = n_select - 1
+                        item_num = 0
                 if turn != 0:
                     if 310 < y < 400:
                         for i in range(dicelist.lenDice()):
@@ -83,7 +113,7 @@ def main(win, player, LOAD):
                     else:
                         sel = [-1, -1]
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, dice_chance, n_select)
         if isValid(side, player, board, sel):
             side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
             total = calcTotalScore(board)

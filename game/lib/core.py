@@ -55,8 +55,8 @@ def calcTotalScore(board):
         total.append([SUB_TOTAL_SCORE, BONUS_SCORE, UPPER, LOWER, TOTAL])
     return total
 
-def roll(win, side, board, dicelist):
-    dicelist.roll_dice(win)
+def roll(win, side, board, dicelist, item_num):
+    dicelist.roll_dice(win, item_num)
     allDice = dicelist.giveAllDice()
     score = calculate_score(allDice, board)
 
@@ -115,9 +115,16 @@ class Dicelist:
     def lenDice(self):
         return len(self.__dice)
 
-    def roll_dice(self, win): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
-        for i in range(len(self.__dice)):
-            self.__dice[i] = random.randint(ACE, SIXES)
+    def roll_dice(self, win, item_num): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
+        if item_num == 0:
+            for i in range(len(self.__dice)):
+                self.__dice[i] = random.randint(ACE, SIXES)
+        elif item_num == 1:
+            for i in range(len(self.__dice)):
+                self.__dice[i] = random.randint(ACE, SIXES, 2)
+        elif item_num == 2:
+            for i in range(len(self.__dice)):
+                self.__dice[i] = random.randint(DEUCES, SIXES, 2)
 
     def keep_dice(self, save): # 선택한 주사위의 값을 리스트로 받아서 처리
         if save == None:
