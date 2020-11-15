@@ -56,7 +56,7 @@ def main(win, player, LOAD):
                         turn = turn -1
                         dice_chance = dice_chance - 1         
                 #홀
-                if 920 < x < 970 and 650 < y < 700:
+                if 920 < x < 970 and 610 < y < 660:
                     if n_select != 0:
                         item_num = 1
                         if turn < 3:
@@ -67,7 +67,7 @@ def main(win, player, LOAD):
                         n_select = n_select - 1
                         item_num = 0                
                 #짝        
-                if 1000 < x < 1050 and 650 < y < 700:
+                if 1000 < x < 1050 and 610 < y < 660:
                     if n_select != 0:
                         item_num = 2
                         if turn < 3:
