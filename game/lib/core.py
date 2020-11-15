@@ -122,7 +122,7 @@ class Dicelist:
 
         elif item_num == 1:
             for i in range(len(self.__dice)):
-                x = random.randint(ACE, SIXES)
+                x = random.randint(ACE, FIVES)
                 if(x % 2 == 1):
                     self.__dice[i] = x
                 else:
