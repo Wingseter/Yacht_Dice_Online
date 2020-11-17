@@ -198,16 +198,23 @@ def drawScore(win, side, board, newScore=None, total= None):
                     height = 660
                 putNum(win, total[i][j], (width ,height))
 
-def drawButton(win, turn, online, dice_chance, n_select):
+def drawButton(win, turn, online, side, n_select_side0, n_select_side1, dice_chance_side0, dice_chance_side1):
     if turn < 3:
         win.blit(YACHT.ROLL, [900, 500])
-        if n_select > 0:
-            win.blit(YACHT.ODD, [920, 610])
-            win.blit(YACHT.EVEN, [1000, 610])
-            
-    if dice_chance > 0:
-        win.blit(YACHT.CHANCE, [930, 450])
-
+        if side == 0:
+            if n_select_side0 > 0:
+                win.blit(YACHT.ODD, [920, 610])
+                win.blit(YACHT.EVEN, [1000, 610])
+        if side == 1:
+            if n_select_side1 > 0:
+                win.blit(YACHT.ODD, [920, 610])
+                win.blit(YACHT.EVEN, [1000, 610])
+    if side == 0:        
+        if dice_chance_side0 > 0:
+            win.blit(YACHT.CHANCE, [930, 450])
+    elif side == 1:
+        if dice_chance_side1 > 0:
+            win.blit(YACHT.CHANCE, [930, 450])
     if online == True:
         win.blit(YACHT.SURREND, [650, 10])
     else:

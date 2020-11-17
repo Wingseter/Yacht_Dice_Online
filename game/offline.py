@@ -6,8 +6,10 @@ from game.onlinelib.utils import popup
 def main(win, player, LOAD):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
-    dice_chance = 1 #한번 더 굴리기 찬스 횟수
-    n_select = 3 # 홀짝 가능 횟수
+    dice_chance_side0 = 1 # 플레이어 1 한번 더 굴리기 찬스 횟수
+    dice_chance_side1 = 1 # 플레이어 2 한번 더 굴리기 찬스 횟수
+    n_select_side0 = 3 # 플레이어 1 홀짝 가능 횟수
+    n_select_side1 = 3 # 플레이어 2 홀짝 가능 횟수
     item_num = 0 # 기본 = 0, 홀수 = 1, 짝수 = 2 배정 번호
     dices = [
         Dice(465+50, 210+100, 100, 100),
@@ -51,25 +53,43 @@ def main(win, player, LOAD):
                         diceAnimation(win, dices, dicelist.lenDice())
                         turn = turn + 1
                         if item_num > 0:
+                            if side == 0:
+                                n_select_side0 -= 1
+                            elif side == 1:
+                                n_select_side1 -= 1
                             item_num = 0
-                            n_select -= 1
                 # 한번 더 찬스
                 if 950 < x < 1080 and 450 < y < 500:
-                    if dice_chance != 0:
-                        sound.play_click(LOAD)
-                        turn = turn -1
-                        dice_chance = dice_chance - 1         
-                # 홀
+                    if side == 0:    
+                        if dice_chance_side0 != 0:
+                            sound.play_click(LOAD)
+                            turn = turn -1
+                            dice_chance_side0 = dice_chance_side0 - 1
+                    elif side == 1:
+                        if dice_chance_side1 != 0:
+                            sound.play_click(LOAD)
+                            turn = turn -1
+                            dice_chance_side1 = dice_chance_side1 - 1
+                # 홀    
                 if 920 < x < 970 and 610 < y < 660:
-                    sound.play_click(LOAD)
-                    if n_select != 0:
-                        item_num = 1
-         
+                    if side == 0:
+                        if n_select_side0 != 0:
+                            sound.play_click(LOAD)
+                            item_num = 1
+                    elif side == 1:
+                        if n_select_side1 != 0:
+                            sound.play_click(LOAD)
+                            item_num = 1
                 # 짝        
                 if 1000 < x < 1050 and 610 < y < 660:
-                    if n_select != 0:
-                        sound.play_click(LOAD)
-                        item_num = 2
+                    if side == 0:
+                        if n_select_side0 != 0:
+                            sound.play_click(LOAD)
+                            item_num = 2
+                    elif side == 1:
+                        if n_select_side1 != 0:
+                            sound.play_click(LOAD)
+                            item_num = 2
 
                 if turn != 0:
                     if 310 < y < 400:
@@ -107,7 +127,7 @@ def main(win, player, LOAD):
                     else:
                         sel = [-1, -1]
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, dice_chance, n_select)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, n_select_side0, n_select_side1, dice_chance_side0, dice_chance_side1)
         if isValid(side, player, board, sel):
             side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
             total = calcTotalScore(board)

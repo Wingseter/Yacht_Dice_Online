@@ -47,9 +47,9 @@ def initialize(win):
 
     return side, board, dice, score, turn
 
-def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total, online, dice_chance, n_select):
+def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total, online, n_select_side0, n_select_side1, dice_chance_side0, dice_chance_side1):
     drawBoard(win)
-    drawButton(win, turn, online, dice_chance, n_select)
+    drawButton(win, turn, online, side, n_select_side0, n_select_side1, dice_chance_side0, dice_chance_side1)
     drawScore(win, side, board, score, total)
     drawDice(win, dices, dicelist)
     drawSave(win, saveDices, savelist)
