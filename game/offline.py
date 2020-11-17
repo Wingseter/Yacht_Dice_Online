@@ -24,7 +24,8 @@ def main(win, player, LOAD):
     drawDice(win, dices, dicelist.giveAllDice(), LOAD)
     clock = pygame.time.Clock()
     online = False
-    item = [[2,2,1], [2,2,1]]
+    item = [[2,2,5], [2,2,5]]
+    oneMoreCounter = 0
 
     while True:
         clock.tick(25)
@@ -44,6 +45,8 @@ def main(win, player, LOAD):
                         itemSelect[2] = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
+                # print(turn)
+                # print(oneMoreCounter)
                 if 1000< x < 1100 and 10 < y < 110:
                     if prompt(win):
                         return
@@ -67,11 +70,12 @@ def main(win, player, LOAD):
                     if 595 < x < 695 and item[side][2] > 0:
                         itemSelect[2] = True
                         turn = turn -1
+                        oneMoreCounter += 1
                         item[side][2]  -= 1
                 if 1130 < x < 1190 and 710 < y < 735:
                     sound.play_click(LOAD)
                     helpon = not helpon
-                if turn != 0:
+                if turn + oneMoreCounter != 0:
                     if 310 < y < 400:
                         for i in range(dicelist.lenDice()):
                             width = 515 + 20 * i + 90 * i
@@ -105,8 +109,11 @@ def main(win, player, LOAD):
                                         sel = [i, j]
                     else:
                         sel = [-1, -1]
+                print(turn)
+                print(oneMoreCounter)
 
         showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon, itemSelect, item)
         if isValid(side, player, board, sel):
             side, board, score, sel, turn, itemSelect = finishTurn(side, board, score, dicelist, sel, turn, itemSelect)
             total = calcTotalScore(board)
+            oneMoreCounter = 0

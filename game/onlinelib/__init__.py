@@ -96,6 +96,7 @@ def yacht(win, sock, player, LOAD, charactor):
     clock = pygame.time.Clock()
     online = True
     item = setItemByChara(charactor)
+    oneMoreCounter = 0
    
     while True:
         clock.tick(25)
@@ -155,8 +156,9 @@ def yacht(win, sock, player, LOAD, charactor):
                             itemSelect[2] = True
                             turn = turn -1
                             item[side][2]  -= 1
+                            oneMoreCounter += 1
                             write(sock, encode("ite", [2]))
-                    if turn != 0:
+                    if turn + oneMoreCounter != 0:
                         if 310 < y < 400:
                             for i in range(dicelist.lenDice()):
                                 width = 515 + 20 * i + 90 * i
@@ -245,3 +247,4 @@ def yacht(win, sock, player, LOAD, charactor):
             write(sock, encode("fin", sel))
             side, board, score, sel, turn, itemSelect = finishTurn(side, board, score, dicelist, sel, turn, itemSelect)
             total = calcTotalScore(board)
+            oneMoreCounter = 0
