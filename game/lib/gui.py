@@ -79,9 +79,9 @@ def drawDice(win, dices, eyes, LOAD):
     for dice, eye in zip(dices, eyes):
         dice.draw(win, eye, LOAD)
 
-def drawSave(win, dices, eyes):
+def drawSave(win, dices, eyes, LOAD):
     for dice, eye in zip(dices, eyes):
-        dice.draw(win, eye)
+        dice.draw(win, eye, LOAD)
 
 def diceAnimation(win, dices, lenDice, LOAD):
     for i in range(0, 11):

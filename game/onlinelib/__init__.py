@@ -1,6 +1,6 @@
 from game.onlinelib.utils import *
 from game.lib import *
-from game.lib.utils import encode, decode
+from game.lib.utils import encode, decode, truefalse
 from game.lib.gui import Dice
 from tools import sound
 import time
@@ -38,10 +38,11 @@ def lobby(win, sock, key, LOAD):
                             write(sock, "rg" + playerList[i][:4])
                             newMsg = read()
                             if newMsg == "msgOk":
+                                charactor = [int(playerList[i][-2]), LOAD[8]]
                                 stat = request(win, None, LOAD, sock)
                                 if stat is None:
                                     return
-                                elif stat and yacht(win, sock, 1,LOAD):
+                                elif stat and yacht(win, sock, 1, LOAD, charactor):
                                     return
 
                             playerList = getPlayers(sock)
@@ -57,8 +58,9 @@ def lobby(win, sock, key, LOAD):
 
             elif msg.startswith("gr"):
                 if request(win, msg[2:], LOAD):
-                    write(sock, "gmOk" + msg[2:])
-                    if yacht(win, sock, 0, LOAD):
+                    write(sock, "gmOk" + msg[2:-1])
+                    charactor = [LOAD[8], truefalse(int(msg[-1]))]
+                    if yacht(win, sock, 0, LOAD, charactor):
                         return
                     else:
                         playerList = getPlayers(sock)
@@ -72,10 +74,10 @@ def lobby(win, sock, key, LOAD):
 
 
 # offline 코드
-def yacht(win, sock, player, LOAD):
+def yacht(win, sock, player, LOAD, charactor):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
-    charactor = [LOAD[8], not LOAD[8]]
+
     dices = [
         Dice(465+50, 210+100, 100, 100, LOAD),
         Dice(575+50, 210+100, 100, 100, LOAD),

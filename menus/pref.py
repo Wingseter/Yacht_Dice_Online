@@ -23,7 +23,6 @@ def makeBool(x):
 
 
 def save(*params):
-    #print(params)
     text = ""
     text += "sounds=" + str(params[0]) + '\n'
     text += "themes_brown=" + str(params[1]) + '\n'

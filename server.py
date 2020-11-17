@@ -70,16 +70,21 @@ def getByKey(key):
     for player in players:
         if player[1] == int(key):
             return player[0]
-
-def AllByKey(key):
+# Key로 연승 알아내기
+def countByKey(key):
     for player in players:
         if player[1] == int(key):
-            return player[2], player[3]
+            return player[2]
+# Key로 캐릭터 알아내기
+def charaByKey(key):
+    for player in players:
+        if player[1] == int(key):
+            return player[3]
+
 # 플레이어키 삭제
 def rmKey(key):
     global players
-    count, chara = AllByKey(key)
-    players.remove([getByKey(key), key, count, chara])
+    players.remove([getByKey(key), key, countByKey(key), charaByKey(key)])
 
 # 플레이어 바쁜것 만들기
 def mkBusy(*keys):
@@ -140,16 +145,16 @@ def player(sock, key):
                 return
             elif msg == "pStat":
                 print(f"플레이어 {key}: 플레이어들의 상태를 요청했습니다.")
-                data = list(zip(*players))[1], list(zip(*players))[2], list(busyPpl), 
+                data = list(zip(*players))[1], list(zip(*players))[2],list(zip(*players))[3], list(busyPpl), 
                 if len(data[0]) - 1 in range(10):
-                    write(sock, "enu" + str(len(data[0]) -1))
+                    write(sock, "enum" + str(len(data[0]) -1))
 
-                for i,j in zip(data[0], data[1]):
+                for i,j,k in zip(data[0], data[1], data[2]):
                     if i != key:
-                        if i in data[2]:
-                            write(sock, str(i) + str(j) + "b")
+                        if i in data[3]:
+                            write(sock, str(i) + str(j) + str(k) + "b")
                         else:
-                            write(sock, str(i) + str(j) + "a")
+                            write(sock, str(i) + str(j) + str(k) + "a")
             elif msg.startswith("rg"):
                 print(f"플레이어{key}: 플레이어{msg[2:]} 에게 게임 요청했습니다.")
                 oSock = getByKey(msg[2:])
@@ -157,7 +162,7 @@ def player(sock, key):
                     if int(msg[2:]) not in busyPpl:
                         mkBusy(key, msg[2:])
                         write(sock, "msgOk")
-                        write(oSock, "gr" + str(key))
+                        write(oSock, "gr" + str(key) + str(charaByKey(key)))
                         newMsg = read(sock)
                         if newMsg == "ready":
                             print(f"서버: 플레이어{key} 게임 시작")

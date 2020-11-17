@@ -46,6 +46,7 @@ def getPlayers(sock):
     write(sock, "pStat")
 
     msg = read()
+    
     if msg.startswith("enum"):
         data = []
         for i in range(int(msg[-1])):

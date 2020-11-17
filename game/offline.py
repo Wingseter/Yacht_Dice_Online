@@ -7,7 +7,6 @@ def main(win, player, LOAD):
     # 초기화
     side, board, dicelist, score, turn = initialize(win)
     charactor = [LOAD[8], not LOAD[8]]
-    print(charactor)
     dices = [
         Dice(465+50, 210+100, 100, 100, LOAD),
         Dice(575+50, 210+100, 100, 100, LOAD),
@@ -81,7 +80,6 @@ def main(win, player, LOAD):
                                     if height < y < height + 40:
                                         sound.play_select(LOAD)
                                         sel = [i, j]
-                                        print(sel)
                     else:
                         sel = [-1, -1]
 
