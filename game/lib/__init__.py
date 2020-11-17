@@ -19,6 +19,7 @@ from game.lib.gui import (
     drawSave,
     diceAnimation,
     drawEtc,
+    drawHelp,
     YACHT,
     Dice,
     prompt,
@@ -47,11 +48,12 @@ def initialize(win):
 
     return side, board, dice, score, turn
 
-def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total, online, charactor, LOAD):
+def showScreen(win, side, board, player, score, dicelist, savelist, dices, saveDices, turn, total, online, charactor, LOAD, helpon):
     drawBoard(win, charactor, LOAD)
     drawButton(win, turn, online, LOAD)
     drawScore(win, side, board, LOAD, score, total)
     drawDice(win, dices, dicelist, LOAD)
     drawSave(win, saveDices, savelist, LOAD)
     drawEtc(win, side, LOAD)
+    drawHelp(win, helpon)
     pygame.display.update()

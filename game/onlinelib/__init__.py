@@ -97,7 +97,7 @@ def yacht(win, sock, player, LOAD, charactor):
     total = [[0,0,0,0,0], [0,0,0,0,0]]
     sel = [-1,-1]
     online = True
-
+    helpon = False
     while True:
         clock.tick(25)
         end = isEnd(board)
@@ -121,6 +121,9 @@ def yacht(win, sock, player, LOAD, charactor):
                     if 750 < x < 850 and 10 < y < 110:
                         write(sock, "resign")
                         return False
+                    if 1130< x < 1190 and 710 < y < 735:
+                        sound.play_click(LOAD)
+                        helpon = not helpon
 
                 if side == player:
                     if 900 < x < 1100 and 500 < y < 600:
@@ -166,7 +169,7 @@ def yacht(win, sock, player, LOAD, charactor):
                                             sel = [i, j]
                             
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon)
 
         if readable():
             msg = read()

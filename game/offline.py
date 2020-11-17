@@ -26,6 +26,7 @@ def main(win, player, LOAD):
     total = [[0,0,0,0,0], [0,0,0,0,0]]
     sel = [-1,-1]
     online = False
+    helpon = False
     while True:
         clock.tick(25)
         end = isEnd(board)
@@ -48,6 +49,9 @@ def main(win, player, LOAD):
                         score = roll(win, side, board, dicelist)
                         diceAnimation(win, dices, dicelist.lenDice(), LOAD)
                         turn = turn + 1
+                if 1130 < x < 1190 and 710 < y < 735:
+                    sound.play_click(LOAD)
+                    helpon = not helpon
                 if turn != 0:
                     if 310 < y < 400:
                         for i in range(dicelist.lenDice()):
@@ -83,7 +87,7 @@ def main(win, player, LOAD):
                     else:
                         sel = [-1, -1]
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon)
         if isValid(side, player, board, sel):
             side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
             total = calcTotalScore(board)

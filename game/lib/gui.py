@@ -2,7 +2,7 @@ import pygame
 import random
 import time 
 import menus.pref
-from loader import YACHT, putNum,putLargeNum, putGreyNum, WHITE, RED, BLACK, BLUE, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
+from loader import YACHT, HELP, putNum, putLargeNum, putGreyNum, WHITE, RED, BLACK, BLUE, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
 from tools.utils import emptyRoundRect
 
 class Dice:
@@ -280,7 +280,36 @@ def drawEtc(win, side, LOAD):
         win.blit(YACHT.TURN_w, [550, 50])
     putLargeNum(win, side + 1, [500, 30], LOAD)
 
-    
+def drawHelp(win, helpon):
+    win.blit(HELP.HELPS, [1150, 715])
+    if helpon == True:
+        pygame.draw.rect(win, (200, 20, 20), (5, 5, 357, 710), 4)  #score board
+        pygame.draw.rect(win, (200, 20, 20), (370, 10, 380, 90), 4)  #player / turn
+        pygame.draw.rect(win, (200, 20, 20), (368, 135, 368, 110), 4)  
+        #pygame.draw.rect(win, (200, 20, 20), (980, 30, 186, 70), 4)  #QUIT THIS GAME
+        pygame.draw.rect(win, (200, 20, 20), (500, 260, 570, 165), 4)
+        pygame.draw.rect(win, (200, 20, 20), (850, 510, 340, 128), 4)
+        win.blit(HELP.SCORE_BOARD, [4, 0])
+
+        win.blit(HELP.ACES, [195, 100])
+        win.blit(HELP.TWOS, [195, 140])
+        win.blit(HELP.THREE, [195, 180])
+        win.blit(HELP.FOURS, [195, 220])
+        win.blit(HELP.FIVES, [195, 260])
+        win.blit(HELP.SIXES, [195, 300])
+
+        win.blit(HELP.CHOICE, [195, 405])
+        win.blit(HELP.FOUR_OF_A_KIND, [195, 450])
+        win.blit(HELP.F_HOUSE, [195, 490])
+        win.blit(HELP.S_STRAIGHT, [195, 530])
+        win.blit(HELP.L_STRAIGHT, [195, 570])
+        win.blit(HELP.YACHT, [195, 610])
+
+        win.blit(HELP.PLAYER_TURN, [380, 0])
+        win.blit(HELP.SAVING_DICES, [385, 190])
+        win.blit(HELP.DICES, [900, 250])
+        win.blit(HELP.TO_DO_DICES, [860, 580])
+
 def prompt(win):
     emptyRoundRect(win, (255, 255, 255), (300, 350, 600, 160), 4, 4)
 

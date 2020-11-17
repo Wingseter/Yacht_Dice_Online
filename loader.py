@@ -263,3 +263,28 @@ class YACHT:
         vsmall.render("Do you want to quit", True, WHITE),
         vsmall.render("this game?", True, WHITE),
     )
+
+class HELP:
+    SCORE_BOARD = small.render("Score board", True, RED)
+    PLAYER_TURN = small.render("Player / turn", True, RED)
+    SAVING_DICES = small.render("saving dices", True, RED)
+    DICES = small.render("dices", True, RED)
+    TO_DO_DICES = small.render("to roll dices", True, RED)
+    
+    #scores in game
+    ACES = vsmall.render("sum of 1", True, RED)
+    TWOS = vsmall.render("sum of 2", True, RED)
+    THREE = vsmall.render("sum of 3", True, RED)
+    FOURS = vsmall.render("sum of 4", True, RED)
+    FIVES = vsmall.render("sum of 5", True, RED)
+    SIXES = vsmall.render("sum of 6", True, RED)
+    CHOICE = vsmall.render("Any combination", True, RED)
+    FOUR_OF_A_KIND = vsmall.render("four dice showing the same face", True, RED)
+    F_HOUSE = vsmall.render("Three of one number and two of another", True, RED)
+    S_STRAIGHT = vsmall.render("4 dice are in a row", True, RED)
+    L_STRAIGHT = vsmall.render("5 dice are in a row", True, RED)
+    YACHT = vsmall.render("All dice showing same face", True, RED)
+    HELPS = pygame.image.load("res/img/help_s.png")
+
+    PUT_YOUR_IP = vsmall.render("please put your IP", True, RED)
+    CLICK = vsmall.render("then, please click here", True, RED)

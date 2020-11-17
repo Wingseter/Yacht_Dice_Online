@@ -2,9 +2,9 @@ import pygame
 from tools.utils import emptyRoundRect
 from tools.textBox import textBox
 from tools import sound
-from loader import ONLINEMENU as ONLINE, FONT
+from loader import ONLINEMENU as ONLINE, FONT, HELP
 
-def showScreen(win):
+def showScreen(win, helpon):
     win.fill((100,0,0))
     
     # 배경
@@ -20,14 +20,22 @@ def showScreen(win):
     emptyRoundRect(win, (255,255,255), (450, 400, 300, 80))
     win.blit(ONLINE.CONNECT, (500, 400))
 
+    win.blit(HELP.HELPS, [1167, 715])
+
+    if helpon == True:
+        pygame.draw.rect(win, (200, 20, 20), (340, 345, 515, 50), 7) 
+        pygame.draw.rect(win, (200, 20, 20), (445, 400, 309, 80), 7)
+        win.blit(HELP.PUT_YOUR_IP, [460, 300])
+        win.blit(HELP.CLICK, [455, 410])
+
 
 def main(win, LOAD):
     clock = pygame.time.Clock()
-
+    helpon = False
     serverInput = textBox(FONT, (0, 0, 0), (350, 350, 500, 40))
     while True:
         clock.tick(24)
-        showScreen(win)
+        showScreen(win, helpon)
         
         pygame.draw.rect(win, (255, 255, 255), (348, 348, 504, 44))
         serverInput.draw(win)
@@ -45,5 +53,7 @@ def main(win, LOAD):
                 if 450 < x < 750 and 400 < y < 480:
                     sound.play_click(LOAD)
                     return serverInput.text
-
+                if 1130 < x < 1230 and 710 < y < 735:
+                    sound.play_click(LOAD)
+                    helpon = not helpon
         pygame.display.update()
