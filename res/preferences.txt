@@ -1,9 +1,10 @@
 sounds=False
-themes_brown=True
+themes_brown=False
 themes_green=False
-themes_black=False
+themes_black=True
 themes_sky=False
 dices_white=False
-dices_red=True
-dices_blue=False
-charactor=True
+dices_red=False
+dices_blue=True
+charactor=False
+font=True

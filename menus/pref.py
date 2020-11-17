@@ -33,6 +33,7 @@ def save(*params):
     text += "dices_red=" + str(params[6]) + '\n'
     text += "dices_blue=" + str(params[7]) + '\n'
     text += "charactor=" + str(params[8]) + '\n'
+    text += "font=" + str(params[9]) + '\n'
 
     with open(os.path.join("res", "preferences.txt"), "w") as f:
         f.write(text)
@@ -110,6 +111,7 @@ def showScreen(win, prefs):
     # 다이스
     win.blit(PREF.DICES, (90, 300))
     win.blit(PREF.COLON, (400, 300))
+    
 
     for i in range(len(prefs)):
         if prefs[5] == True:
@@ -122,6 +124,17 @@ def showScreen(win, prefs):
     win.blit(PREF.REDDICE, (600, 315))
     win.blit(PREF.BLUEDICE, (700, 315))
 
+    # 폰트 색 선택
+    win.blit(PREF.FONTS, (90, 370))
+    win.blit(PREF.COLON, (400, 370))
+
+    for i in range(len(prefs)):
+        if prefs[9] == True:
+            emptyRoundRect(win, (255, 255, 255),(495, 375, 60, 60), 8, 2) # 흰 폰트 선택
+        elif prefs[9] == False:
+            emptyRoundRect(win, (255, 255, 255),(595, 375, 60, 60), 8, 2) # 검정 폰트 선택
+    solidRoundRect(win, (255, 255, 255), (500, 380, 50, 50), 10)  # 흰 폰트
+    emptyRoundRect(win, (255, 255, 255), (600, 380, 50, 50), 10, 1) # 검정 폰트
 
     # 캐릭터 선택창
     win.blit(PREF.CHARACTOR, (90, 500))
@@ -215,4 +228,13 @@ def main(win):
                     # 바벨
                     if 795 < event.pos[0] < 1070:
                         prefs[8] = False
+                # 폰트 색 정하기
+                if 380 < event.pos[1] < 430:
+                        # 흰 폰트
+                        if 490 < event.pos[0] < 540:
+                            prefs[9] = True
+                        # 검정
+                        if 590 < event.pos[0] < 640:
+                            prefs[9] = False
+
         pygame.display.update()
