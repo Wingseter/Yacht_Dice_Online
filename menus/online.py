@@ -25,8 +25,10 @@ def showScreen(win, helpon):
     if helpon == True:
         pygame.draw.rect(win, (200, 20, 20), (340, 345, 515, 50), 7) 
         pygame.draw.rect(win, (200, 20, 20), (445, 400, 309, 80), 7)
-        win.blit(HELP.PUT_YOUR_IP, [460, 300])
-        win.blit(HELP.CLICK, [455, 410])
+        win.blit(HELP.PUT_YOUR_IP1, [360, 210])
+        win.blit(HELP.PUT_YOUR_IP2, [360, 240])
+        win.blit(HELP.PUT_YOUR_IP3, [360, 270])
+        win.blit(HELP.CLICK, [430, 500])
 
 
 def main(win, LOAD):

@@ -5,7 +5,7 @@ from game.onlinelib.utils import popup
 # offline 코드
 def main(win, player, LOAD):
     # 초기화
-    side, board, dicelist, score, turn = initialize(win)
+    side, board, dicelist, score, turn, total, sel, helpon, itemSelect = initialize(win)
     charactor = [LOAD[8], not LOAD[8]]
     dices = [
         Dice(465+50, 210+100, 100, 100, LOAD),
@@ -23,10 +23,9 @@ def main(win, player, LOAD):
     ]
     drawDice(win, dices, dicelist.giveAllDice(), LOAD)
     clock = pygame.time.Clock()
-    total = [[0,0,0,0,0], [0,0,0,0,0]]
-    sel = [-1,-1]
     online = False
-    helpon = False
+    item = [[2,2,1], [2,2,1]]
+
     while True:
         clock.tick(25)
         end = isEnd(board)
@@ -38,6 +37,11 @@ def main(win, player, LOAD):
                     winner = whoIsWinner(total)
                     popup(win, "winner" + winner)
                     return
+            elif event.type == pygame.MOUSEBUTTONUP:
+                x, y = event.pos
+                if 645 < y < 685:
+                    if 595 < x < 695 :
+                        itemSelect[2] = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 if 1000< x < 1100 and 10 < y < 110:
@@ -46,9 +50,24 @@ def main(win, player, LOAD):
                 if 900 < x < 1100 and 500 < y < 600:
                     if turn < 3:
                         sound.play_roll(LOAD)
-                        score = roll(win, side, board, dicelist)
+                        score = roll(win, side, board, dicelist, itemSelect)
                         diceAnimation(win, dices, dicelist.lenDice(), LOAD)
                         turn = turn + 1
+                        item, itemSelect = useItem(side, item, itemSelect)
+                if 645 < y < 685:
+                    if turn < 3:
+                        if 395 < x < 495 and item[side][0] > 0:
+                            itemSelect[0] = not itemSelect[0]
+                            if itemSelect[1] == True:
+                                itemSelect[1] = False
+                        if 495 < x < 595 and item[side][1] > 0:
+                            itemSelect[1] = not itemSelect[1]
+                            if itemSelect[0] == True:
+                                itemSelect[0] = False
+                    if 595 < x < 695 and item[side][2] > 0:
+                        itemSelect[2] = True
+                        turn = turn -1
+                        item[side][2]  -= 1
                 if 1130 < x < 1190 and 710 < y < 735:
                     sound.play_click(LOAD)
                     helpon = not helpon
@@ -87,7 +106,7 @@ def main(win, player, LOAD):
                     else:
                         sel = [-1, -1]
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon, itemSelect, item)
         if isValid(side, player, board, sel):
-            side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
+            side, board, score, sel, turn, itemSelect = finishTurn(side, board, score, dicelist, sel, turn, itemSelect)
             total = calcTotalScore(board)

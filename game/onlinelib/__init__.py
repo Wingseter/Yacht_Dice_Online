@@ -76,7 +76,7 @@ def lobby(win, sock, key, LOAD):
 # offline 코드
 def yacht(win, sock, player, LOAD, charactor):
     # 초기화
-    side, board, dicelist, score, turn = initialize(win)
+    side, board, dicelist, score, turn, total, sel, helpon, itemSelect = initialize(win)
 
     dices = [
         Dice(465+50, 210+100, 100, 100, LOAD),
@@ -94,10 +94,9 @@ def yacht(win, sock, player, LOAD, charactor):
     ]
     drawDice(win, dices, dicelist.giveAllDice(), LOAD)
     clock = pygame.time.Clock()
-    total = [[0,0,0,0,0], [0,0,0,0,0]]
-    sel = [-1,-1]
     online = True
-    helpon = False
+    item = setItemByChara(charactor)
+   
     while True:
         clock.tick(25)
         end = isEnd(board)
@@ -106,6 +105,12 @@ def yacht(win, sock, player, LOAD, charactor):
                 if prompt(win):
                     write(sock, "quit")
                     return
+            elif event.type == pygame.MOUSEBUTTONUP:
+                x, y = event.pos
+                if side == player:
+                    if 645 < y < 685:
+                        if 595 < x < 695 :
+                            itemSelect[2] = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 if end == True:
@@ -129,10 +134,28 @@ def yacht(win, sock, player, LOAD, charactor):
                     if 900 < x < 1100 and 500 < y < 600:
                         if turn < 3:
                             sound.play_roll(LOAD)
-                            score = roll(win, side, board, dicelist)
+                            score = roll(win, side, board, dicelist, itemSelect)
                             write(sock, encode("rol", dicelist.getDice()))
                             diceAnimation(win, dices, dicelist.lenDice(), LOAD)
                             turn = turn + 1
+                            item, itemSelect = useItem(side, item, itemSelect)
+                    if 645 < y < 685:
+                        if turn < 3:
+                            if 395 < x < 495 and item[side][0] > 0:
+                                itemSelect[0] = not itemSelect[0]
+                                if itemSelect[1] == True:
+                                    itemSelect[1] = False
+                                write(sock, encode("ite", [0]))
+                            if 495 < x < 595 and item[side][1] > 0:
+                                itemSelect[1] = not itemSelect[1]
+                                if itemSelect[0] == True:
+                                    itemSelect[0] = False
+                                write(sock, encode("ite", [1]))
+                        if 595 < x < 695 and item[side][2] > 0:
+                            itemSelect[2] = True
+                            turn = turn -1
+                            item[side][2]  -= 1
+                            write(sock, encode("ite", [2]))
                     if turn != 0:
                         if 310 < y < 400:
                             for i in range(dicelist.lenDice()):
@@ -169,7 +192,7 @@ def yacht(win, sock, player, LOAD, charactor):
                                             sel = [i, j]
                             
 
-        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon)
+        showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon, itemSelect, item)
 
         if readable():
             msg = read()
@@ -191,14 +214,27 @@ def yacht(win, sock, player, LOAD, charactor):
                     score = onlineRoll(win, side, board, dicelist, data)
                     diceAnimation(win, dices, dicelist.lenDice(), LOAD)
                     turn = turn + 1
+                    item, itemSelect = useItem(side, item, itemSelect)
                 elif action == "kep":
                     dicelist.keep_dice(int(data))
                 elif action == "dis":
                     dicelist.disband_dice(int(data))
+                elif action == "ite":
+                    if(int(data[0]) == 0):
+                        itemSelect[0] = not itemSelect[0]
+                        if itemSelect[1] == True:
+                            itemSelect[1] = False
+                    if(int(data[0]) == 1):
+                        itemSelect[1] = not itemSelect[1]
+                        if itemSelect[0] == True:
+                            itemSelect[0] = False
+                    if(int(data[0]) == 2 ):
+                        turn = turn -1
+                        item[side][2]  -= 1
                 elif action == "fin":
                     sel = [int(data[:1]) , int(data[1:])]
                     if isValid(side, player, board, sel):
-                        side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn,)
+                        side, board, score, sel, turn, itemSelect = finishTurn(side, board, score, dicelist, sel, turn,itemSelect)
                         total = calcTotalScore(board)
                         sel = [-1, -1]
                     else:
@@ -207,5 +243,5 @@ def yacht(win, sock, player, LOAD, charactor):
 
         if side == player and isValid(side, player, board, sel):
             write(sock, encode("fin", sel))
-            side, board, score, sel, turn = finishTurn(side, board, score, dicelist, sel, turn)
+            side, board, score, sel, turn, itemSelect = finishTurn(side, board, score, dicelist, sel, turn, itemSelect)
             total = calcTotalScore(board)

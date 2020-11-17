@@ -39,31 +39,32 @@ LNUM_b = [small.render(str(i), True, BLACK) for i in range(10)]
 
 # 숫자 입력
 
-
-def putNum(win, num, pos, LOAD):
+def putNum(win, num, pos):
     for cnt, i in enumerate(list(str(num))):
-        if LOAD[9] == False:
-            win.blit(NUM_b[int(i)], (pos[0] + (cnt * 20), pos[1]))
-        elif LOAD[9] == True:
-            win.blit(NUM_w[int(i)], (pos[0] + (cnt * 20), pos[1]))
-
-# 회색 숫자 입력
-
+        win.blit(NUM_w[int(i)], (pos[0] + (cnt * 20), pos[1]))
 
 def putGreyNum(win, num, pos):
     for cnt, i in enumerate(list(str(num))):
         win.blit(GREYNUM[int(i)], (pos[0] + (cnt * 20), pos[1]))
 
-# 큰 숫자 입력
 
+def putLargeNum(win, num, pos):
+    for cnt, i in enumerate(list(str(num))):
+        win.blit(LNUM_w[int(i)], (pos[0] + (cnt * 30), pos[1]))
 
-def putLargeNum(win, num, pos, LOAD):
+def putColorNum(win, num, pos, LOAD):
+    for cnt, i in enumerate(list(str(num))):
+        if LOAD[9] == False:
+            win.blit(NUM_b[int(i)], (pos[0] + (cnt * 20), pos[1]))
+        elif LOAD[9] == True:
+            win.blit(NUM_w[int(i)], (pos[0] + (cnt * 20), pos[1]))
+            
+def putColorLargeNum(win, num, pos, LOAD):
     for cnt, i in enumerate(list(str(num))):
         if LOAD[9] == False:
             win.blit(LNUM_b[int(i)], (pos[0] + (cnt * 30), pos[1]))
         elif LOAD[9] == True:
             win.blit(LNUM_w[int(i)], (pos[0] + (cnt * 30), pos[1]))
-
 
 
 class MAIN:
@@ -202,6 +203,7 @@ class YACHT:
     TURN_w = font_obj24.render("Turn", False, WHITE)
 
     ROLL_w = medium.render("Roll!", True, WHITE)
+    LEFT_w = vsmall.render("Left", True, WHITE)
 
     QUIT_w = medium.render("QUIT", True, WHITE)
     SURREND_w = medium.render("RESIGN", True, WHITE)
@@ -229,10 +231,12 @@ class YACHT:
     TURN_b = font_obj24.render("Turn", False, BLACK)
 
     ROLL_b = medium.render("Roll!", True, BLACK)
+    LEFT_b = vsmall.render("Left", True, BLACK)
 
     QUIT_b = medium.render("QUIT", True, BLACK)
     SURREND_b = medium.render("RESIGN", True, BLACK)
 
+    # 그래픽
     dice32 = pygame.image.load("res/img/dice32.png")
     dice64 = pygame.image.load("res/img/dice64.png")
     dice_ace32 = pygame.image.load("res/img/ace32.png")
@@ -254,6 +258,10 @@ class YACHT:
     lstraight32 = pygame.image.load("res/img/lstraight32.png")
     yacht32 = pygame.image.load("res/img/yacht32.png")
 
+    ITEM_ONE = pygame.image.load("res/img/one.png")
+    ITEM_ODD = pygame.image.load("res/img/odd.png")
+    ITEM_EVEN = pygame.image.load("res/img/even.png")
+
     MINILISA = pygame.image.load("res/img/charactor/1iconsm.png")
     MINIBABEL = pygame.image.load("res/img/charactor/2iconsm.png")
     YES = small.render("YES", True, WHITE)
@@ -266,10 +274,10 @@ class YACHT:
 
 class HELP:
     SCORE_BOARD = small.render("Score board", True, RED)
-    PLAYER_TURN = small.render("Player / turn", True, RED)
-    SAVING_DICES = small.render("saving dices", True, RED)
-    DICES = small.render("dices", True, RED)
-    TO_DO_DICES = small.render("to roll dices", True, RED)
+    PLAYER_TURN = small.render("Whos turn", True, RED)
+    SAVING_DICES = vsmall.render("click dice to disband", True, RED)
+    DICES = vsmall.render("click dice to store", True, RED)
+    TO_DO_DICES = vsmall.render("click to roll dices", True, RED)
     
     #scores in game
     ACES = vsmall.render("sum of 1", True, RED)
@@ -284,7 +292,13 @@ class HELP:
     S_STRAIGHT = vsmall.render("4 dice are in a row", True, RED)
     L_STRAIGHT = vsmall.render("5 dice are in a row", True, RED)
     YACHT = vsmall.render("All dice showing same face", True, RED)
+    ODD = vsmall.render("Odd dice", True, RED)
+    EVEN = vsmall.render("Even dice", True, RED)
+    ONEMORE = vsmall.render("One More", True, RED)
+
     HELPS = pygame.image.load("res/img/help_s.png")
 
-    PUT_YOUR_IP = vsmall.render("please put your IP", True, RED)
-    CLICK = vsmall.render("then, please click here", True, RED)
+    PUT_YOUR_IP1 = vsmall.render("Put server ip. if you dont know,", True, RED)
+    PUT_YOUR_IP2 = vsmall.render("ask server admin to get IP or domain", True, RED)
+    PUT_YOUR_IP3 = vsmall.render("or run server.py to be a server", True, RED)
+    CLICK = vsmall.render("click connect button to connect server", True, RED)

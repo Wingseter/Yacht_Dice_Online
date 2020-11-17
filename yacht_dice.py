@@ -42,7 +42,7 @@ def showMain(LOAD):
     if LOAD[8]:
         win.blit(MAIN.CHRLISA, (100, 300))
     else:
-        win.blit(MAIN.CHRBABEL, (100, 300))
+        win.blit(MAIN.CHRBABEL, (100, 300)) 
 
     
 # 게임 메인 루프

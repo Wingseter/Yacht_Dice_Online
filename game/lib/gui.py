@@ -2,7 +2,7 @@ import pygame
 import random
 import time 
 import menus.pref
-from loader import YACHT, HELP, putNum, putLargeNum, putGreyNum, WHITE, RED, BLACK, BLUE, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
+from loader import YACHT, HELP, putColorNum, putColorLargeNum, putGreyNum, WHITE, RED, BLACK, BLUE, BG_WOOD, BG_GREEN, BG_BLACK, BG_SKY
 from tools.utils import emptyRoundRect
 
 class Dice:
@@ -228,7 +228,7 @@ def drawScore(win, side, board, LOAD, newScore=None, total= None):
                     width = 190 + 100 * i
                 else:
                     width = 200 + 100 * i
-                putNum(win, oldScore[0], (width, height), LOAD)
+                putColorNum(win, oldScore[0], (width, height), LOAD)
             else:
                 if newScore != None and side == i:
                     if newScore[j] > 9:
@@ -251,14 +251,18 @@ def drawScore(win, side, board, LOAD, newScore=None, total= None):
                     height = 363
                 elif j == 4:
                     height = 660
-                putNum(win, total[i][j], (width ,height), LOAD)
+                putColorNum(win, total[i][j], (width ,height), LOAD)
 
 def drawButton(win, turn, online, LOAD):
+    putColorNum(win, 3-turn, (900, 450), LOAD)
+    
     if turn < 3:
         if LOAD[9] == False:
             win.blit(YACHT.ROLL_b, [900, 500])
+            win.blit(YACHT.LEFT_b, [930, 450])
         elif LOAD[9] == True:
             win.blit(YACHT.ROLL_w, [900, 500])
+            win.blit(YACHT.LEFT_w, [930, 450])
     if online == True:
         if LOAD[9] == False:
             win.blit(YACHT.SURREND_b, [650, 10])
@@ -278,7 +282,7 @@ def drawEtc(win, side, LOAD):
     elif LOAD[9] == True:
         win.blit(YACHT.PLAYER_w, [400, 50])
         win.blit(YACHT.TURN_w, [550, 50])
-    putLargeNum(win, side + 1, [500, 30], LOAD)
+    putColorLargeNum(win, side + 1, [500, 30], LOAD)
 
 def drawHelp(win, helpon):
     win.blit(HELP.HELPS, [1150, 715])
@@ -286,7 +290,7 @@ def drawHelp(win, helpon):
         pygame.draw.rect(win, (200, 20, 20), (5, 5, 357, 710), 4)  #score board
         pygame.draw.rect(win, (200, 20, 20), (370, 10, 380, 90), 4)  #player / turn
         pygame.draw.rect(win, (200, 20, 20), (368, 135, 368, 110), 4)  
-        #pygame.draw.rect(win, (200, 20, 20), (980, 30, 186, 70), 4)  #QUIT THIS GAME
+        
         pygame.draw.rect(win, (200, 20, 20), (500, 260, 570, 165), 4)
         pygame.draw.rect(win, (200, 20, 20), (850, 510, 340, 128), 4)
         win.blit(HELP.SCORE_BOARD, [4, 0])
@@ -306,9 +310,26 @@ def drawHelp(win, helpon):
         win.blit(HELP.YACHT, [195, 610])
 
         win.blit(HELP.PLAYER_TURN, [380, 0])
-        win.blit(HELP.SAVING_DICES, [385, 190])
-        win.blit(HELP.DICES, [900, 250])
+        win.blit(HELP.SAVING_DICES, [385, 200])
+        win.blit(HELP.DICES, [600, 275])
         win.blit(HELP.TO_DO_DICES, [860, 580])
+        win.blit(HELP.ODD, [350, 675])
+        win.blit(HELP.EVEN, [490, 675])
+        win.blit(HELP.ONEMORE, [650, 675])
+
+def drawItem(win, side, item, itemSelect, LOAD):
+    if itemSelect[0] == True:
+        emptyRoundRect(win, (155, 155, 155),(395, 645, 100, 40), 8, 2)
+    if itemSelect[1] == True:
+        emptyRoundRect(win, (155, 155, 155),(495, 645, 100, 40), 8, 2)
+    if itemSelect[2] == True:
+            emptyRoundRect(win, (155, 155, 155),(595, 645, 100, 40), 8, 2)
+    win.blit(YACHT.ITEM_ODD, [400, 650])
+    putColorNum(win, item[side][0], (450, 650), LOAD)
+    win.blit(YACHT.ITEM_EVEN, [500, 650])
+    putColorNum(win, item[side][1], (550, 650), LOAD)
+    win.blit(YACHT.ITEM_ONE, [600, 650])
+    putColorNum(win, item[side][2], (650, 650), LOAD)
 
 def prompt(win):
     emptyRoundRect(win, (255, 255, 255), (300, 350, 600, 160), 4, 4)

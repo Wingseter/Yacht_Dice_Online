@@ -55,8 +55,8 @@ def calcTotalScore(board):
         total.append([SUB_TOTAL_SCORE, BONUS_SCORE, UPPER, LOWER, TOTAL])
     return total
 
-def roll(win, side, board, dicelist):
-    dicelist.roll_dice(win)
+def roll(win, side, board, dicelist, itemSelect):
+    dicelist.roll_dice(win, itemSelect)
     allDice = dicelist.giveAllDice()
     score = calculate_score(allDice, board)
 
@@ -81,7 +81,7 @@ def isValid(side, player, board, sel):
         return True
     return False
 
-def finishTurn(side, board, score, dicelist, sel, turn):
+def finishTurn(side, board, score, dicelist, sel, turn, itemSelect):
     newSide = flip(side)
     board[sel[0]][sel[1]][0] = score[sel[1]]
     board[sel[0]][sel[1]][1] = 1
@@ -90,7 +90,27 @@ def finishTurn(side, board, score, dicelist, sel, turn):
     newSel = [-1, -1]
     dicelist.reset()
     newTurn = 0
-    return newSide, newBoard, newScore, newSel, newTurn
+    newitemSelect = [False, False, False]
+    return newSide, newBoard, newScore, newSel, newTurn, newitemSelect
+
+def useItem(side, item, itemSelect):
+    if itemSelect[0] == True:
+        item[side][0] -= 1
+    if itemSelect[1] == True:
+        item[side][1] -= 1
+    
+    newitemSelect = [False, False, False]
+    return item, newitemSelect
+
+def setItemByChara(charactor):
+    item = list()
+    for chara in charactor:
+        # Lisa
+        if chara == True:
+            item.append([2,2,1])
+        else:
+            item.append([1,1,3])
+    return item
 
 
 class Dicelist:
@@ -115,9 +135,14 @@ class Dicelist:
     def lenDice(self):
         return len(self.__dice)
 
-    def roll_dice(self, win): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
+    def roll_dice(self, win, itemSelect): # 각 라운드 처음과 나머지 구분, 처음에는 dice, save 구분
         for i in range(len(self.__dice)):
-            self.__dice[i] = random.randint(ACE, SIXES)
+            if itemSelect[0] == True:
+                self.__dice[i] = random.randint(1, 3) * 2-1
+            elif itemSelect[1] == True:
+                self.__dice[i] = random.randint(1, 3) * 2
+            else:
+                self.__dice[i] = random.randint(ACE, SIXES)
 
     def keep_dice(self, save): # 선택한 주사위의 값을 리스트로 받아서 처리
         if save == None:
