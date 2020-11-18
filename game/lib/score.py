@@ -164,7 +164,8 @@ class Score: # 점수 판정, 핸드 랭크
             board[7][0] + 
             board[8][0] + 
             board[9][0] +
-            board[10][0])
+            board[10][0] +
+            board[11][0])
 
 
     def total_score(self, board):
