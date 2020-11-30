@@ -109,8 +109,7 @@ def main(win, player, LOAD):
                                         sel = [i, j]
                     else:
                         sel = [-1, -1]
-                print(turn)
-                print(oneMoreCounter)
+
 
         showScreen(win, side, board, player, score, dicelist.giveDice(), dicelist.giveSave(), dices, saveDices, turn, total, online, charactor, LOAD, helpon, itemSelect, item)
         if isValid(side, player, board, sel):

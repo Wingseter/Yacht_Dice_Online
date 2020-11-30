@@ -255,14 +255,15 @@ def drawScore(win, side, board, LOAD, newScore=None, total= None):
 
 def drawButton(win, turn, online, LOAD):
     putColorNum(win, 3-turn, (900, 450), LOAD)
-    
+    if LOAD[9] == False:
+        win.blit(YACHT.LEFT_b, [930, 450])
+    elif LOAD[9] == True:
+        win.blit(YACHT.LEFT_w, [930, 450])
     if turn < 3:
         if LOAD[9] == False:
             win.blit(YACHT.ROLL_b, [900, 500])
-            win.blit(YACHT.LEFT_b, [930, 450])
         elif LOAD[9] == True:
             win.blit(YACHT.ROLL_w, [900, 500])
-            win.blit(YACHT.LEFT_w, [930, 450])
     if online == True:
         if LOAD[9] == False:
             win.blit(YACHT.SURREND_b, [650, 10])
