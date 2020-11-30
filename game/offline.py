@@ -24,7 +24,7 @@ def main(win, player, LOAD):
     drawDice(win, dices, dicelist.giveAllDice(), LOAD)
     clock = pygame.time.Clock()
     online = False
-    item = [[2,2,5], [2,2,5]]
+    item = [[2,2,2], [2,2,2]]
     oneMoreCounter = 0
 
     while True:

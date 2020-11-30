@@ -1,4 +1,4 @@
-sounds=False
+sounds=True
 themes_brown=False
 themes_green=False
 themes_black=True
