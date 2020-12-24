@@ -1,6 +1,6 @@
 # Yacht_Dice_Online
 명지대학교 팀프로젝트1 A+ 헌터 팀 "요트" 에서 만드는 야츄 온라인 게임입니다.
-![Yacht](https://user-images.githubusercontent.com/25293311/103045617-99244980-45c8-11eb-864e-7b35f67b01cd.png){: width="150" height="150"}
+<img src="https://user-images.githubusercontent.com/25293311/103045617-99244980-45c8-11eb-864e-7b35f67b01cd.png" width="200px">
 
 # 프로그램 구성
 1. 게임 클라이언트 yacht_dice.py
