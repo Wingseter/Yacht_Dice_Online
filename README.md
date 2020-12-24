@@ -19,9 +19,11 @@
 ![capture](https://user-images.githubusercontent.com/25293311/103045620-9b86a380-45c8-11eb-8ff7-d23639b6ba5a.PNG)
 
 # useCase 다이어그램
-![image](https://user-images.githubusercontent.com/25293311/103045718-fae4b380-45c8-11eb-9a53-c1b3a6b838be.png)
-
-# 클래스 다이어그램
 ![image](https://user-images.githubusercontent.com/25293311/103045729-020bc180-45c9-11eb-95fe-4f2ada7e9d63.png)
 
+# 클래스 다이어그램
+![image](https://user-images.githubusercontent.com/25293311/103045718-fae4b380-45c8-11eb-9a53-c1b3a6b838be.png)
 
+# 사용한것
+* Python
+* Pygame
