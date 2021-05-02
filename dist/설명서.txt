@@ -1,0 +1,12 @@
+저작권 관련 사항
+캐릭터 이미지 관련
+This game using Jewel-s Free download contents
+https://jewel-s.jp/download/
+
+조작 도움말:
+뒤로가기 = x 닫기 버튼
+
+Sourse Code:
+https://github.com/Wingseter/Yacht_Dice_Online
+
+이메일: wingseter@gmail.com
